@@ -57,25 +57,32 @@ test("desktop list, filters, detail and gallery work", async ({ page }) => {
   await page.locator('[data-amenity="vietnamese_community"]').click();
   await page.locator('[data-amenity="coast"]').click();
   await expect(page.locator(".listing-card")).toHaveCount(14);
-  const desktopFilterGeometry = await page.evaluate(() => {
-    const panel = document.querySelector(".search-panel");
+  const desktopListGeometry = await page.evaluate(() => {
+    const results = document.querySelector("#danh-sach");
     const header = document.querySelector(".site-header");
     return {
-      top: panel.getBoundingClientRect().top + window.scrollY,
-      height: panel.getBoundingClientRect().height,
+      top: results.getBoundingClientRect().top + window.scrollY,
       headerHeight: header.getBoundingClientRect().height,
     };
   });
-  await page.evaluate(({ top, height, headerHeight }) => {
-    window.scrollTo(0, top + height * 0.55 - headerHeight);
-  }, desktopFilterGeometry);
+  await page.evaluate(({ top, headerHeight }) => {
+    window.scrollTo({ top: top - headerHeight - 4, behavior: "instant" });
+  }, desktopListGeometry);
   await expect(page.locator(".site-header")).not.toHaveClass(/is-filter-docked/);
-  await expect(page.locator("#amenityFilter")).toBeVisible();
-  await page.evaluate(({ top, height, headerHeight }) => {
-    window.scrollTo(0, top + height - headerHeight + 8);
-  }, desktopFilterGeometry);
+  const desktopBeforeDock = await page.evaluate(() => ({
+    scrollY: window.scrollY,
+    headingTop: document.querySelector(".section-heading").getBoundingClientRect().top,
+  }));
+  await page.evaluate(() => window.scrollBy({ top: 8, behavior: "instant" }));
   await expect(page.locator(".site-header")).toHaveClass(/is-filter-docked/);
-  await expect(page.locator("#headerFilterHost #searchWrap")).toBeVisible();
+  const desktopAfterDock = await page.evaluate(() => ({
+    scrollY: window.scrollY,
+    headingTop: document.querySelector(".section-heading").getBoundingClientRect().top,
+  }));
+  expect(desktopAfterDock.scrollY - desktopBeforeDock.scrollY).toBe(8);
+  expect(desktopAfterDock.headingTop - desktopBeforeDock.headingTop).toBeCloseTo(-8, 0);
+  await expect(page.locator("#headerFilterHost .sticky-filter-bar")).toBeVisible();
+  await expect(page.locator("#filterHome #searchWrap")).toBeAttached();
   await expect(page.locator(".active-filter-summary")).toContainText("14 căn");
   await expect(page.locator(".active-filter-summary")).toContainText(
     "Khu người Việt",
@@ -93,13 +100,6 @@ test("desktop list, filters, detail and gallery work", async ({ page }) => {
   expect(desktopDockedHeader.height).toBeLessThan(
     desktopDockedHeader.viewportHeight * 0.09,
   );
-  const desktopListGap = await page.evaluate(() => {
-    const headerBottom = document.querySelector(".site-header").getBoundingClientRect().bottom;
-    const headingTop = document.querySelector(".section-heading").getBoundingClientRect().top;
-    return headingTop - headerBottom;
-  });
-  expect(desktopListGap).toBeGreaterThanOrEqual(0);
-  expect(desktopListGap).toBeLessThan(120);
   await page
     .locator('[data-remove-filter="amenity"][data-filter-value="coast"]')
     .click();
@@ -113,7 +113,8 @@ test("desktop list, filters, detail and gallery work", async ({ page }) => {
   );
   await page.locator("#clearFilters").click();
   await expect(page.locator(".listing-card")).toHaveCount(48);
-  await expect(page.locator("#filterDrawer")).toBeHidden();
+  await expect(page.locator("#filterDrawerToggle")).toHaveAttribute("aria-expanded", "false");
+  await expect(page.locator(".site-header")).not.toHaveClass(/is-filter-open/);
 
   await page.locator(".listing-card a").first().click();
   await expect(page.locator(".detail-heading h1")).toHaveText("610 San Felipe Road");
@@ -143,27 +144,63 @@ test("mobile list and detail remain responsive", async ({ page }) => {
   await expect(page.locator(".listing-card")).toHaveCount(48);
   await expect(page.locator(".header-nav")).toBeHidden();
   await expect(page.locator(".amenity-chips button")).toHaveCount(8);
+  await expect(page.locator("#filterDrawer")).toBeHidden();
+  const compactMobileGeometry = await page.evaluate(() => {
+    const results = document.querySelector("#danh-sach").getBoundingClientRect();
+    const firstCard = document.querySelector(".listing-card").getBoundingClientRect();
+    return { resultsTop: results.top, firstCardTop: firstCard.top, viewportHeight: innerHeight };
+  });
+  expect(compactMobileGeometry.resultsTop).toBeLessThan(
+    compactMobileGeometry.viewportHeight * 0.62,
+  );
+  expect(compactMobileGeometry.firstCardTop).toBeLessThan(
+    compactMobileGeometry.viewportHeight * 0.82,
+  );
+  await page.locator("#inlineFilterToggle").click();
+  await expect(page.locator("#filterDrawer")).toBeVisible();
+  const mobileAmenityStyle = await page
+    .locator('[data-amenity="vietnamese_community"]')
+    .evaluate((button) => {
+      const countBadge = button.querySelector("b");
+      return {
+        buttonRadius: getComputedStyle(button).borderRadius,
+        countRadius: getComputedStyle(countBadge).borderRadius,
+        countBackground: getComputedStyle(countBadge).backgroundColor,
+      };
+    });
+  expect(mobileAmenityStyle.buttonRadius).toBe("10px");
+  expect(mobileAmenityStyle.countRadius).toBe("0px");
+  expect(mobileAmenityStyle.countBackground).toBe("rgba(0, 0, 0, 0)");
   await page.locator('[data-amenity="park"]').click();
   await expect(page.locator(".listing-card")).toHaveCount(35);
-  const mobileFilterGeometry = await page.evaluate(() => {
-    const panel = document.querySelector(".search-panel");
+  await page.locator("#inlineFilterToggle").click();
+  await expect(page.locator("#filterDrawer")).toBeHidden();
+  const mobileListGeometry = await page.evaluate(() => {
+    const results = document.querySelector("#danh-sach");
     const header = document.querySelector(".site-header");
     return {
-      top: panel.getBoundingClientRect().top + window.scrollY,
-      height: panel.getBoundingClientRect().height,
+      top: results.getBoundingClientRect().top + window.scrollY,
       headerHeight: header.getBoundingClientRect().height,
     };
   });
-  await page.evaluate(({ top, height, headerHeight }) => {
-    window.scrollTo(0, top + height * 0.55 - headerHeight);
-  }, mobileFilterGeometry);
+  await page.evaluate(({ top, headerHeight }) => {
+    window.scrollTo({ top: top - headerHeight - 4, behavior: "instant" });
+  }, mobileListGeometry);
   await expect(page.locator(".site-header")).not.toHaveClass(/is-filter-docked/);
-  await expect(page.locator("#amenityFilter")).toBeVisible();
-  await page.evaluate(({ top, height, headerHeight }) => {
-    window.scrollTo(0, top + height - headerHeight + 8);
-  }, mobileFilterGeometry);
+  const beforeDock = await page.evaluate(() => ({
+    scrollY: window.scrollY,
+    headingTop: document.querySelector(".section-heading").getBoundingClientRect().top,
+  }));
+  await page.evaluate(() => window.scrollBy({ top: 8, behavior: "instant" }));
   await expect(page.locator(".site-header")).toHaveClass(/is-filter-docked/);
-  await expect(page.locator("#headerFilterHost #searchWrap")).toBeVisible();
+  const afterDock = await page.evaluate(() => ({
+    scrollY: window.scrollY,
+    headingTop: document.querySelector(".section-heading").getBoundingClientRect().top,
+  }));
+  expect(afterDock.scrollY - beforeDock.scrollY).toBe(8);
+  expect(afterDock.headingTop - beforeDock.headingTop).toBeCloseTo(-8, 0);
+  await expect(page.locator("#headerFilterHost .sticky-filter-bar")).toBeVisible();
+  await expect(page.locator("#filterHome #searchWrap")).toBeAttached();
   await expect(page.locator("#bedsFilter")).toBeHidden();
   await expect(page.locator("#filterDrawerToggle b")).toHaveText("1");
   await expect(page.locator(".active-filter-summary")).toContainText("35 căn");

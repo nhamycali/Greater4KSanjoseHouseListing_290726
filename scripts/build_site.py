@@ -315,7 +315,14 @@ def index_page(count: int, city_count: int, minimum: int, maximum: int) -> str:
         <img src="NhaMyCai_logo.png" alt="Nhà Mỹ Cali">
         <span><strong>Nhà Mỹ Cali</strong><small>Giúp người Việt an tâm mua nhà Mỹ</small></span>
       </a>
-      <div class="header-filter-host" id="headerFilterHost"></div>
+      <div class="header-filter-host" id="headerFilterHost">
+        <div class="sticky-filter-bar">
+          <div class="active-filter-summary" id="activeFilterSummary" aria-live="polite"></div>
+          <button class="filter-drawer-toggle" id="filterDrawerToggle" type="button" aria-expanded="false" aria-controls="filterDrawer">
+            <span>Bộ lọc</span><b>0</b>
+          </button>
+        </div>
+      </div>
       <nav class="header-nav" aria-label="Điều hướng chính">
         <a class="active" href="#danh-sach">Danh sách nhà</a>
         <a href="#huong-dan">Hướng dẫn</a>
@@ -341,10 +348,12 @@ def index_page(count: int, city_count: int, minimum: int, maximum: int) -> str:
             <svg aria-hidden="true" viewBox="0 0 24 24"><path d="m21 21-4.35-4.35m2.35-5.65A8 8 0 1 1 3 11a8 8 0 0 1 16 0Z"/></svg>
             <input id="searchInput" type="search" placeholder="Tìm địa chỉ, khu vực hoặc mã MLS…">
           </label>
-          <div class="active-filter-summary" id="activeFilterSummary" aria-live="polite"></div>
-          <button class="filter-drawer-toggle" id="filterDrawerToggle" type="button" aria-expanded="false" aria-controls="filterDrawer">
-            <span>Bộ lọc</span><b>0</b>
-          </button>
+          <div class="inline-filter-actions">
+            <button class="inline-filter-toggle" id="inlineFilterToggle" type="button" aria-expanded="false" aria-controls="filterDrawer">
+              <span>Tùy chọn lọc</span><b>0</b>
+            </button>
+            <a class="results-shortcut" href="#danh-sach">Xem <strong id="inlineResultCount">{count}</strong> căn <span aria-hidden="true">↓</span></a>
+          </div>
           <div class="filter-drawer" id="filterDrawer">
             <div class="basic-filters">
               <select id="bedsFilter" aria-label="Lọc theo số phòng ngủ">

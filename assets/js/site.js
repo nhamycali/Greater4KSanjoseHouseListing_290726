@@ -120,17 +120,18 @@
     const searchPanel = document.querySelector(".search-panel");
     const searchWrap = document.querySelector("#searchWrap");
     const filterHome = document.querySelector("#filterHome");
-    const headerFilterHost = document.querySelector("#headerFilterHost");
     const siteHeader = document.querySelector(".site-header");
     const activeFilterSummary = document.querySelector("#activeFilterSummary");
     const filterDrawerToggle = document.querySelector("#filterDrawerToggle");
+    const inlineFilterToggle = document.querySelector("#inlineFilterToggle");
+    const inlineResultCount = document.querySelector("#inlineResultCount");
+    const filterDrawer = document.querySelector("#filterDrawer");
     const count = document.querySelector("#resultCount");
     const empty = document.querySelector("#emptyState");
     const selectedAmenities = new Set();
     const resultsSection = document.querySelector("#danh-sach");
     let dockThreshold = Number.POSITIVE_INFINITY;
     let undockThreshold = 0;
-    let isTransitioningDock = false;
     let latestResultCount = listings.length;
 
     const activeFilterCount = () => {
@@ -143,8 +144,10 @@
 
     const updateFilterToggle = () => {
       const active = activeFilterCount();
-      filterDrawerToggle.querySelector("b").textContent = active;
-      filterDrawerToggle.classList.toggle("has-active-filters", active > 0);
+      [filterDrawerToggle, inlineFilterToggle].forEach((toggle) => {
+        toggle.querySelector("b").textContent = active;
+        toggle.classList.toggle("has-active-filters", active > 0);
+      });
     };
 
     const filterSummaryItems = () => {
@@ -203,58 +206,41 @@
         }`;
     };
 
-    const settleDockTransition = () => {
+    const setDrawerOpen = (open, mode = "sticky") => {
+      const stickyOpen = open && mode === "sticky";
+      const inlineOpen = open && mode === "inline";
+      siteHeader.classList.toggle("is-filter-open", stickyOpen);
+      searchWrap.classList.toggle("is-inline-open", inlineOpen);
+      filterDrawerToggle.setAttribute("aria-expanded", String(stickyOpen));
+      inlineFilterToggle.setAttribute("aria-expanded", String(inlineOpen));
       requestAnimationFrame(() => {
-        requestAnimationFrame(() => {
-          isTransitioningDock = false;
-        });
+        if (!stickyOpen) filterHome.style.minHeight = `${searchWrap.offsetHeight}px`;
       });
     };
 
     const setDockedState = (docked) => {
       const wasDocked = siteHeader.classList.contains("is-filter-docked");
       if (docked === wasDocked) return;
-      isTransitioningDock = true;
       siteHeader.classList.toggle("is-filter-docked", docked);
-      if (docked) {
-        const anchorTop = resultsSection.getBoundingClientRect().top;
-        headerFilterHost.append(searchWrap);
-        searchPanel.classList.add("is-docked-placeholder");
-        siteHeader.classList.remove("is-filter-open");
-        filterDrawerToggle.setAttribute("aria-expanded", "false");
-        requestAnimationFrame(() => {
-          const shiftedAnchorTop = resultsSection.getBoundingClientRect().top;
-          window.scrollBy(0, shiftedAnchorTop - anchorTop);
-          settleDockTransition();
-        });
-      } else {
-        filterHome.append(searchWrap);
-        searchPanel.classList.remove("is-docked-placeholder");
-        siteHeader.classList.remove("is-filter-open");
-        filterDrawerToggle.setAttribute("aria-expanded", "false");
-        settleDockTransition();
+      if (!docked && siteHeader.classList.contains("is-filter-open")) {
+        setDrawerOpen(false);
       }
       updateActiveFilterSummary();
     };
 
     const measureStickyThreshold = () => {
-      if (siteHeader.classList.contains("is-filter-docked")) return;
-      const naturalTop = searchPanel.getBoundingClientRect().top + window.scrollY;
-      const naturalHeight = searchWrap.offsetHeight;
+      const resultsTop = resultsSection.getBoundingClientRect().top + window.scrollY;
       const headerHeight = siteHeader.offsetHeight;
-      dockThreshold = naturalTop + naturalHeight - headerHeight;
-      undockThreshold = Math.max(0, naturalTop - headerHeight - 48);
+      dockThreshold = Math.max(0, resultsTop - headerHeight);
+      undockThreshold = Math.max(0, dockThreshold - 48);
       if (window.scrollY >= dockThreshold) setDockedState(true);
     };
 
     const updateDockFromScroll = () => {
-      if (isTransitioningDock) return;
+      if (siteHeader.classList.contains("is-filter-open")) return;
       const docked = siteHeader.classList.contains("is-filter-docked");
       if (!docked && window.scrollY >= dockThreshold) setDockedState(true);
-      if (docked && window.scrollY <= undockThreshold) {
-        setDockedState(false);
-        requestAnimationFrame(measureStickyThreshold);
-      }
+      if (docked && window.scrollY <= undockThreshold) setDockedState(false);
     };
 
     let resizeTimer;
@@ -268,27 +254,34 @@
       resizeTimer = setTimeout(measureStickyThreshold, 120);
     });
     filterDrawerToggle.addEventListener("click", () => {
-      if (!siteHeader.classList.contains("is-filter-docked")) return;
-      const open = siteHeader.classList.toggle("is-filter-open");
-      filterDrawerToggle.setAttribute("aria-expanded", String(open));
+      const open = !siteHeader.classList.contains("is-filter-open");
+      if (open) siteHeader.classList.add("is-filter-docked");
+      setDrawerOpen(open, "sticky");
+    });
+    inlineFilterToggle.addEventListener("click", () => {
+      const open = !searchWrap.classList.contains("is-inline-open");
+      setDrawerOpen(open, "inline");
+      requestAnimationFrame(measureStickyThreshold);
     });
     document.addEventListener("keydown", (event) => {
-      if (event.key !== "Escape" || !siteHeader.classList.contains("is-filter-open")) {
-        return;
+      if (event.key !== "Escape") return;
+      if (siteHeader.classList.contains("is-filter-open")) {
+        setDrawerOpen(false);
+        filterDrawerToggle.focus();
+      } else if (searchWrap.classList.contains("is-inline-open")) {
+        setDrawerOpen(false);
+        inlineFilterToggle.focus();
       }
-      siteHeader.classList.remove("is-filter-open");
-      filterDrawerToggle.setAttribute("aria-expanded", "false");
-      filterDrawerToggle.focus();
     });
     document.addEventListener("pointerdown", (event) => {
       if (
         !siteHeader.classList.contains("is-filter-open") ||
-        siteHeader.contains(event.target)
+        siteHeader.contains(event.target) ||
+        filterDrawer.contains(event.target)
       ) {
         return;
       }
-      siteHeader.classList.remove("is-filter-open");
-      filterDrawerToggle.setAttribute("aria-expanded", "false");
+      setDrawerOpen(false);
     });
     activeFilterSummary.addEventListener("click", (event) => {
       const button = event.target.closest("[data-remove-filter]");
@@ -365,6 +358,7 @@
       if (sort.value === "area-desc") output.sort((a, b) => b.sqft_number - a.sqft_number);
       grid.innerHTML = output.map((item) => resultCard(item, selected, mode)).join("");
       count.textContent = output.length;
+      inlineResultCount.textContent = output.length;
       latestResultCount = output.length;
       empty.hidden = output.length > 0;
       updateFilterToggle();
@@ -395,14 +389,21 @@
       updateAmenityCounts();
       render();
       if (siteHeader.classList.contains("is-filter-docked")) {
-        siteHeader.classList.remove("is-filter-open");
-        filterDrawerToggle.setAttribute("aria-expanded", "false");
+        setDrawerOpen(false);
         filterDrawerToggle.focus();
       }
     });
     updateAmenityCounts();
     render();
     requestAnimationFrame(measureStickyThreshold);
+    if ("ResizeObserver" in window) {
+      new ResizeObserver(() => {
+        if (!siteHeader.classList.contains("is-filter-open")) {
+          filterHome.style.minHeight = `${searchWrap.offsetHeight}px`;
+        }
+        measureStickyThreshold();
+      }).observe(searchWrap);
+    }
   }
 
   function locationInsightsMarkup(item) {
