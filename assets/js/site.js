@@ -118,11 +118,17 @@
     const clearFilters = document.querySelector("#clearFilters");
     const filterMethod = document.querySelector("#filterMethod");
     const searchPanel = document.querySelector(".search-panel");
+    const searchWrap = document.querySelector("#searchWrap");
+    const filterHome = document.querySelector("#filterHome");
+    const headerFilterHost = document.querySelector("#headerFilterHost");
+    const siteHeader = document.querySelector(".site-header");
+    const activeFilterSummary = document.querySelector("#activeFilterSummary");
     const filterDrawerToggle = document.querySelector("#filterDrawerToggle");
     const count = document.querySelector("#resultCount");
     const empty = document.querySelector("#emptyState");
     const selectedAmenities = new Set();
     let stickyThreshold = Number.POSITIVE_INFINITY;
+    let latestResultCount = listings.length;
 
     const activeFilterCount = () => {
       let active = selectedAmenities.size;
@@ -138,38 +144,93 @@
       filterDrawerToggle.classList.toggle("has-active-filters", active > 0);
     };
 
-    const setStickyState = (stuck) => {
-      const wasStuck = searchPanel.classList.contains("is-stuck");
-      searchPanel.classList.toggle("is-stuck", stuck);
-      if (stuck && !wasStuck) {
-        searchPanel.classList.remove("is-filter-open");
+    const filterSummaryItems = () => {
+      const items = [...selectedAmenities].map((category) => ({
+        type: "amenity",
+        value: category,
+        label: amenityLabels[category],
+      }));
+      const term = search.value.trim();
+      if (term) items.push({ type: "search", value: "", label: `“${term.slice(0, 24)}”` });
+      if (beds.value !== "0") {
+        items.push({ type: "beds", value: "", label: `Từ ${beds.value} phòng ngủ` });
+      }
+      const priceLabels = {
+        under3300: "Dưới 3,3 triệu",
+        "3300to3700": "3,3–3,7 triệu",
+        over3700: "Trên 3,7 triệu",
+      };
+      if (priceFilter.value !== "all") {
+        items.push({
+          type: "price",
+          value: "",
+          label: priceLabels[priceFilter.value],
+        });
+      }
+      if (proximityMode.value !== "balanced") {
+        items.push({
+          type: "proximity",
+          value: "",
+          label: proximityMode.value === "strict" ? "Rất gần" : "Bán kính mở rộng",
+        });
+      }
+      if (amenityLogic.value === "any" && selectedAmenities.size > 1) {
+        items.push({ type: "logic", value: "", label: "Ít nhất một tiêu chí" });
+      }
+      return items;
+    };
+
+    const updateActiveFilterSummary = () => {
+      const items = filterSummaryItems();
+      activeFilterSummary.innerHTML = `
+        <span class="summary-count">${latestResultCount} căn</span>
+        ${
+          items.length
+            ? items
+                .map(
+                  (item) =>
+                    `<button type="button" data-remove-filter="${escapeHtml(
+                      item.type,
+                    )}" data-filter-value="${escapeHtml(item.value)}" aria-label="Bỏ ${escapeHtml(
+                      item.label,
+                    )}">${escapeHtml(item.label)}</button>`,
+                )
+                .join("")
+            : '<span class="summary-empty">Chưa chọn tiêu chí</span>'
+        }`;
+    };
+
+    const setDockedState = (docked) => {
+      const wasDocked = siteHeader.classList.contains("is-filter-docked");
+      if (docked === wasDocked) return;
+      siteHeader.classList.toggle("is-filter-docked", docked);
+      if (docked) {
+        filterHome.style.height = `${searchWrap.offsetHeight}px`;
+        headerFilterHost.append(searchWrap);
+        siteHeader.classList.remove("is-filter-open");
+        filterDrawerToggle.setAttribute("aria-expanded", "false");
+      } else {
+        filterHome.append(searchWrap);
+        filterHome.style.height = "";
+        siteHeader.classList.remove("is-filter-open");
         filterDrawerToggle.setAttribute("aria-expanded", "false");
       }
-      if (!stuck) {
-        searchPanel.classList.remove("is-filter-open");
-        filterDrawerToggle.setAttribute("aria-expanded", "true");
-      }
+      updateActiveFilterSummary();
     };
 
     const measureStickyThreshold = () => {
-      const header = document.querySelector(".site-header");
-      const previousPosition = searchPanel.style.position;
-      const previousTop = searchPanel.style.top;
-      searchPanel.style.position = "relative";
-      searchPanel.style.top = "auto";
+      const wasDocked = siteHeader.classList.contains("is-filter-docked");
+      if (wasDocked) setDockedState(false);
       const naturalTop = searchPanel.getBoundingClientRect().top + window.scrollY;
-      searchPanel.style.position = previousPosition;
-      searchPanel.style.top = previousTop;
-      const headerHeight = header?.offsetHeight || 0;
-      document.documentElement.style.setProperty("--header-height", `${headerHeight}px`);
+      const headerHeight = siteHeader.offsetHeight;
       stickyThreshold = naturalTop - headerHeight;
-      setStickyState(window.scrollY >= stickyThreshold);
+      setDockedState(window.scrollY >= stickyThreshold);
     };
 
     let resizeTimer;
     window.addEventListener(
       "scroll",
-      () => setStickyState(window.scrollY >= stickyThreshold),
+      () => setDockedState(window.scrollY >= stickyThreshold),
       { passive: true },
     );
     window.addEventListener("resize", () => {
@@ -177,27 +238,40 @@
       resizeTimer = setTimeout(measureStickyThreshold, 120);
     });
     filterDrawerToggle.addEventListener("click", () => {
-      if (!searchPanel.classList.contains("is-stuck")) return;
-      const open = searchPanel.classList.toggle("is-filter-open");
+      if (!siteHeader.classList.contains("is-filter-docked")) return;
+      const open = siteHeader.classList.toggle("is-filter-open");
       filterDrawerToggle.setAttribute("aria-expanded", String(open));
     });
     document.addEventListener("keydown", (event) => {
-      if (event.key !== "Escape" || !searchPanel.classList.contains("is-filter-open")) {
+      if (event.key !== "Escape" || !siteHeader.classList.contains("is-filter-open")) {
         return;
       }
-      searchPanel.classList.remove("is-filter-open");
+      siteHeader.classList.remove("is-filter-open");
       filterDrawerToggle.setAttribute("aria-expanded", "false");
       filterDrawerToggle.focus();
     });
     document.addEventListener("pointerdown", (event) => {
       if (
-        !searchPanel.classList.contains("is-filter-open") ||
-        searchPanel.contains(event.target)
+        !siteHeader.classList.contains("is-filter-open") ||
+        siteHeader.contains(event.target)
       ) {
         return;
       }
-      searchPanel.classList.remove("is-filter-open");
+      siteHeader.classList.remove("is-filter-open");
       filterDrawerToggle.setAttribute("aria-expanded", "false");
+    });
+    activeFilterSummary.addEventListener("click", (event) => {
+      const button = event.target.closest("[data-remove-filter]");
+      if (!button) return;
+      const type = button.dataset.removeFilter;
+      if (type === "amenity") selectedAmenities.delete(button.dataset.filterValue);
+      if (type === "search") search.value = "";
+      if (type === "beds") beds.value = "0";
+      if (type === "price") priceFilter.value = "all";
+      if (type === "proximity") proximityMode.value = "balanced";
+      if (type === "logic") amenityLogic.value = "all";
+      updateAmenityCounts();
+      render();
     });
 
     const updateAmenityCounts = () => {
@@ -261,8 +335,10 @@
       if (sort.value === "area-desc") output.sort((a, b) => b.sqft_number - a.sqft_number);
       grid.innerHTML = output.map((item) => resultCard(item, selected, mode)).join("");
       count.textContent = output.length;
+      latestResultCount = output.length;
       empty.hidden = output.length > 0;
       updateFilterToggle();
+      updateActiveFilterSummary();
     };
     [search, beds, priceFilter, sort, proximityMode, amenityLogic].forEach((control) =>
       control.addEventListener(control === search ? "input" : "change", render)

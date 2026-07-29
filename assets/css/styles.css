@@ -76,11 +76,12 @@ button, select { cursor: pointer; }
 
 .site-header {
   position: sticky;
-  z-index: 50;
+  z-index: 70;
   top: 0;
   border-bottom: 1px solid rgba(220, 229, 243, .92);
   background: rgba(255, 255, 255, .94);
   backdrop-filter: blur(14px);
+  transition: box-shadow .18s ease, background-color .18s ease;
 }
 .header-inner {
   width: min(var(--max), calc(100% - 40px));
@@ -90,9 +91,15 @@ button, select { cursor: pointer; }
   align-items: center;
   justify-content: space-between;
   gap: 24px;
+  transition: min-height .18s ease, gap .18s ease;
 }
 .brand { display: flex; align-items: center; gap: 16px; }
-.brand img { width: 116px; height: 76px; object-fit: contain; }
+.brand img {
+  width: 116px;
+  height: 76px;
+  object-fit: contain;
+  transition: width .18s ease, height .18s ease;
+}
 .brand span { display: grid; line-height: 1.2; }
 .brand strong {
   color: var(--brand);
@@ -118,6 +125,24 @@ button, select { cursor: pointer; }
   color: var(--brand);
   background: var(--brand-soft);
 }
+.header-filter-host {
+  min-width: 0;
+  display: none;
+  flex: 1 1 auto;
+}
+.site-header.is-filter-docked {
+  background: rgba(255, 255, 255, .97);
+  box-shadow: 0 10px 28px rgba(0, 45, 125, .13);
+}
+.site-header.is-filter-docked .header-inner {
+  min-height: 64px;
+  gap: 12px;
+}
+.site-header.is-filter-docked .brand { width: auto; flex: 0 0 auto; gap: 8px; }
+.site-header.is-filter-docked .brand img { width: 68px; height: 46px; }
+.site-header.is-filter-docked .brand span,
+.site-header.is-filter-docked .header-nav { display: none; }
+.site-header.is-filter-docked .header-filter-host { display: block; flex: 1 1 0; }
 
 .hero, .detail-top {
   color: #fff;
@@ -184,17 +209,13 @@ button, select { cursor: pointer; }
 }
 
 .search-panel {
-  position: sticky;
-  z-index: 40;
-  top: var(--header-height);
-  width: 100%;
+  position: relative;
+  z-index: 4;
+  width: min(var(--max), calc(100% - 40px));
   margin: -35px auto 0;
-  padding: 0 20px;
-  transition: padding .18s ease, background-color .18s ease, box-shadow .18s ease;
 }
+.filter-home { width: 100%; }
 .search-wrap {
-  width: min(var(--max), 100%);
-  margin: auto;
   padding: 18px;
   display: grid;
   grid-template-columns: minmax(280px, 1.7fr) repeat(3, minmax(160px, .7fr));
@@ -204,6 +225,8 @@ button, select { cursor: pointer; }
   background: #fff;
   box-shadow: var(--shadow);
 }
+.filter-drawer,
+.basic-filters { display: contents; }
 .filter-drawer-toggle {
   display: none;
   min-height: 50px;
@@ -227,35 +250,91 @@ button, select { cursor: pointer; }
   font-size: 11px;
 }
 .filter-drawer-toggle b:empty { display: none; }
-.search-panel.is-stuck {
-  padding-top: 8px;
-  padding-bottom: 8px;
-  border-bottom: 1px solid rgba(193, 209, 234, .9);
-  background: rgba(245, 248, 253, .96);
-  box-shadow: 0 12px 28px rgba(0, 45, 125, .12);
-  backdrop-filter: blur(16px);
+.active-filter-summary { display: none; }
+.site-header.is-filter-docked .search-wrap {
+  position: relative;
+  width: 100%;
+  padding: 0;
+  display: grid;
+  grid-template-columns: minmax(180px, .75fr) minmax(220px, 1.6fr) auto;
+  align-items: center;
+  gap: 9px;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
 }
-.search-panel.is-stuck .search-wrap {
-  padding: 8px;
-  grid-template-columns: minmax(250px, 1.65fr) repeat(3, minmax(145px, .65fr)) auto;
-  grid-template-areas:
-    "search beds price sort toggle"
-    "smart smart smart smart smart";
-  border-radius: 14px;
-  box-shadow: 0 6px 18px rgba(0, 47, 125, .08);
+.site-header.is-filter-docked .search-box input { height: 42px; }
+.site-header.is-filter-docked .filter-drawer-toggle {
+  min-height: 42px;
+  display: inline-flex;
+  color: #fff;
+  border-color: var(--brand);
+  background: var(--brand);
 }
-.search-panel.is-stuck .search-box { grid-area: search; }
-.search-panel.is-stuck #bedsFilter { grid-area: beds; }
-.search-panel.is-stuck #priceFilter { grid-area: price; }
-.search-panel.is-stuck #sortSelect { grid-area: sort; }
-.search-panel.is-stuck .filter-drawer-toggle { grid-area: toggle; display: inline-flex; }
-.search-panel.is-stuck .amenity-filter { grid-area: smart; margin-top: 0; }
-.search-panel.is-stuck:not(.is-filter-open) .amenity-filter { display: none; }
-.search-panel.is-stuck.is-filter-open .search-wrap {
-  max-height: calc(100vh - var(--header-height) - 16px);
+.site-header.is-filter-docked .filter-drawer-toggle b {
+  color: var(--brand);
+  background: #fff;
+}
+.site-header.is-filter-docked .active-filter-summary {
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.site-header.is-filter-docked .active-filter-summary::-webkit-scrollbar { display: none; }
+.active-filter-summary button,
+.active-filter-summary span {
+  min-height: 30px;
+  padding: 5px 9px;
+  display: inline-flex;
+  align-items: center;
+  flex: 0 0 auto;
+  color: #174c97;
+  border: 1px solid #c4d8f6;
+  border-radius: 999px;
+  background: #edf5ff;
+  font-size: 11px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+.active-filter-summary button { cursor: pointer; }
+.active-filter-summary button::after {
+  content: "×";
+  margin-left: 6px;
+  color: #637a9b;
+  font-size: 14px;
+  line-height: 1;
+}
+.active-filter-summary .summary-count {
+  color: #fff;
+  border-color: var(--brand);
+  background: var(--brand);
+}
+.site-header.is-filter-docked .filter-drawer {
+  position: absolute;
+  top: calc(100% + 11px);
+  right: 0;
+  width: min(980px, calc(100vw - 40px));
+  max-height: calc(100vh - 82px);
+  padding: 14px;
+  display: none;
   overflow-y: auto;
   overscroll-behavior: contain;
+  border: 1px solid #c5d6ee;
+  border-radius: 16px;
+  background: #fff;
+  box-shadow: 0 22px 55px rgba(0, 35, 100, .22);
 }
+.site-header.is-filter-docked.is-filter-open .filter-drawer { display: grid; gap: 12px; }
+.site-header.is-filter-docked .basic-filters {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+}
+.site-header.is-filter-docked .amenity-filter { margin-top: 0; }
 .search-box {
   min-width: 0;
   padding: 0 15px;
@@ -892,8 +971,8 @@ button, select { cursor: pointer; }
 @media (max-width: 1020px) {
   .search-wrap { grid-template-columns: 1fr 1fr; }
   .search-box { grid-column: 1 / -1; }
-  .search-panel.is-stuck .search-wrap {
-    grid-template-columns: minmax(260px, 1fr) repeat(3, minmax(120px, .55fr)) auto;
+  .site-header.is-filter-docked .search-wrap {
+    grid-template-columns: minmax(160px, .7fr) minmax(180px, 1.2fr) auto;
   }
   .location-insight-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .listing-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
@@ -903,7 +982,6 @@ button, select { cursor: pointer; }
   .facts-bar { grid-template-columns: repeat(3, 1fr); }
 }
 @media (max-width: 720px) {
-  :root { --header-height: 86px; }
   .header-inner { width: min(100% - 24px, var(--max)); min-height: 86px; justify-content: flex-start; }
   .brand { width: 100%; min-width: 0; gap: 12px; }
   .brand img { width: 88px; height: 62px; }
@@ -919,25 +997,35 @@ button, select { cursor: pointer; }
   .hero-stat { display: none; }
   .search-wrap { grid-template-columns: 1fr; padding: 13px; }
   .search-box { grid-column: auto; }
-  .search-panel { padding-right: 12px; padding-left: 12px; }
-  .search-panel.is-stuck { padding-top: 7px; padding-bottom: 7px; }
-  .search-panel.is-stuck .search-wrap {
+  .site-header.is-filter-docked .header-inner { width: calc(100% - 16px); min-height: 60px; gap: 7px; }
+  .site-header.is-filter-docked .brand img { width: 48px; height: 38px; }
+  .site-header.is-filter-docked .search-wrap {
     grid-template-columns: minmax(0, 1fr) auto;
-    grid-template-areas:
-      "search toggle"
-      "beds beds"
-      "price price"
-      "sort sort"
-      "smart smart";
-    gap: 8px;
+    gap: 7px;
   }
-  .search-panel.is-stuck .search-box input { height: 44px; }
-  .search-panel.is-stuck .filter-drawer-toggle { min-height: 46px; }
-  .search-panel.is-stuck:not(.is-filter-open) #bedsFilter,
-  .search-panel.is-stuck:not(.is-filter-open) #priceFilter,
-  .search-panel.is-stuck:not(.is-filter-open) #sortSelect {
-    display: none;
+  .site-header.is-filter-docked .search-box { display: none; }
+  .site-header.is-filter-docked .active-filter-summary { gap: 5px; }
+  .site-header.is-filter-docked .active-filter-summary button,
+  .site-header.is-filter-docked .active-filter-summary span {
+    min-height: 28px;
+    padding: 4px 8px;
+    font-size: 10px;
   }
+  .site-header.is-filter-docked .filter-drawer-toggle {
+    min-height: 38px;
+    padding: 0 10px;
+  }
+  .site-header.is-filter-docked .filter-drawer-toggle span { display: none; }
+  .site-header.is-filter-docked .filter-drawer-toggle::before { content: "Lọc"; }
+  .site-header.is-filter-docked .filter-drawer {
+    position: fixed;
+    top: 66px;
+    right: 8px;
+    left: 8px;
+    width: auto;
+    max-height: calc(100vh - 74px);
+  }
+  .site-header.is-filter-docked .basic-filters { grid-template-columns: 1fr; }
   .amenity-filter { padding: 15px; }
   .amenity-filter-head { flex-direction: column; }
   .amenity-controls { display: grid; grid-template-columns: 1fr; }

@@ -54,30 +54,44 @@ test("desktop list, filters, detail and gallery work", async ({ page }) => {
   await page.locator("#clearFilters").click();
   await expect(page.locator(".listing-card")).toHaveCount(48);
 
+  await page.locator('[data-amenity="vietnamese_community"]').click();
+  await page.locator('[data-amenity="coast"]').click();
+  await expect(page.locator(".listing-card")).toHaveCount(14);
   await page.locator("#danh-sach").scrollIntoViewIfNeeded();
-  await expect(page.locator(".search-panel")).toHaveClass(/is-stuck/);
-  await expect(page.locator("#amenityFilter")).toBeHidden();
-  const desktopStickyPosition = await page.evaluate(() => {
+  await expect(page.locator(".site-header")).toHaveClass(/is-filter-docked/);
+  await expect(page.locator("#headerFilterHost #searchWrap")).toBeVisible();
+  await expect(page.locator(".active-filter-summary")).toContainText("14 căn");
+  await expect(page.locator(".active-filter-summary")).toContainText(
+    "Khu người Việt",
+  );
+  await expect(page.locator(".active-filter-summary")).toContainText("Biển");
+  const desktopDockedHeader = await page.evaluate(() => {
     const header = document.querySelector(".site-header").getBoundingClientRect();
-    const panel = document.querySelector(".search-panel").getBoundingClientRect();
     return {
-      gap: Math.abs(panel.top - header.bottom),
-      panelHeight: panel.height,
+      top: header.top,
+      height: header.height,
       viewportHeight: window.innerHeight,
     };
   });
-  expect(desktopStickyPosition.gap).toBeLessThanOrEqual(2);
-  expect(desktopStickyPosition.panelHeight).toBeLessThan(
-    desktopStickyPosition.viewportHeight * 0.22,
+  expect(desktopDockedHeader.top).toBe(0);
+  expect(desktopDockedHeader.height).toBeLessThan(
+    desktopDockedHeader.viewportHeight * 0.09,
   );
+  await page
+    .locator('[data-remove-filter="amenity"][data-filter-value="coast"]')
+    .click();
+  await expect(page.locator(".listing-card")).toHaveCount(29);
+  await expect(page.locator(".active-filter-summary")).not.toContainText("Biển");
   await page.locator("#filterDrawerToggle").click();
-  await expect(page.locator("#amenityFilter")).toBeVisible();
+  await expect(page.locator("#filterDrawer")).toBeVisible();
   await expect(page.locator("#filterDrawerToggle")).toHaveAttribute(
     "aria-expanded",
     "true",
   );
+  await page.locator("#clearFilters").click();
+  await expect(page.locator(".listing-card")).toHaveCount(48);
   await page.keyboard.press("Escape");
-  await expect(page.locator("#amenityFilter")).toBeHidden();
+  await expect(page.locator("#filterDrawer")).toBeHidden();
 
   await page.locator(".listing-card a").first().click();
   await expect(page.locator(".detail-heading h1")).toHaveText("610 San Felipe Road");
@@ -110,27 +124,29 @@ test("mobile list and detail remain responsive", async ({ page }) => {
   await page.locator('[data-amenity="park"]').click();
   await expect(page.locator(".listing-card")).toHaveCount(35);
   await page.locator("#danh-sach").scrollIntoViewIfNeeded();
-  await expect(page.locator(".search-panel")).toHaveClass(/is-stuck/);
+  await expect(page.locator(".site-header")).toHaveClass(/is-filter-docked/);
+  await expect(page.locator("#headerFilterHost #searchWrap")).toBeVisible();
   await expect(page.locator("#bedsFilter")).toBeHidden();
   await expect(page.locator("#filterDrawerToggle b")).toHaveText("1");
-  const mobileStickyPosition = await page.evaluate(() => {
+  await expect(page.locator(".active-filter-summary")).toContainText("35 căn");
+  await expect(page.locator(".active-filter-summary")).toContainText("Công viên");
+  const mobileDockedHeader = await page.evaluate(() => {
     const header = document.querySelector(".site-header").getBoundingClientRect();
-    const panel = document.querySelector(".search-panel").getBoundingClientRect();
     return {
-      gap: Math.abs(panel.top - header.bottom),
-      panelHeight: panel.height,
+      top: header.top,
+      height: header.height,
       viewportHeight: window.innerHeight,
     };
   });
-  expect(mobileStickyPosition.gap).toBeLessThanOrEqual(2);
-  expect(mobileStickyPosition.panelHeight).toBeLessThan(
-    mobileStickyPosition.viewportHeight * 0.18,
+  expect(mobileDockedHeader.top).toBe(0);
+  expect(mobileDockedHeader.height).toBeLessThan(
+    mobileDockedHeader.viewportHeight * 0.09,
   );
   await page.locator("#filterDrawerToggle").click();
   await expect(page.locator("#bedsFilter")).toBeVisible();
-  await expect(page.locator("#amenityFilter")).toBeVisible();
+  await expect(page.locator("#filterDrawer")).toBeVisible();
   await page.locator("#filterDrawerToggle").click();
-  await expect(page.locator("#amenityFilter")).toBeHidden();
+  await expect(page.locator("#filterDrawer")).toBeHidden();
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= document.documentElement.clientWidth)).toBeTruthy();
   const columns = await page.locator(".listing-grid").evaluate(
     (element) => getComputedStyle(element).gridTemplateColumns.split(" ").length,
