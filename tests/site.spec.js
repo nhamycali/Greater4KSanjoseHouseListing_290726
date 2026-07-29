@@ -168,6 +168,11 @@ test("mobile list and detail remain responsive", async ({ page }) => {
   await expect(page.locator(".header-nav")).toBeHidden();
   await expect(page.locator(".amenity-chips button")).toHaveCount(8);
   await expect(page.locator("#filterDrawer")).toBeHidden();
+  await expect(page.locator("#inlineFilterToggle .inline-filter-label")).toHaveText(
+    "Lọc theo nhu cầu",
+  );
+  await expect(page.locator("#inlineFilterToggle .inline-filter-icon")).toBeVisible();
+  await expect(page.locator("#inlineFilterToggle b")).toBeHidden();
   const compactMobileGeometry = await page.evaluate(() => {
     const results = document.querySelector("#danh-sach").getBoundingClientRect();
     const firstCard = document.querySelector(".listing-card").getBoundingClientRect();
@@ -196,6 +201,8 @@ test("mobile list and detail remain responsive", async ({ page }) => {
   expect(mobileAmenityStyle.countBackground).toBe("rgba(0, 0, 0, 0)");
   await page.locator('[data-amenity="park"]').click();
   await expect(page.locator(".listing-card")).toHaveCount(35);
+  await expect(page.locator("#inlineFilterToggle")).toHaveClass(/has-active-filters/);
+  await expect(page.locator("#inlineFilterToggle b")).toHaveText("1");
   await page.locator("#inlineFilterToggle").click();
   await expect(page.locator("#filterDrawer")).toBeHidden();
   const mobileListGeometry = await page.evaluate(() => {
