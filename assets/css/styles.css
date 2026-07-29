@@ -40,6 +40,7 @@
   --shadow: 0 18px 50px rgba(0, 65, 176, .12);
   --radius: 18px;
   --max: 1240px;
+  --header-height: 96px;
 }
 
 * { box-sizing: border-box; }
@@ -183,12 +184,17 @@ button, select { cursor: pointer; }
 }
 
 .search-panel {
-  position: relative;
-  z-index: 4;
-  width: min(var(--max), calc(100% - 40px));
+  position: sticky;
+  z-index: 40;
+  top: var(--header-height);
+  width: 100%;
   margin: -35px auto 0;
+  padding: 0 20px;
+  transition: padding .18s ease, background-color .18s ease, box-shadow .18s ease;
 }
 .search-wrap {
+  width: min(var(--max), 100%);
+  margin: auto;
   padding: 18px;
   display: grid;
   grid-template-columns: minmax(280px, 1.7fr) repeat(3, minmax(160px, .7fr));
@@ -197,6 +203,58 @@ button, select { cursor: pointer; }
   border-radius: var(--radius);
   background: #fff;
   box-shadow: var(--shadow);
+}
+.filter-drawer-toggle {
+  display: none;
+  min-height: 50px;
+  padding: 0 13px;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  color: var(--brand);
+  border: 1px solid #b8cae8;
+  border-radius: 12px;
+  background: #fff;
+  font-size: 13px;
+  font-weight: 700;
+}
+.filter-drawer-toggle b {
+  min-width: 24px;
+  padding: 2px 6px;
+  color: #fff;
+  border-radius: 999px;
+  background: var(--brand);
+  font-size: 11px;
+}
+.filter-drawer-toggle b:empty { display: none; }
+.search-panel.is-stuck {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid rgba(193, 209, 234, .9);
+  background: rgba(245, 248, 253, .96);
+  box-shadow: 0 12px 28px rgba(0, 45, 125, .12);
+  backdrop-filter: blur(16px);
+}
+.search-panel.is-stuck .search-wrap {
+  padding: 8px;
+  grid-template-columns: minmax(250px, 1.65fr) repeat(3, minmax(145px, .65fr)) auto;
+  grid-template-areas:
+    "search beds price sort toggle"
+    "smart smart smart smart smart";
+  border-radius: 14px;
+  box-shadow: 0 6px 18px rgba(0, 47, 125, .08);
+}
+.search-panel.is-stuck .search-box { grid-area: search; }
+.search-panel.is-stuck #bedsFilter { grid-area: beds; }
+.search-panel.is-stuck #priceFilter { grid-area: price; }
+.search-panel.is-stuck #sortSelect { grid-area: sort; }
+.search-panel.is-stuck .filter-drawer-toggle { grid-area: toggle; display: inline-flex; }
+.search-panel.is-stuck .amenity-filter { grid-area: smart; margin-top: 0; }
+.search-panel.is-stuck:not(.is-filter-open) .amenity-filter { display: none; }
+.search-panel.is-stuck.is-filter-open .search-wrap {
+  max-height: calc(100vh - var(--header-height) - 16px);
+  overflow-y: auto;
+  overscroll-behavior: contain;
 }
 .search-box {
   min-width: 0;
@@ -834,6 +892,9 @@ button, select { cursor: pointer; }
 @media (max-width: 1020px) {
   .search-wrap { grid-template-columns: 1fr 1fr; }
   .search-box { grid-column: 1 / -1; }
+  .search-panel.is-stuck .search-wrap {
+    grid-template-columns: minmax(260px, 1fr) repeat(3, minmax(120px, .55fr)) auto;
+  }
   .location-insight-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .listing-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .detail-layout { grid-template-columns: 1fr; }
@@ -842,6 +903,7 @@ button, select { cursor: pointer; }
   .facts-bar { grid-template-columns: repeat(3, 1fr); }
 }
 @media (max-width: 720px) {
+  :root { --header-height: 86px; }
   .header-inner { width: min(100% - 24px, var(--max)); min-height: 86px; justify-content: flex-start; }
   .brand { width: 100%; min-width: 0; gap: 12px; }
   .brand img { width: 88px; height: 62px; }
@@ -849,7 +911,7 @@ button, select { cursor: pointer; }
   .brand strong { font-size: 19px; }
   .brand small { font-size: 11px; line-height: 1.25; }
   .header-nav { display: none; }
-  .hero-inner, .detail-top-inner, .detail-main, .results-section, .guide, .search-panel {
+  .hero-inner, .detail-top-inner, .detail-main, .results-section, .guide {
     width: min(100% - 24px, var(--max));
   }
   .hero-inner { min-height: 300px; padding: 55px 0 72px; }
@@ -857,6 +919,25 @@ button, select { cursor: pointer; }
   .hero-stat { display: none; }
   .search-wrap { grid-template-columns: 1fr; padding: 13px; }
   .search-box { grid-column: auto; }
+  .search-panel { padding-right: 12px; padding-left: 12px; }
+  .search-panel.is-stuck { padding-top: 7px; padding-bottom: 7px; }
+  .search-panel.is-stuck .search-wrap {
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-areas:
+      "search toggle"
+      "beds beds"
+      "price price"
+      "sort sort"
+      "smart smart";
+    gap: 8px;
+  }
+  .search-panel.is-stuck .search-box input { height: 44px; }
+  .search-panel.is-stuck .filter-drawer-toggle { min-height: 46px; }
+  .search-panel.is-stuck:not(.is-filter-open) #bedsFilter,
+  .search-panel.is-stuck:not(.is-filter-open) #priceFilter,
+  .search-panel.is-stuck:not(.is-filter-open) #sortSelect {
+    display: none;
+  }
   .amenity-filter { padding: 15px; }
   .amenity-filter-head { flex-direction: column; }
   .amenity-controls { display: grid; grid-template-columns: 1fr; }

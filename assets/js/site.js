@@ -117,9 +117,88 @@
     const amenityButtons = [...document.querySelectorAll("[data-amenity]")];
     const clearFilters = document.querySelector("#clearFilters");
     const filterMethod = document.querySelector("#filterMethod");
+    const searchPanel = document.querySelector(".search-panel");
+    const filterDrawerToggle = document.querySelector("#filterDrawerToggle");
     const count = document.querySelector("#resultCount");
     const empty = document.querySelector("#emptyState");
     const selectedAmenities = new Set();
+    let stickyThreshold = Number.POSITIVE_INFINITY;
+
+    const activeFilterCount = () => {
+      let active = selectedAmenities.size;
+      if (search.value.trim()) active += 1;
+      if (beds.value !== "0") active += 1;
+      if (priceFilter.value !== "all") active += 1;
+      return active;
+    };
+
+    const updateFilterToggle = () => {
+      const active = activeFilterCount();
+      filterDrawerToggle.querySelector("b").textContent = active;
+      filterDrawerToggle.classList.toggle("has-active-filters", active > 0);
+    };
+
+    const setStickyState = (stuck) => {
+      const wasStuck = searchPanel.classList.contains("is-stuck");
+      searchPanel.classList.toggle("is-stuck", stuck);
+      if (stuck && !wasStuck) {
+        searchPanel.classList.remove("is-filter-open");
+        filterDrawerToggle.setAttribute("aria-expanded", "false");
+      }
+      if (!stuck) {
+        searchPanel.classList.remove("is-filter-open");
+        filterDrawerToggle.setAttribute("aria-expanded", "true");
+      }
+    };
+
+    const measureStickyThreshold = () => {
+      const header = document.querySelector(".site-header");
+      const previousPosition = searchPanel.style.position;
+      const previousTop = searchPanel.style.top;
+      searchPanel.style.position = "relative";
+      searchPanel.style.top = "auto";
+      const naturalTop = searchPanel.getBoundingClientRect().top + window.scrollY;
+      searchPanel.style.position = previousPosition;
+      searchPanel.style.top = previousTop;
+      const headerHeight = header?.offsetHeight || 0;
+      document.documentElement.style.setProperty("--header-height", `${headerHeight}px`);
+      stickyThreshold = naturalTop - headerHeight;
+      setStickyState(window.scrollY >= stickyThreshold);
+    };
+
+    let resizeTimer;
+    window.addEventListener(
+      "scroll",
+      () => setStickyState(window.scrollY >= stickyThreshold),
+      { passive: true },
+    );
+    window.addEventListener("resize", () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(measureStickyThreshold, 120);
+    });
+    filterDrawerToggle.addEventListener("click", () => {
+      if (!searchPanel.classList.contains("is-stuck")) return;
+      const open = searchPanel.classList.toggle("is-filter-open");
+      filterDrawerToggle.setAttribute("aria-expanded", String(open));
+    });
+    document.addEventListener("keydown", (event) => {
+      if (event.key !== "Escape" || !searchPanel.classList.contains("is-filter-open")) {
+        return;
+      }
+      searchPanel.classList.remove("is-filter-open");
+      filterDrawerToggle.setAttribute("aria-expanded", "false");
+      filterDrawerToggle.focus();
+    });
+    document.addEventListener("pointerdown", (event) => {
+      if (
+        !searchPanel.classList.contains("is-filter-open") ||
+        searchPanel.contains(event.target)
+      ) {
+        return;
+      }
+      searchPanel.classList.remove("is-filter-open");
+      filterDrawerToggle.setAttribute("aria-expanded", "false");
+    });
 
     const updateAmenityCounts = () => {
       const mode = proximityMode.value;
@@ -130,6 +209,7 @@
         button.classList.toggle("is-active", selectedAmenities.has(category));
         button.setAttribute("aria-pressed", String(selectedAmenities.has(category)));
       });
+      updateFilterToggle();
       const restaurantRule =
         mode === "strict"
           ? " Nhà hàng: ít nhất 3 điểm trong 0,5 dặm."
@@ -182,6 +262,7 @@
       grid.innerHTML = output.map((item) => resultCard(item, selected, mode)).join("");
       count.textContent = output.length;
       empty.hidden = output.length > 0;
+      updateFilterToggle();
     };
     [search, beds, priceFilter, sort, proximityMode, amenityLogic].forEach((control) =>
       control.addEventListener(control === search ? "input" : "change", render)
@@ -210,6 +291,7 @@
     });
     updateAmenityCounts();
     render();
+    requestAnimationFrame(measureStickyThreshold);
   }
 
   function locationInsightsMarkup(item) {

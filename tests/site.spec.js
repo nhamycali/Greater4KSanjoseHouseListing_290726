@@ -54,6 +54,31 @@ test("desktop list, filters, detail and gallery work", async ({ page }) => {
   await page.locator("#clearFilters").click();
   await expect(page.locator(".listing-card")).toHaveCount(48);
 
+  await page.locator("#danh-sach").scrollIntoViewIfNeeded();
+  await expect(page.locator(".search-panel")).toHaveClass(/is-stuck/);
+  await expect(page.locator("#amenityFilter")).toBeHidden();
+  const desktopStickyPosition = await page.evaluate(() => {
+    const header = document.querySelector(".site-header").getBoundingClientRect();
+    const panel = document.querySelector(".search-panel").getBoundingClientRect();
+    return {
+      gap: Math.abs(panel.top - header.bottom),
+      panelHeight: panel.height,
+      viewportHeight: window.innerHeight,
+    };
+  });
+  expect(desktopStickyPosition.gap).toBeLessThanOrEqual(2);
+  expect(desktopStickyPosition.panelHeight).toBeLessThan(
+    desktopStickyPosition.viewportHeight * 0.22,
+  );
+  await page.locator("#filterDrawerToggle").click();
+  await expect(page.locator("#amenityFilter")).toBeVisible();
+  await expect(page.locator("#filterDrawerToggle")).toHaveAttribute(
+    "aria-expanded",
+    "true",
+  );
+  await page.keyboard.press("Escape");
+  await expect(page.locator("#amenityFilter")).toBeHidden();
+
   await page.locator(".listing-card a").first().click();
   await expect(page.locator(".detail-heading h1")).toHaveText("610 San Felipe Road");
   await expect(page.locator(".facts-bar")).toContainText("333,7 m²");
@@ -84,6 +109,28 @@ test("mobile list and detail remain responsive", async ({ page }) => {
   await expect(page.locator(".amenity-chips button")).toHaveCount(8);
   await page.locator('[data-amenity="park"]').click();
   await expect(page.locator(".listing-card")).toHaveCount(35);
+  await page.locator("#danh-sach").scrollIntoViewIfNeeded();
+  await expect(page.locator(".search-panel")).toHaveClass(/is-stuck/);
+  await expect(page.locator("#bedsFilter")).toBeHidden();
+  await expect(page.locator("#filterDrawerToggle b")).toHaveText("1");
+  const mobileStickyPosition = await page.evaluate(() => {
+    const header = document.querySelector(".site-header").getBoundingClientRect();
+    const panel = document.querySelector(".search-panel").getBoundingClientRect();
+    return {
+      gap: Math.abs(panel.top - header.bottom),
+      panelHeight: panel.height,
+      viewportHeight: window.innerHeight,
+    };
+  });
+  expect(mobileStickyPosition.gap).toBeLessThanOrEqual(2);
+  expect(mobileStickyPosition.panelHeight).toBeLessThan(
+    mobileStickyPosition.viewportHeight * 0.18,
+  );
+  await page.locator("#filterDrawerToggle").click();
+  await expect(page.locator("#bedsFilter")).toBeVisible();
+  await expect(page.locator("#amenityFilter")).toBeVisible();
+  await page.locator("#filterDrawerToggle").click();
+  await expect(page.locator("#amenityFilter")).toBeHidden();
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= document.documentElement.clientWidth)).toBeTruthy();
   const columns = await page.locator(".listing-grid").evaluate(
     (element) => getComputedStyle(element).gridTemplateColumns.split(" ").length,

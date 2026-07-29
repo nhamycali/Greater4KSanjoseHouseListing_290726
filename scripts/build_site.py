@@ -339,6 +339,9 @@ def index_page(count: int, city_count: int, minimum: int, maximum: int) -> str:
           <svg aria-hidden="true" viewBox="0 0 24 24"><path d="m21 21-4.35-4.35m2.35-5.65A8 8 0 1 1 3 11a8 8 0 0 1 16 0Z"/></svg>
           <input id="searchInput" type="search" placeholder="Tìm địa chỉ, khu vực hoặc mã MLS…">
         </label>
+        <button class="filter-drawer-toggle" id="filterDrawerToggle" type="button" aria-expanded="true" aria-controls="amenityFilter">
+          <span>Bộ lọc</span><b>0</b>
+        </button>
         <select id="bedsFilter" aria-label="Lọc theo số phòng ngủ">
           <option value="0">Tất cả số phòng ngủ</option>
           <option value="4">Từ 4 phòng ngủ</option>
