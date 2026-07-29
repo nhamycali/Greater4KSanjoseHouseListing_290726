@@ -32,9 +32,37 @@ test("desktop list, filters, detail and gallery work", async ({ page }) => {
   expect(filtered).toBeLessThan(48);
   await page.locator("#priceFilter").selectOption("all");
 
+  await expect(
+    page.locator('[data-amenity="vietnamese_community"] b'),
+  ).toHaveText("29");
+  await expect(page.locator('[data-amenity="coast"] b')).toHaveText("30");
+  await page.locator('[data-amenity="vietnamese_community"]').click();
+  await expect(page.locator(".listing-card")).toHaveCount(29);
+  await expect(page.locator(".card-address").first()).toHaveText("346 S 16th Street");
+  await page.locator('[data-amenity="restaurants"]').click();
+  await page.locator('[data-amenity="shopping"]').click();
+  await expect(page.locator(".listing-card")).toHaveCount(20);
+  await page.locator("#amenityLogic").selectOption("any");
+  await expect(page.locator(".listing-card")).toHaveCount(38);
+  await page.locator("#proximityMode").selectOption("strict");
+  await expect(
+    page.locator('[data-amenity="vietnamese_community"] b'),
+  ).toHaveText("19");
+  await expect(page.locator(".filter-method")).toContainText(
+    "không suy đoán sắc tộc cư dân",
+  );
+  await page.locator("#clearFilters").click();
+  await expect(page.locator(".listing-card")).toHaveCount(48);
+
   await page.locator(".listing-card a").first().click();
   await expect(page.locator(".detail-heading h1")).toHaveText("610 San Felipe Road");
   await expect(page.locator(".facts-bar")).toContainText("333,7 m²");
+  await expect(page.locator(".location-insights")).toBeVisible();
+  await expect(page.locator(".location-insight-grid article")).toHaveCount(8);
+  await expect(page.locator(".location-insights")).toContainText(
+    "Trung tâm Văn hóa Việt-Mỹ",
+  );
+  await expect(page.locator(".location-insights")).toContainText("34,0 dặm");
   await expect(page.locator(".detail-section")).toHaveCount(4);
   expect(await page.locator(".gallery-main img").evaluate((image) => image.naturalWidth)).toBeGreaterThan(0);
   await page.locator(".gallery-main").click();
@@ -53,6 +81,9 @@ test("mobile list and detail remain responsive", async ({ page }) => {
   await page.goto("http://127.0.0.1:8080/index.html", { waitUntil: "networkidle" });
   await expect(page.locator(".listing-card")).toHaveCount(48);
   await expect(page.locator(".header-nav")).toBeHidden();
+  await expect(page.locator(".amenity-chips button")).toHaveCount(8);
+  await page.locator('[data-amenity="park"]').click();
+  await expect(page.locator(".listing-card")).toHaveCount(35);
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= document.documentElement.clientWidth)).toBeTruthy();
   const columns = await page.locator(".listing-grid").evaluate(
     (element) => getComputedStyle(element).gridTemplateColumns.split(" ").length,
@@ -91,6 +122,7 @@ test("all 48 detail pages load their own local hero image", async ({ page }) => 
     await expect(page.locator(".detail-heading h1")).toHaveText(detail.address);
     await expect(page.locator(".facts-bar")).toContainText(`${detail.squareMeters} m²`);
     await expect(page.locator(".description-lead")).toBeVisible();
+    await expect(page.locator(".location-insight-grid article")).toHaveCount(8);
     const descriptionBlocks = page.locator(".description-lead, .description-prose p, .property-note");
     const rendered = (await descriptionBlocks.allTextContents()).join(" ");
     const normalize = (text) => text.replace(/\s+/g, " ").trim();

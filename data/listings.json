@@ -2,7 +2,57 @@
   "source": {
     "name": "MLSListings Matrix Portal",
     "snapshot_date": "2026-07-29",
-    "listing_count": 48
+    "listing_count": 48,
+    "location_snapshot_date": "2026-07-29",
+    "location_methodology": {
+      "distance_type": "straight_line",
+      "distance_unit": "miles",
+      "thresholds_miles": {
+        "strict": {
+          "vietnamese_community": 4.0,
+          "lake": 2.0,
+          "coast": 18.0,
+          "highway": 0.5,
+          "park": 0.25,
+          "shopping": 0.5,
+          "transit": 0.75
+        },
+        "balanced": {
+          "vietnamese_community": 6.0,
+          "lake": 4.0,
+          "coast": 22.0,
+          "highway": 1.25,
+          "park": 0.75,
+          "shopping": 0.75,
+          "transit": 1.25
+        },
+        "broad": {
+          "vietnamese_community": 10.0,
+          "lake": 8.0,
+          "coast": 30.0,
+          "highway": 2.0,
+          "park": 1.0,
+          "shopping": 1.5,
+          "transit": 2.0
+        }
+      },
+      "restaurant_radii_miles": {
+        "strict": 0.5,
+        "balanced": 1.0,
+        "broad": 2.0
+      },
+      "restaurant_min_counts": {
+        "strict": 3,
+        "balanced": 5,
+        "broad": 5
+      },
+      "notes_vi": "Khoảng cách là đường chim bay, không phải thời gian lái xe. Khu người Việt được đo tới các trung tâm thương mại, văn hóa và sinh hoạt cộng đồng Việt công khai; không suy đoán sắc tộc cư dân.",
+      "sources": [
+        "U.S. Census Geocoder (MAF/TIGER)",
+        "OpenStreetMap contributors (ODbL)",
+        "City of San José public Vietnamese community locations"
+      ]
+    }
   },
   "listings": [
     {
@@ -87,6 +137,93 @@
       "sqft_number": 3592,
       "beds_number": 5.0,
       "baths_number": 3.0,
+      "location": {
+        "amenities": {
+          "vietnamese_community": {
+            "name": "Trung tâm Văn hóa Việt-Mỹ",
+            "distance_miles": 33.95
+          },
+          "lake": {
+            "name": "Coyote Lake",
+            "distance_miles": 11.99
+          },
+          "coast": {
+            "name": "New Brighton State Beach",
+            "distance_miles": 28.07
+          },
+          "highway": {
+            "name": "US 101",
+            "distance_miles": 7.5
+          },
+          "park": {
+            "name": "Gilroy Sports Park",
+            "distance_miles": 8.22,
+            "counts": {
+              "0.5": 0,
+              "1": 0,
+              "2": 0
+            }
+          },
+          "restaurants": {
+            "name": "Dunneville Market",
+            "distance_miles": 1.55,
+            "counts": {
+              "0.5": 0,
+              "1": 0,
+              "2": 2
+            }
+          },
+          "shopping": {
+            "name": "Pass Farmers Market",
+            "distance_miles": 0.58,
+            "counts": {
+              "0.5": 0,
+              "1": 1,
+              "2": 1
+            }
+          },
+          "transit": {
+            "name": "Gilroy · Caltrain",
+            "distance_miles": 8.68
+          }
+        },
+        "matches": {
+          "strict": {
+            "vietnamese_community": false,
+            "lake": false,
+            "coast": false,
+            "highway": false,
+            "park": false,
+            "shopping": false,
+            "transit": false,
+            "restaurants": false
+          },
+          "balanced": {
+            "vietnamese_community": false,
+            "lake": false,
+            "coast": false,
+            "highway": false,
+            "park": false,
+            "shopping": true,
+            "transit": false,
+            "restaurants": false
+          },
+          "broad": {
+            "vietnamese_community": false,
+            "lake": false,
+            "coast": true,
+            "highway": false,
+            "park": false,
+            "shopping": true,
+            "transit": false,
+            "restaurants": false
+          }
+        },
+        "summary_vi": "mua sắm cách khoảng 0.6 dặm",
+        "mls_evidence_categories": [
+          "restaurants"
+        ]
+      },
       "sections_vi": [
         {
           "name": "Thông tin chung",
@@ -320,6 +457,96 @@
       "sqft_number": 3337,
       "beds_number": 5.0,
       "baths_number": 5.0,
+      "location": {
+        "amenities": {
+          "vietnamese_community": {
+            "name": "Vietnamese Heritage Garden",
+            "distance_miles": 6.64
+          },
+          "lake": {
+            "name": "Vasona Reservoir",
+            "distance_miles": 2.61
+          },
+          "coast": {
+            "name": "New Brighton State Beach",
+            "distance_miles": 20.91
+          },
+          "highway": {
+            "name": "CA 17",
+            "distance_miles": 0.96
+          },
+          "park": {
+            "name": "Virginia Park",
+            "distance_miles": 0.01,
+            "counts": {
+              "0.5": 2,
+              "1": 5,
+              "2": 19
+            }
+          },
+          "restaurants": {
+            "name": "Off The Hook",
+            "distance_miles": 0.66,
+            "counts": {
+              "0.5": 0,
+              "1": 25,
+              "2": 121
+            }
+          },
+          "shopping": {
+            "name": "Safeway",
+            "distance_miles": 0.65,
+            "counts": {
+              "0.5": 0,
+              "1": 4,
+              "2": 25
+            }
+          },
+          "transit": {
+            "name": "Winchester · VTA",
+            "distance_miles": 0.82
+          }
+        },
+        "matches": {
+          "strict": {
+            "vietnamese_community": false,
+            "lake": false,
+            "coast": false,
+            "highway": false,
+            "park": true,
+            "shopping": false,
+            "transit": false,
+            "restaurants": false
+          },
+          "balanced": {
+            "vietnamese_community": false,
+            "lake": true,
+            "coast": true,
+            "highway": true,
+            "park": true,
+            "shopping": true,
+            "transit": true,
+            "restaurants": true
+          },
+          "broad": {
+            "vietnamese_community": true,
+            "lake": true,
+            "coast": true,
+            "highway": true,
+            "park": true,
+            "shopping": true,
+            "transit": true,
+            "restaurants": true
+          }
+        },
+        "summary_vi": "công viên cách khoảng 0.0 dặm · 25 nhà hàng trong 1 dặm · mua sắm cách khoảng 0.7 dặm",
+        "mls_evidence_categories": [
+          "park",
+          "restaurants",
+          "shopping",
+          "highway"
+        ]
+      },
       "sections_vi": [
         {
           "name": "Thông tin chung",
@@ -686,6 +913,94 @@
       "sqft_number": 4780,
       "beds_number": 6.0,
       "baths_number": 6.0,
+      "location": {
+        "amenities": {
+          "vietnamese_community": {
+            "name": "Trung tâm Văn hóa Việt-Mỹ",
+            "distance_miles": 21.43
+          },
+          "lake": {
+            "name": "Coyote Lake",
+            "distance_miles": 4.1
+          },
+          "coast": {
+            "name": "New Brighton State Beach",
+            "distance_miles": 17.78
+          },
+          "highway": {
+            "name": "US 101",
+            "distance_miles": 1.83
+          },
+          "park": {
+            "name": "Sunrise Park",
+            "distance_miles": 2.42,
+            "counts": {
+              "0.5": 0,
+              "1": 0,
+              "2": 0
+            }
+          },
+          "restaurants": {
+            "name": "Taco's Ameca II",
+            "distance_miles": 3.09,
+            "counts": {
+              "0.5": 0,
+              "1": 0,
+              "2": 0
+            }
+          },
+          "shopping": {
+            "name": "Rocca's Market",
+            "distance_miles": 1.63,
+            "counts": {
+              "0.5": 0,
+              "1": 0,
+              "2": 1
+            }
+          },
+          "transit": {
+            "name": "San Martin · Caltrain",
+            "distance_miles": 1.67
+          }
+        },
+        "matches": {
+          "strict": {
+            "vietnamese_community": false,
+            "lake": false,
+            "coast": true,
+            "highway": false,
+            "park": false,
+            "shopping": false,
+            "transit": false,
+            "restaurants": false
+          },
+          "balanced": {
+            "vietnamese_community": false,
+            "lake": false,
+            "coast": true,
+            "highway": false,
+            "park": false,
+            "shopping": false,
+            "transit": false,
+            "restaurants": false
+          },
+          "broad": {
+            "vietnamese_community": false,
+            "lake": true,
+            "coast": true,
+            "highway": true,
+            "park": false,
+            "shopping": false,
+            "transit": true,
+            "restaurants": false
+          }
+        },
+        "summary_vi": "bãi biển cách khoảng 17.8 dặm",
+        "mls_evidence_categories": [
+          "restaurants",
+          "park"
+        ]
+      },
       "sections_vi": [
         {
           "name": "Thông tin chung",
@@ -1005,6 +1320,94 @@
       "sqft_number": 4200,
       "beds_number": 4.0,
       "baths_number": 4.0,
+      "location": {
+        "amenities": {
+          "vietnamese_community": {
+            "name": "Trung tâm Văn hóa Việt-Mỹ",
+            "distance_miles": 16.55
+          },
+          "lake": {
+            "name": "Chesbro Reservoir",
+            "distance_miles": 1.31
+          },
+          "coast": {
+            "name": "New Brighton State Beach",
+            "distance_miles": 16.05
+          },
+          "highway": {
+            "name": "US 101",
+            "distance_miles": 3.25
+          },
+          "park": {
+            "name": "Galvan Park",
+            "distance_miles": 1.89,
+            "counts": {
+              "0.5": 0,
+              "1": 0,
+              "2": 1
+            }
+          },
+          "restaurants": {
+            "name": "My Pizza",
+            "distance_miles": 1.92,
+            "counts": {
+              "0.5": 0,
+              "1": 0,
+              "2": 5
+            }
+          },
+          "shopping": {
+            "name": "Region Market",
+            "distance_miles": 1.92,
+            "counts": {
+              "0.5": 0,
+              "1": 0,
+              "2": 1
+            }
+          },
+          "transit": {
+            "name": "Morgan Hill · Caltrain",
+            "distance_miles": 2.38
+          }
+        },
+        "matches": {
+          "strict": {
+            "vietnamese_community": false,
+            "lake": true,
+            "coast": true,
+            "highway": false,
+            "park": false,
+            "shopping": false,
+            "transit": false,
+            "restaurants": false
+          },
+          "balanced": {
+            "vietnamese_community": false,
+            "lake": true,
+            "coast": true,
+            "highway": false,
+            "park": false,
+            "shopping": false,
+            "transit": false,
+            "restaurants": false
+          },
+          "broad": {
+            "vietnamese_community": false,
+            "lake": true,
+            "coast": true,
+            "highway": false,
+            "park": false,
+            "shopping": false,
+            "transit": false,
+            "restaurants": true
+          }
+        },
+        "summary_vi": "hồ hoặc hồ chứa nước cách khoảng 1.3 dặm · bãi biển cách khoảng 16.1 dặm",
+        "mls_evidence_categories": [
+          "restaurants",
+          "lake"
+        ]
+      },
       "sections_vi": [
         {
           "name": "Thông tin chung",
@@ -1259,6 +1662,93 @@
       "sqft_number": 4433,
       "beds_number": 4.0,
       "baths_number": 5.0,
+      "location": {
+        "amenities": {
+          "vietnamese_community": {
+            "name": "Trung tâm Văn hóa Việt-Mỹ",
+            "distance_miles": 15.85
+          },
+          "lake": {
+            "name": "Chesbro Reservoir",
+            "distance_miles": 1.94
+          },
+          "coast": {
+            "name": "New Brighton State Beach",
+            "distance_miles": 17.29
+          },
+          "highway": {
+            "name": "US 101",
+            "distance_miles": 1.99
+          },
+          "park": {
+            "name": "Murphy Springs Park",
+            "distance_miles": 0.77,
+            "counts": {
+              "0.5": 0,
+              "1": 3,
+              "2": 15
+            }
+          },
+          "restaurants": {
+            "name": "Lorenzo's Grill",
+            "distance_miles": 0.97,
+            "counts": {
+              "0.5": 0,
+              "1": 3,
+              "2": 45
+            }
+          },
+          "shopping": {
+            "name": "Region Market",
+            "distance_miles": 0.97,
+            "counts": {
+              "0.5": 0,
+              "1": 1,
+              "2": 4
+            }
+          },
+          "transit": {
+            "name": "Morgan Hill · Caltrain",
+            "distance_miles": 1.47
+          }
+        },
+        "matches": {
+          "strict": {
+            "vietnamese_community": false,
+            "lake": true,
+            "coast": true,
+            "highway": false,
+            "park": false,
+            "shopping": false,
+            "transit": false,
+            "restaurants": false
+          },
+          "balanced": {
+            "vietnamese_community": false,
+            "lake": true,
+            "coast": true,
+            "highway": false,
+            "park": false,
+            "shopping": false,
+            "transit": false,
+            "restaurants": false
+          },
+          "broad": {
+            "vietnamese_community": false,
+            "lake": true,
+            "coast": true,
+            "highway": true,
+            "park": true,
+            "shopping": true,
+            "transit": true,
+            "restaurants": true
+          }
+        },
+        "summary_vi": "hồ hoặc hồ chứa nước cách khoảng 1.9 dặm · bãi biển cách khoảng 17.3 dặm",
+        "mls_evidence_categories": [
+          "restaurants"
+        ]
+      },
       "sections_vi": [
         {
           "name": "Thông tin chung",
@@ -1483,6 +1973,94 @@
       "sqft_number": 3150,
       "beds_number": 4.0,
       "baths_number": 5.0,
+      "location": {
+        "amenities": {
+          "vietnamese_community": {
+            "name": "Vietnamese Heritage Garden",
+            "distance_miles": 2.64
+          },
+          "lake": {
+            "name": "Almaden Lake",
+            "distance_miles": 3.81
+          },
+          "coast": {
+            "name": "New Brighton State Beach",
+            "distance_miles": 21.94
+          },
+          "highway": {
+            "name": "CA 87",
+            "distance_miles": 0.63
+          },
+          "park": {
+            "name": "Lincoln Glen Park",
+            "distance_miles": 0.43,
+            "counts": {
+              "0.5": 2,
+              "1": 7,
+              "2": 35
+            }
+          },
+          "restaurants": {
+            "name": "King Kong NY Pizza",
+            "distance_miles": 0.34,
+            "counts": {
+              "0.5": 7,
+              "1": 21,
+              "2": 76
+            }
+          },
+          "shopping": {
+            "name": "Safeway",
+            "distance_miles": 0.8,
+            "counts": {
+              "0.5": 0,
+              "1": 1,
+              "2": 11
+            }
+          },
+          "transit": {
+            "name": "Curtner · VTA",
+            "distance_miles": 0.72
+          }
+        },
+        "matches": {
+          "strict": {
+            "vietnamese_community": true,
+            "lake": false,
+            "coast": false,
+            "highway": false,
+            "park": false,
+            "shopping": false,
+            "transit": true,
+            "restaurants": true
+          },
+          "balanced": {
+            "vietnamese_community": true,
+            "lake": true,
+            "coast": true,
+            "highway": true,
+            "park": true,
+            "shopping": false,
+            "transit": true,
+            "restaurants": true
+          },
+          "broad": {
+            "vietnamese_community": true,
+            "lake": true,
+            "coast": true,
+            "highway": true,
+            "park": true,
+            "shopping": true,
+            "transit": true,
+            "restaurants": true
+          }
+        },
+        "summary_vi": "khu thương mại / sinh hoạt cộng đồng việt cách khoảng 2.6 dặm · công viên cách khoảng 0.4 dặm · 21 nhà hàng trong 1 dặm",
+        "mls_evidence_categories": [
+          "park",
+          "restaurants"
+        ]
+      },
       "sections_vi": [
         {
           "name": "Thông tin chung",
@@ -1792,6 +2370,95 @@
       "sqft_number": 3537,
       "beds_number": 5.0,
       "baths_number": 4.0,
+      "location": {
+        "amenities": {
+          "vietnamese_community": {
+            "name": "Vietnamese Heritage Garden",
+            "distance_miles": 3.6
+          },
+          "lake": {
+            "name": "Almaden Lake",
+            "distance_miles": 3.99
+          },
+          "coast": {
+            "name": "New Brighton State Beach",
+            "distance_miles": 21.63
+          },
+          "highway": {
+            "name": "I 280",
+            "distance_miles": 1.59
+          },
+          "park": {
+            "name": "Dry Creek Village Park",
+            "distance_miles": 0.07,
+            "counts": {
+              "0.5": 2,
+              "1": 5,
+              "2": 25
+            }
+          },
+          "restaurants": {
+            "name": "Phở Wagon",
+            "distance_miles": 0.34,
+            "counts": {
+              "0.5": 6,
+              "1": 14,
+              "2": 103
+            }
+          },
+          "shopping": {
+            "name": "Safeway",
+            "distance_miles": 0.28,
+            "counts": {
+              "0.5": 1,
+              "1": 1,
+              "2": 17
+            }
+          },
+          "transit": {
+            "name": "Bascom · VTA",
+            "distance_miles": 1.41
+          }
+        },
+        "matches": {
+          "strict": {
+            "vietnamese_community": true,
+            "lake": false,
+            "coast": false,
+            "highway": false,
+            "park": true,
+            "shopping": true,
+            "transit": false,
+            "restaurants": true
+          },
+          "balanced": {
+            "vietnamese_community": true,
+            "lake": true,
+            "coast": true,
+            "highway": false,
+            "park": true,
+            "shopping": true,
+            "transit": false,
+            "restaurants": true
+          },
+          "broad": {
+            "vietnamese_community": true,
+            "lake": true,
+            "coast": true,
+            "highway": true,
+            "park": true,
+            "shopping": true,
+            "transit": true,
+            "restaurants": true
+          }
+        },
+        "summary_vi": "khu thương mại / sinh hoạt cộng đồng việt cách khoảng 3.6 dặm · công viên cách khoảng 0.1 dặm · 14 nhà hàng trong 1 dặm",
+        "mls_evidence_categories": [
+          "park",
+          "restaurants",
+          "shopping"
+        ]
+      },
       "sections_vi": [
         {
           "name": "Thông tin chung",
@@ -2061,6 +2728,94 @@
       "sqft_number": 4778,
       "beds_number": 7.0,
       "baths_number": 8.0,
+      "location": {
+        "amenities": {
+          "vietnamese_community": {
+            "name": "Vietnamese Heritage Garden",
+            "distance_miles": 2.91
+          },
+          "lake": {
+            "name": "Almaden Lake",
+            "distance_miles": 3.56
+          },
+          "coast": {
+            "name": "New Brighton State Beach",
+            "distance_miles": 21.66
+          },
+          "highway": {
+            "name": "CA 87",
+            "distance_miles": 0.8
+          },
+          "park": {
+            "name": "Lincoln Glen Park",
+            "distance_miles": 0.15,
+            "counts": {
+              "0.5": 3,
+              "1": 8,
+              "2": 35
+            }
+          },
+          "restaurants": {
+            "name": "King Kong NY Pizza",
+            "distance_miles": 0.06,
+            "counts": {
+              "0.5": 7,
+              "1": 8,
+              "2": 78
+            }
+          },
+          "shopping": {
+            "name": "Safeway",
+            "distance_miles": 1.04,
+            "counts": {
+              "0.5": 0,
+              "1": 0,
+              "2": 12
+            }
+          },
+          "transit": {
+            "name": "Curtner · VTA",
+            "distance_miles": 0.82
+          }
+        },
+        "matches": {
+          "strict": {
+            "vietnamese_community": true,
+            "lake": false,
+            "coast": false,
+            "highway": false,
+            "park": true,
+            "shopping": false,
+            "transit": false,
+            "restaurants": true
+          },
+          "balanced": {
+            "vietnamese_community": true,
+            "lake": true,
+            "coast": true,
+            "highway": true,
+            "park": true,
+            "shopping": false,
+            "transit": true,
+            "restaurants": true
+          },
+          "broad": {
+            "vietnamese_community": true,
+            "lake": true,
+            "coast": true,
+            "highway": true,
+            "park": true,
+            "shopping": true,
+            "transit": true,
+            "restaurants": true
+          }
+        },
+        "summary_vi": "khu thương mại / sinh hoạt cộng đồng việt cách khoảng 2.9 dặm · công viên cách khoảng 0.1 dặm · 8 nhà hàng trong 1 dặm",
+        "mls_evidence_categories": [
+          "restaurants",
+          "shopping"
+        ]
+      },
       "sections_vi": [
         {
           "name": "Thông tin chung",
@@ -2283,6 +3038,91 @@
       "sqft_number": 3549,
       "beds_number": 5.0,
       "baths_number": 5.0,
+      "location": {
+        "amenities": {
+          "vietnamese_community": {
+            "name": "Vietnamese Heritage Garden",
+            "distance_miles": 6.32
+          },
+          "lake": {
+            "name": "Vasona Reservoir",
+            "distance_miles": 2.08
+          },
+          "coast": {
+            "name": "New Brighton State Beach",
+            "distance_miles": 19.35
+          },
+          "highway": {
+            "name": "CA 85",
+            "distance_miles": 0.5
+          },
+          "park": {
+            "name": "Houge Park",
+            "distance_miles": 0.41,
+            "counts": {
+              "0.5": 1,
+              "1": 2,
+              "2": 16
+            }
+          },
+          "restaurants": {
+            "name": "Rangoli",
+            "distance_miles": 0.22,
+            "counts": {
+              "0.5": 6,
+              "1": 14,
+              "2": 72
+            }
+          },
+          "shopping": {
+            "name": "Lucky",
+            "distance_miles": 0.3,
+            "counts": {
+              "0.5": 1,
+              "1": 3,
+              "2": 13
+            }
+          },
+          "transit": {
+            "name": "Winchester · VTA",
+            "distance_miles": 1.55
+          }
+        },
+        "matches": {
+          "strict": {
+            "vietnamese_community": false,
+            "lake": false,
+            "coast": false,
+            "highway": true,
+            "park": false,
+            "shopping": true,
+            "transit": false,
+            "restaurants": true
+          },
+          "balanced": {
+            "vietnamese_community": false,
+            "lake": true,
+            "coast": true,
+            "highway": true,
+            "park": true,
+            "shopping": true,
+            "transit": false,
+            "restaurants": true
+          },
+          "broad": {
+            "vietnamese_community": true,
+            "lake": true,
+            "coast": true,
+            "highway": true,
+            "park": true,
+            "shopping": true,
+            "transit": true,
+            "restaurants": true
+          }
+        },
+        "summary_vi": "công viên cách khoảng 0.4 dặm · 14 nhà hàng trong 1 dặm · mua sắm cách khoảng 0.3 dặm",
+        "mls_evidence_categories": []
+      },
       "sections_vi": [
         {
           "name": "Thông tin chung",
@@ -2528,6 +3368,93 @@
       "sqft_number": 6089,
       "beds_number": 5.0,
       "baths_number": 6.0,
+      "location": {
+        "amenities": {
+          "vietnamese_community": {
+            "name": "Trung tâm Văn hóa Việt-Mỹ",
+            "distance_miles": 16.05
+          },
+          "lake": {
+            "name": "Anderson Reservoir",
+            "distance_miles": 1.32
+          },
+          "coast": {
+            "name": "New Brighton State Beach",
+            "distance_miles": 20.51
+          },
+          "highway": {
+            "name": "US 101",
+            "distance_miles": 1.21
+          },
+          "park": {
+            "name": "Decorative Fountain With Gazebo",
+            "distance_miles": 1.49,
+            "counts": {
+              "0.5": 0,
+              "1": 0,
+              "2": 9
+            }
+          },
+          "restaurants": {
+            "name": "Chili's",
+            "distance_miles": 1.09,
+            "counts": {
+              "0.5": 0,
+              "1": 0,
+              "2": 11
+            }
+          },
+          "shopping": {
+            "name": "Burlington",
+            "distance_miles": 1.24,
+            "counts": {
+              "0.5": 0,
+              "1": 0,
+              "2": 5
+            }
+          },
+          "transit": {
+            "name": "Morgan Hill · Caltrain",
+            "distance_miles": 2.32
+          }
+        },
+        "matches": {
+          "strict": {
+            "vietnamese_community": false,
+            "lake": true,
+            "coast": false,
+            "highway": false,
+            "park": false,
+            "shopping": false,
+            "transit": false,
+            "restaurants": false
+          },
+          "balanced": {
+            "vietnamese_community": false,
+            "lake": true,
+            "coast": true,
+            "highway": true,
+            "park": false,
+            "shopping": false,
+            "transit": false,
+            "restaurants": false
+          },
+          "broad": {
+            "vietnamese_community": false,
+            "lake": true,
+            "coast": true,
+            "highway": true,
+            "park": false,
+            "shopping": true,
+            "transit": false,
+            "restaurants": true
+          }
+        },
+        "summary_vi": "cao tốc cách khoảng 1.2 dặm · hồ hoặc hồ chứa nước cách khoảng 1.3 dặm · bãi biển cách khoảng 20.5 dặm",
+        "mls_evidence_categories": [
+          "park"
+        ]
+      },
       "sections_vi": [
         {
           "name": "Thông tin chung",
@@ -2887,6 +3814,91 @@
       "sqft_number": 5932,
       "beds_number": 5.0,
       "baths_number": 6.0,
+      "location": {
+        "amenities": {
+          "vietnamese_community": {
+            "name": "Trung tâm Văn hóa Việt-Mỹ",
+            "distance_miles": 15.76
+          },
+          "lake": {
+            "name": "Anderson Reservoir",
+            "distance_miles": 1.47
+          },
+          "coast": {
+            "name": "New Brighton State Beach",
+            "distance_miles": 20.34
+          },
+          "highway": {
+            "name": "US 101",
+            "distance_miles": 1.04
+          },
+          "park": {
+            "name": "Decorative Fountain With Gazebo",
+            "distance_miles": 1.72,
+            "counts": {
+              "0.5": 0,
+              "1": 0,
+              "2": 7
+            }
+          },
+          "restaurants": {
+            "name": "Chili's",
+            "distance_miles": 0.86,
+            "counts": {
+              "0.5": 0,
+              "1": 2,
+              "2": 11
+            }
+          },
+          "shopping": {
+            "name": "Burlington",
+            "distance_miles": 0.99,
+            "counts": {
+              "0.5": 0,
+              "1": 1,
+              "2": 4
+            }
+          },
+          "transit": {
+            "name": "Morgan Hill · Caltrain",
+            "distance_miles": 2.31
+          }
+        },
+        "matches": {
+          "strict": {
+            "vietnamese_community": false,
+            "lake": true,
+            "coast": false,
+            "highway": false,
+            "park": false,
+            "shopping": false,
+            "transit": false,
+            "restaurants": false
+          },
+          "balanced": {
+            "vietnamese_community": false,
+            "lake": true,
+            "coast": true,
+            "highway": true,
+            "park": false,
+            "shopping": false,
+            "transit": false,
+            "restaurants": false
+          },
+          "broad": {
+            "vietnamese_community": false,
+            "lake": true,
+            "coast": true,
+            "highway": true,
+            "park": false,
+            "shopping": true,
+            "transit": false,
+            "restaurants": true
+          }
+        },
+        "summary_vi": "cao tốc cách khoảng 1.0 dặm · hồ hoặc hồ chứa nước cách khoảng 1.5 dặm · bãi biển cách khoảng 20.3 dặm",
+        "mls_evidence_categories": []
+      },
       "sections_vi": [
         {
           "name": "Thông tin chung",
@@ -3217,6 +4229,93 @@
       "sqft_number": 3145,
       "beds_number": 4.0,
       "baths_number": 3.0,
+      "location": {
+        "amenities": {
+          "vietnamese_community": {
+            "name": "Vietnamese Heritage Garden",
+            "distance_miles": 4.48
+          },
+          "lake": {
+            "name": "Vasona Reservoir",
+            "distance_miles": 3.9
+          },
+          "coast": {
+            "name": "New Brighton State Beach",
+            "distance_miles": 21.09
+          },
+          "highway": {
+            "name": "CA 17",
+            "distance_miles": 0.97
+          },
+          "park": {
+            "name": "Doerr Park",
+            "distance_miles": 0.74,
+            "counts": {
+              "0.5": 0,
+              "1": 3,
+              "2": 21
+            }
+          },
+          "restaurants": {
+            "name": "Phở Wagon",
+            "distance_miles": 0.64,
+            "counts": {
+              "0.5": 0,
+              "1": 31,
+              "2": 130
+            }
+          },
+          "shopping": {
+            "name": "Wolfe India Bazar",
+            "distance_miles": 0.67,
+            "counts": {
+              "0.5": 0,
+              "1": 7,
+              "2": 18
+            }
+          },
+          "transit": {
+            "name": "Hamilton · VTA",
+            "distance_miles": 1.14
+          }
+        },
+        "matches": {
+          "strict": {
+            "vietnamese_community": false,
+            "lake": false,
+            "coast": false,
+            "highway": false,
+            "park": false,
+            "shopping": false,
+            "transit": false,
+            "restaurants": false
+          },
+          "balanced": {
+            "vietnamese_community": true,
+            "lake": true,
+            "coast": true,
+            "highway": true,
+            "park": true,
+            "shopping": true,
+            "transit": true,
+            "restaurants": true
+          },
+          "broad": {
+            "vietnamese_community": true,
+            "lake": true,
+            "coast": true,
+            "highway": true,
+            "park": true,
+            "shopping": true,
+            "transit": true,
+            "restaurants": true
+          }
+        },
+        "summary_vi": "khu thương mại / sinh hoạt cộng đồng việt cách khoảng 4.5 dặm · công viên cách khoảng 0.7 dặm · 31 nhà hàng trong 1 dặm",
+        "mls_evidence_categories": [
+          "restaurants"
+        ]
+      },
       "sections_vi": [
         {
           "name": "Thông tin chung",
@@ -3496,6 +4595,93 @@
       "sqft_number": 4057,
       "beds_number": 4.0,
       "baths_number": 5.0,
+      "location": {
+        "amenities": {
+          "vietnamese_community": {
+            "name": "Trung tâm Văn hóa Việt-Mỹ",
+            "distance_miles": 15.79
+          },
+          "lake": {
+            "name": "Anderson Reservoir",
+            "distance_miles": 1.45
+          },
+          "coast": {
+            "name": "New Brighton State Beach",
+            "distance_miles": 20.36
+          },
+          "highway": {
+            "name": "US 101",
+            "distance_miles": 1.06
+          },
+          "park": {
+            "name": "Decorative Fountain With Gazebo",
+            "distance_miles": 1.7,
+            "counts": {
+              "0.5": 0,
+              "1": 0,
+              "2": 8
+            }
+          },
+          "restaurants": {
+            "name": "Chili's",
+            "distance_miles": 0.89,
+            "counts": {
+              "0.5": 0,
+              "1": 2,
+              "2": 11
+            }
+          },
+          "shopping": {
+            "name": "Burlington",
+            "distance_miles": 1.02,
+            "counts": {
+              "0.5": 0,
+              "1": 0,
+              "2": 4
+            }
+          },
+          "transit": {
+            "name": "Morgan Hill · Caltrain",
+            "distance_miles": 2.31
+          }
+        },
+        "matches": {
+          "strict": {
+            "vietnamese_community": false,
+            "lake": true,
+            "coast": false,
+            "highway": false,
+            "park": false,
+            "shopping": false,
+            "transit": false,
+            "restaurants": false
+          },
+          "balanced": {
+            "vietnamese_community": false,
+            "lake": true,
+            "coast": true,
+            "highway": true,
+            "park": false,
+            "shopping": false,
+            "transit": false,
+            "restaurants": false
+          },
+          "broad": {
+            "vietnamese_community": false,
+            "lake": true,
+            "coast": true,
+            "highway": true,
+            "park": false,
+            "shopping": true,
+            "transit": false,
+            "restaurants": true
+          }
+        },
+        "summary_vi": "cao tốc cách khoảng 1.1 dặm · hồ hoặc hồ chứa nước cách khoảng 1.4 dặm · bãi biển cách khoảng 20.4 dặm",
+        "mls_evidence_categories": [
+          "restaurants"
+        ]
+      },
       "sections_vi": [
         {
           "name": "Thông tin chung",
@@ -3786,6 +4972,93 @@
       "sqft_number": 2981,
       "beds_number": 5.0,
       "baths_number": 4.0,
+      "location": {
+        "amenities": {
+          "vietnamese_community": {
+            "name": "The Shops at Vietnam Town",
+            "distance_miles": 4.81
+          },
+          "lake": {
+            "name": "Vasona Reservoir",
+            "distance_miles": 5.03
+          },
+          "coast": {
+            "name": "New Brighton State Beach",
+            "distance_miles": 23.07
+          },
+          "highway": {
+            "name": "CA 17",
+            "distance_miles": 0.1
+          },
+          "park": {
+            "name": "Frank M. Santana Park",
+            "distance_miles": 0.35,
+            "counts": {
+              "0.5": 1,
+              "1": 4,
+              "2": 23
+            }
+          },
+          "restaurants": {
+            "name": "Krungthai",
+            "distance_miles": 0.43,
+            "counts": {
+              "0.5": 2,
+              "1": 56,
+              "2": 159
+            }
+          },
+          "shopping": {
+            "name": "Grocery Outlet",
+            "distance_miles": 0.6,
+            "counts": {
+              "0.5": 0,
+              "1": 10,
+              "2": 29
+            }
+          },
+          "transit": {
+            "name": "Bascom · VTA",
+            "distance_miles": 1.15
+          }
+        },
+        "matches": {
+          "strict": {
+            "vietnamese_community": false,
+            "lake": false,
+            "coast": false,
+            "highway": true,
+            "park": false,
+            "shopping": false,
+            "transit": false,
+            "restaurants": false
+          },
+          "balanced": {
+            "vietnamese_community": true,
+            "lake": false,
+            "coast": false,
+            "highway": true,
+            "park": true,
+            "shopping": true,
+            "transit": true,
+            "restaurants": true
+          },
+          "broad": {
+            "vietnamese_community": true,
+            "lake": true,
+            "coast": true,
+            "highway": true,
+            "park": true,
+            "shopping": true,
+            "transit": true,
+            "restaurants": true
+          }
+        },
+        "summary_vi": "khu thương mại / sinh hoạt cộng đồng việt cách khoảng 4.8 dặm · công viên cách khoảng 0.3 dặm · 56 nhà hàng trong 1 dặm",
+        "mls_evidence_categories": [
+          "highway"
+        ]
+      },
       "sections_vi": [
         {
           "name": "Thông tin chung",
@@ -4142,6 +5415,91 @@
       "sqft_number": 3684,
       "beds_number": 5.0,
       "baths_number": 4.0,
+      "location": {
+        "amenities": {
+          "vietnamese_community": {
+            "name": "Trung tâm Văn hóa Việt-Mỹ",
+            "distance_miles": 4.7
+          },
+          "lake": {
+            "name": "Lake Cunningham",
+            "distance_miles": 4.47
+          },
+          "coast": {
+            "name": "New Brighton State Beach",
+            "distance_miles": 22.11
+          },
+          "highway": {
+            "name": "US 101",
+            "distance_miles": 1.49
+          },
+          "park": {
+            "name": "Foligno park",
+            "distance_miles": 0.93,
+            "counts": {
+              "0.5": 0,
+              "1": 1,
+              "2": 10
+            }
+          },
+          "restaurants": {
+            "name": "Trifecta",
+            "distance_miles": 0.85,
+            "counts": {
+              "0.5": 0,
+              "1": 3,
+              "2": 15
+            }
+          },
+          "shopping": {
+            "name": "Silver Creek Community Market",
+            "distance_miles": 0.83,
+            "counts": {
+              "0.5": 0,
+              "1": 1,
+              "2": 2
+            }
+          },
+          "transit": {
+            "name": "Blossom Hill · Caltrain",
+            "distance_miles": 2.0
+          }
+        },
+        "matches": {
+          "strict": {
+            "vietnamese_community": false,
+            "lake": false,
+            "coast": false,
+            "highway": false,
+            "park": false,
+            "shopping": false,
+            "transit": false,
+            "restaurants": false
+          },
+          "balanced": {
+            "vietnamese_community": true,
+            "lake": false,
+            "coast": false,
+            "highway": false,
+            "park": false,
+            "shopping": false,
+            "transit": false,
+            "restaurants": false
+          },
+          "broad": {
+            "vietnamese_community": true,
+            "lake": true,
+            "coast": true,
+            "highway": true,
+            "park": true,
+            "shopping": true,
+            "transit": true,
+            "restaurants": true
+          }
+        },
+        "summary_vi": "khu thương mại / sinh hoạt cộng đồng việt cách khoảng 4.7 dặm",
+        "mls_evidence_categories": []
+      },
       "sections_vi": [
         {
           "name": "Thông tin chung",
@@ -4457,6 +5815,95 @@
       "sqft_number": 3579,
       "beds_number": 4.0,
       "baths_number": 3.0,
+      "location": {
+        "amenities": {
+          "vietnamese_community": {
+            "name": "Trung tâm Văn hóa Việt-Mỹ",
+            "distance_miles": 3.85
+          },
+          "lake": {
+            "name": "Lake Cunningham",
+            "distance_miles": 3.26
+          },
+          "coast": {
+            "name": "New Brighton State Beach",
+            "distance_miles": 23.18
+          },
+          "highway": {
+            "name": "US 101",
+            "distance_miles": 1.57
+          },
+          "park": {
+            "name": "Silver Creek Linear Park",
+            "distance_miles": 0.62,
+            "counts": {
+              "0.5": 0,
+              "1": 4,
+              "2": 17
+            }
+          },
+          "restaurants": {
+            "name": "The Creek Eatery",
+            "distance_miles": 0.39,
+            "counts": {
+              "0.5": 3,
+              "1": 7,
+              "2": 28
+            }
+          },
+          "shopping": {
+            "name": "Silver Creek Community Market",
+            "distance_miles": 0.43,
+            "counts": {
+              "0.5": 1,
+              "1": 1,
+              "2": 7
+            }
+          },
+          "transit": {
+            "name": "Eastridge Transit Center · VTA;Flixbus",
+            "distance_miles": 2.87
+          }
+        },
+        "matches": {
+          "strict": {
+            "vietnamese_community": true,
+            "lake": false,
+            "coast": false,
+            "highway": false,
+            "park": false,
+            "shopping": true,
+            "transit": false,
+            "restaurants": true
+          },
+          "balanced": {
+            "vietnamese_community": true,
+            "lake": true,
+            "coast": false,
+            "highway": false,
+            "park": true,
+            "shopping": true,
+            "transit": false,
+            "restaurants": true
+          },
+          "broad": {
+            "vietnamese_community": true,
+            "lake": true,
+            "coast": true,
+            "highway": true,
+            "park": true,
+            "shopping": true,
+            "transit": false,
+            "restaurants": true
+          }
+        },
+        "summary_vi": "khu thương mại / sinh hoạt cộng đồng việt cách khoảng 3.9 dặm · công viên cách khoảng 0.6 dặm · 7 nhà hàng trong 1 dặm",
+        "mls_evidence_categories": [
+          "park",
+          "restaurants",
+          "shopping"
+        ]
+      },
       "sections_vi": [
         {
           "name": "Thông tin chung",
@@ -4798,6 +6245,93 @@
       "sqft_number": 3788,
       "beds_number": 5.0,
       "baths_number": 5.0,
+      "location": {
+        "amenities": {
+          "vietnamese_community": {
+            "name": "Trung tâm Văn hóa Việt-Mỹ",
+            "distance_miles": 3.25
+          },
+          "lake": {
+            "name": "Lake Cunningham",
+            "distance_miles": 2.52
+          },
+          "coast": {
+            "name": "New Brighton State Beach",
+            "distance_miles": 23.63
+          },
+          "highway": {
+            "name": "US 101",
+            "distance_miles": 1.3
+          },
+          "park": {
+            "name": "Silver Creek Linear Park",
+            "distance_miles": 0.55,
+            "counts": {
+              "0.5": 0,
+              "1": 5,
+              "2": 18
+            }
+          },
+          "restaurants": {
+            "name": "Sam's BBQ Diner",
+            "distance_miles": 0.71,
+            "counts": {
+              "0.5": 0,
+              "1": 11,
+              "2": 53
+            }
+          },
+          "shopping": {
+            "name": "Super India",
+            "distance_miles": 0.75,
+            "counts": {
+              "0.5": 0,
+              "1": 2,
+              "2": 12
+            }
+          },
+          "transit": {
+            "name": "Eastridge Transit Center · VTA;Flixbus",
+            "distance_miles": 2.14
+          }
+        },
+        "matches": {
+          "strict": {
+            "vietnamese_community": true,
+            "lake": false,
+            "coast": false,
+            "highway": false,
+            "park": false,
+            "shopping": false,
+            "transit": false,
+            "restaurants": false
+          },
+          "balanced": {
+            "vietnamese_community": true,
+            "lake": true,
+            "coast": false,
+            "highway": false,
+            "park": true,
+            "shopping": true,
+            "transit": false,
+            "restaurants": true
+          },
+          "broad": {
+            "vietnamese_community": true,
+            "lake": true,
+            "coast": true,
+            "highway": true,
+            "park": true,
+            "shopping": true,
+            "transit": false,
+            "restaurants": true
+          }
+        },
+        "summary_vi": "khu thương mại / sinh hoạt cộng đồng việt cách khoảng 3.2 dặm · công viên cách khoảng 0.6 dặm · 11 nhà hàng trong 1 dặm",
+        "mls_evidence_categories": [
+          "restaurants"
+        ]
+      },
       "sections_vi": [
         {
           "name": "Thông tin chung",
@@ -5016,6 +6550,91 @@
       "sqft_number": 2934,
       "beds_number": 6.0,
       "baths_number": 4.0,
+      "location": {
+        "amenities": {
+          "vietnamese_community": {
+            "name": "Trung tâm Văn hóa Việt-Mỹ",
+            "distance_miles": 17.76
+          },
+          "lake": {
+            "name": "Anderson Reservoir",
+            "distance_miles": 1.76
+          },
+          "coast": {
+            "name": "New Brighton State Beach",
+            "distance_miles": 21.58
+          },
+          "highway": {
+            "name": "US 101",
+            "distance_miles": 2.27
+          },
+          "park": {
+            "name": "Heritage Greens Park",
+            "distance_miles": 0.85,
+            "counts": {
+              "0.5": 0,
+              "1": 1,
+              "2": 8
+            }
+          },
+          "restaurants": {
+            "name": "Vietasia",
+            "distance_miles": 2.04,
+            "counts": {
+              "0.5": 0,
+              "1": 0,
+              "2": 0
+            }
+          },
+          "shopping": {
+            "name": "Hilltop Market",
+            "distance_miles": 0.58,
+            "counts": {
+              "0.5": 0,
+              "1": 1,
+              "2": 1
+            }
+          },
+          "transit": {
+            "name": "Morgan Hill · Caltrain",
+            "distance_miles": 3.18
+          }
+        },
+        "matches": {
+          "strict": {
+            "vietnamese_community": false,
+            "lake": true,
+            "coast": false,
+            "highway": false,
+            "park": false,
+            "shopping": false,
+            "transit": false,
+            "restaurants": false
+          },
+          "balanced": {
+            "vietnamese_community": false,
+            "lake": true,
+            "coast": true,
+            "highway": false,
+            "park": false,
+            "shopping": true,
+            "transit": false,
+            "restaurants": false
+          },
+          "broad": {
+            "vietnamese_community": false,
+            "lake": true,
+            "coast": true,
+            "highway": false,
+            "park": true,
+            "shopping": true,
+            "transit": false,
+            "restaurants": false
+          }
+        },
+        "summary_vi": "mua sắm cách khoảng 0.6 dặm · hồ hoặc hồ chứa nước cách khoảng 1.8 dặm · bãi biển cách khoảng 21.6 dặm",
+        "mls_evidence_categories": []
+      },
       "sections_vi": [
         {
           "name": "Thông tin chung",
@@ -5268,6 +6887,93 @@
       "sqft_number": 3020,
       "beds_number": 4.0,
       "baths_number": 4.0,
+      "location": {
+        "amenities": {
+          "vietnamese_community": {
+            "name": "Trung tâm Văn hóa Việt-Mỹ",
+            "distance_miles": 5.94
+          },
+          "lake": {
+            "name": "Almaden Lake",
+            "distance_miles": 1.64
+          },
+          "coast": {
+            "name": "New Brighton State Beach",
+            "distance_miles": 18.02
+          },
+          "highway": {
+            "name": "CA 85",
+            "distance_miles": 1.32
+          },
+          "park": {
+            "name": "Foothill Park",
+            "distance_miles": 0.51,
+            "counts": {
+              "0.5": 0,
+              "1": 4,
+              "2": 20
+            }
+          },
+          "restaurants": {
+            "name": "Round Table Pizza",
+            "distance_miles": 0.75,
+            "counts": {
+              "0.5": 0,
+              "1": 6,
+              "2": 60
+            }
+          },
+          "shopping": {
+            "name": "Nob Hill Foods",
+            "distance_miles": 0.77,
+            "counts": {
+              "0.5": 0,
+              "1": 1,
+              "2": 10
+            }
+          },
+          "transit": {
+            "name": "Snell · VTA",
+            "distance_miles": 1.35
+          }
+        },
+        "matches": {
+          "strict": {
+            "vietnamese_community": false,
+            "lake": true,
+            "coast": false,
+            "highway": false,
+            "park": false,
+            "shopping": false,
+            "transit": false,
+            "restaurants": false
+          },
+          "balanced": {
+            "vietnamese_community": true,
+            "lake": true,
+            "coast": true,
+            "highway": false,
+            "park": true,
+            "shopping": false,
+            "transit": false,
+            "restaurants": true
+          },
+          "broad": {
+            "vietnamese_community": true,
+            "lake": true,
+            "coast": true,
+            "highway": true,
+            "park": true,
+            "shopping": true,
+            "transit": true,
+            "restaurants": true
+          }
+        },
+        "summary_vi": "khu thương mại / sinh hoạt cộng đồng việt cách khoảng 5.9 dặm · công viên cách khoảng 0.5 dặm · 6 nhà hàng trong 1 dặm",
+        "mls_evidence_categories": [
+          "park"
+        ]
+      },
       "sections_vi": [
         {
           "name": "Thông tin chung",
@@ -5551,6 +7257,91 @@
       "sqft_number": 2566,
       "beds_number": 4.0,
       "baths_number": 3.0,
+      "location": {
+        "amenities": {
+          "vietnamese_community": {
+            "name": "Vietnamese Heritage Garden",
+            "distance_miles": 4.34
+          },
+          "lake": {
+            "name": "Vasona Reservoir",
+            "distance_miles": 4.07
+          },
+          "coast": {
+            "name": "New Brighton State Beach",
+            "distance_miles": 21.31
+          },
+          "highway": {
+            "name": "CA 17",
+            "distance_miles": 0.94
+          },
+          "park": {
+            "name": "Dry Creek Village Park",
+            "distance_miles": 0.72,
+            "counts": {
+              "0.5": 0,
+              "1": 3,
+              "2": 21
+            }
+          },
+          "restaurants": {
+            "name": "Phở Wagon",
+            "distance_miles": 0.48,
+            "counts": {
+              "0.5": 2,
+              "1": 31,
+              "2": 138
+            }
+          },
+          "shopping": {
+            "name": "Safeway",
+            "distance_miles": 0.59,
+            "counts": {
+              "0.5": 0,
+              "1": 7,
+              "2": 19
+            }
+          },
+          "transit": {
+            "name": "Bascom · VTA",
+            "distance_miles": 1.02
+          }
+        },
+        "matches": {
+          "strict": {
+            "vietnamese_community": false,
+            "lake": false,
+            "coast": false,
+            "highway": false,
+            "park": false,
+            "shopping": false,
+            "transit": false,
+            "restaurants": false
+          },
+          "balanced": {
+            "vietnamese_community": true,
+            "lake": false,
+            "coast": true,
+            "highway": true,
+            "park": true,
+            "shopping": true,
+            "transit": true,
+            "restaurants": true
+          },
+          "broad": {
+            "vietnamese_community": true,
+            "lake": true,
+            "coast": true,
+            "highway": true,
+            "park": true,
+            "shopping": true,
+            "transit": true,
+            "restaurants": true
+          }
+        },
+        "summary_vi": "khu thương mại / sinh hoạt cộng đồng việt cách khoảng 4.3 dặm · công viên cách khoảng 0.7 dặm · 31 nhà hàng trong 1 dặm",
+        "mls_evidence_categories": []
+      },
       "sections_vi": [
         {
           "name": "Thông tin chung",
@@ -5864,6 +7655,96 @@
       "sqft_number": 3186,
       "beds_number": 4.0,
       "baths_number": 4.0,
+      "location": {
+        "amenities": {
+          "vietnamese_community": {
+            "name": "Vietnamese Heritage Garden",
+            "distance_miles": 2.51
+          },
+          "lake": {
+            "name": "Almaden Lake",
+            "distance_miles": 3.78
+          },
+          "coast": {
+            "name": "New Brighton State Beach",
+            "distance_miles": 21.97
+          },
+          "highway": {
+            "name": "CA 87",
+            "distance_miles": 0.44
+          },
+          "park": {
+            "name": "Roy Avenue Park",
+            "distance_miles": 0.52,
+            "counts": {
+              "0.5": 0,
+              "1": 9,
+              "2": 38
+            }
+          },
+          "restaurants": {
+            "name": "The Office",
+            "distance_miles": 0.3,
+            "counts": {
+              "0.5": 7,
+              "1": 13,
+              "2": 77
+            }
+          },
+          "shopping": {
+            "name": "Safeway",
+            "distance_miles": 0.88,
+            "counts": {
+              "0.5": 0,
+              "1": 1,
+              "2": 11
+            }
+          },
+          "transit": {
+            "name": "Curtner · VTA",
+            "distance_miles": 0.52
+          }
+        },
+        "matches": {
+          "strict": {
+            "vietnamese_community": true,
+            "lake": false,
+            "coast": false,
+            "highway": true,
+            "park": false,
+            "shopping": false,
+            "transit": true,
+            "restaurants": true
+          },
+          "balanced": {
+            "vietnamese_community": true,
+            "lake": true,
+            "coast": true,
+            "highway": true,
+            "park": true,
+            "shopping": false,
+            "transit": true,
+            "restaurants": true
+          },
+          "broad": {
+            "vietnamese_community": true,
+            "lake": true,
+            "coast": true,
+            "highway": true,
+            "park": true,
+            "shopping": true,
+            "transit": true,
+            "restaurants": true
+          }
+        },
+        "summary_vi": "khu thương mại / sinh hoạt cộng đồng việt cách khoảng 2.5 dặm · công viên cách khoảng 0.5 dặm · 13 nhà hàng trong 1 dặm",
+        "mls_evidence_categories": [
+          "park",
+          "restaurants",
+          "shopping",
+          "highway"
+        ]
+      },
       "sections_vi": [
         {
           "name": "Thông tin chung",
@@ -6154,6 +8035,95 @@
       "sqft_number": 3007,
       "beds_number": 4.0,
       "baths_number": 4.0,
+      "location": {
+        "amenities": {
+          "vietnamese_community": {
+            "name": "Trung tâm Văn hóa Việt-Mỹ",
+            "distance_miles": 3.13
+          },
+          "lake": {
+            "name": "Almaden Lake",
+            "distance_miles": 3.27
+          },
+          "coast": {
+            "name": "New Brighton State Beach",
+            "distance_miles": 21.38
+          },
+          "highway": {
+            "name": "CA 87",
+            "distance_miles": 0.85
+          },
+          "park": {
+            "name": "Roy Avenue Park",
+            "distance_miles": 0.17,
+            "counts": {
+              "0.5": 4,
+              "1": 7,
+              "2": 31
+            }
+          },
+          "restaurants": {
+            "name": "Pearl River Chinese Restaurant",
+            "distance_miles": 0.14,
+            "counts": {
+              "0.5": 6,
+              "1": 12,
+              "2": 79
+            }
+          },
+          "shopping": {
+            "name": "Zanotto's",
+            "distance_miles": 0.86,
+            "counts": {
+              "0.5": 0,
+              "1": 1,
+              "2": 13
+            }
+          },
+          "transit": {
+            "name": "Curtner · VTA",
+            "distance_miles": 0.88
+          }
+        },
+        "matches": {
+          "strict": {
+            "vietnamese_community": true,
+            "lake": false,
+            "coast": false,
+            "highway": false,
+            "park": true,
+            "shopping": false,
+            "transit": false,
+            "restaurants": true
+          },
+          "balanced": {
+            "vietnamese_community": true,
+            "lake": true,
+            "coast": true,
+            "highway": true,
+            "park": true,
+            "shopping": false,
+            "transit": true,
+            "restaurants": true
+          },
+          "broad": {
+            "vietnamese_community": true,
+            "lake": true,
+            "coast": true,
+            "highway": true,
+            "park": true,
+            "shopping": true,
+            "transit": true,
+            "restaurants": true
+          }
+        },
+        "summary_vi": "khu thương mại / sinh hoạt cộng đồng việt cách khoảng 3.1 dặm · công viên cách khoảng 0.2 dặm · 12 nhà hàng trong 1 dặm",
+        "mls_evidence_categories": [
+          "park",
+          "restaurants",
+          "shopping"
+        ]
+      },
       "sections_vi": [
         {
           "name": "Thông tin chung",
@@ -6473,6 +8443,93 @@
       "sqft_number": 2715,
       "beds_number": 5.0,
       "baths_number": 3.0,
+      "location": {
+        "amenities": {
+          "vietnamese_community": {
+            "name": "Vietnamese Heritage Garden",
+            "distance_miles": 2.65
+          },
+          "lake": {
+            "name": "Almaden Lake",
+            "distance_miles": 4.76
+          },
+          "coast": {
+            "name": "New Brighton State Beach",
+            "distance_miles": 22.67
+          },
+          "highway": {
+            "name": "I 280",
+            "distance_miles": 0.8
+          },
+          "park": {
+            "name": "Hummingbird Park",
+            "distance_miles": 0.55,
+            "counts": {
+              "0.5": 0,
+              "1": 9,
+              "2": 36
+            }
+          },
+          "restaurants": {
+            "name": "John's of Willow Glen",
+            "distance_miles": 0.07,
+            "counts": {
+              "0.5": 35,
+              "1": 39,
+              "2": 141
+            }
+          },
+          "shopping": {
+            "name": "The Garden at Willow Glen",
+            "distance_miles": 0.14,
+            "counts": {
+              "0.5": 2,
+              "1": 3,
+              "2": 14
+            }
+          },
+          "transit": {
+            "name": "Tamien · VTA",
+            "distance_miles": 0.82
+          }
+        },
+        "matches": {
+          "strict": {
+            "vietnamese_community": true,
+            "lake": false,
+            "coast": false,
+            "highway": false,
+            "park": false,
+            "shopping": true,
+            "transit": false,
+            "restaurants": true
+          },
+          "balanced": {
+            "vietnamese_community": true,
+            "lake": false,
+            "coast": false,
+            "highway": true,
+            "park": true,
+            "shopping": true,
+            "transit": true,
+            "restaurants": true
+          },
+          "broad": {
+            "vietnamese_community": true,
+            "lake": true,
+            "coast": true,
+            "highway": true,
+            "park": true,
+            "shopping": true,
+            "transit": true,
+            "restaurants": true
+          }
+        },
+        "summary_vi": "khu thương mại / sinh hoạt cộng đồng việt cách khoảng 2.6 dặm · công viên cách khoảng 0.6 dặm · 39 nhà hàng trong 1 dặm",
+        "mls_evidence_categories": [
+          "restaurants"
+        ]
+      },
       "sections_vi": [
         {
           "name": "Thông tin chung",
@@ -6724,6 +8781,95 @@
       "sqft_number": 3578,
       "beds_number": 5.0,
       "baths_number": 4.0,
+      "location": {
+        "amenities": {
+          "vietnamese_community": {
+            "name": "The Shops at Vietnam Town",
+            "distance_miles": 3.74
+          },
+          "lake": {
+            "name": "Lake Cunningham",
+            "distance_miles": 6.47
+          },
+          "coast": {
+            "name": "New Brighton State Beach",
+            "distance_miles": 24.55
+          },
+          "highway": {
+            "name": "I 880",
+            "distance_miles": 0.38
+          },
+          "park": {
+            "name": "Hester Park",
+            "distance_miles": 0.18,
+            "counts": {
+              "0.5": 3,
+              "1": 7,
+              "2": 37
+            }
+          },
+          "restaurants": {
+            "name": "Mango’s",
+            "distance_miles": 0.46,
+            "counts": {
+              "0.5": 2,
+              "1": 39,
+              "2": 184
+            }
+          },
+          "shopping": {
+            "name": "Zanotto’s Family Market",
+            "distance_miles": 0.55,
+            "counts": {
+              "0.5": 0,
+              "1": 3,
+              "2": 21
+            }
+          },
+          "transit": {
+            "name": "College Park · Caltrain",
+            "distance_miles": 0.81
+          }
+        },
+        "matches": {
+          "strict": {
+            "vietnamese_community": true,
+            "lake": false,
+            "coast": false,
+            "highway": true,
+            "park": true,
+            "shopping": false,
+            "transit": false,
+            "restaurants": false
+          },
+          "balanced": {
+            "vietnamese_community": true,
+            "lake": false,
+            "coast": false,
+            "highway": true,
+            "park": true,
+            "shopping": true,
+            "transit": true,
+            "restaurants": true
+          },
+          "broad": {
+            "vietnamese_community": true,
+            "lake": true,
+            "coast": true,
+            "highway": true,
+            "park": true,
+            "shopping": true,
+            "transit": true,
+            "restaurants": true
+          }
+        },
+        "summary_vi": "khu thương mại / sinh hoạt cộng đồng việt cách khoảng 3.7 dặm · công viên cách khoảng 0.2 dặm · 39 nhà hàng trong 1 dặm",
+        "mls_evidence_categories": [
+          "restaurants",
+          "shopping",
+          "highway"
+        ]
+      },
       "sections_vi": [
         {
           "name": "Thông tin chung",
@@ -7062,6 +9208,94 @@
       "sqft_number": 3025,
       "beds_number": 4.0,
       "baths_number": 5.0,
+      "location": {
+        "amenities": {
+          "vietnamese_community": {
+            "name": "Vietnamese Heritage Garden",
+            "distance_miles": 2.48
+          },
+          "lake": {
+            "name": "Almaden Lake",
+            "distance_miles": 4.15
+          },
+          "coast": {
+            "name": "New Brighton State Beach",
+            "distance_miles": 22.25
+          },
+          "highway": {
+            "name": "CA 87",
+            "distance_miles": 0.57
+          },
+          "park": {
+            "name": "River Glen Park",
+            "distance_miles": 0.14,
+            "counts": {
+              "0.5": 1,
+              "1": 6,
+              "2": 32
+            }
+          },
+          "restaurants": {
+            "name": "Great Wall",
+            "distance_miles": 0.48,
+            "counts": {
+              "0.5": 2,
+              "1": 44,
+              "2": 85
+            }
+          },
+          "shopping": {
+            "name": "Safeway",
+            "distance_miles": 0.45,
+            "counts": {
+              "0.5": 1,
+              "1": 2,
+              "2": 13
+            }
+          },
+          "transit": {
+            "name": "Tamien · VTA",
+            "distance_miles": 0.83
+          }
+        },
+        "matches": {
+          "strict": {
+            "vietnamese_community": true,
+            "lake": false,
+            "coast": false,
+            "highway": false,
+            "park": true,
+            "shopping": true,
+            "transit": false,
+            "restaurants": false
+          },
+          "balanced": {
+            "vietnamese_community": true,
+            "lake": false,
+            "coast": false,
+            "highway": true,
+            "park": true,
+            "shopping": true,
+            "transit": true,
+            "restaurants": true
+          },
+          "broad": {
+            "vietnamese_community": true,
+            "lake": true,
+            "coast": true,
+            "highway": true,
+            "park": true,
+            "shopping": true,
+            "transit": true,
+            "restaurants": true
+          }
+        },
+        "summary_vi": "khu thương mại / sinh hoạt cộng đồng việt cách khoảng 2.5 dặm · công viên cách khoảng 0.1 dặm · 44 nhà hàng trong 1 dặm",
+        "mls_evidence_categories": [
+          "park",
+          "transit"
+        ]
+      },
       "sections_vi": [
         {
           "name": "Thông tin chung",
@@ -7418,6 +9652,94 @@
       "sqft_number": 4651,
       "beds_number": 5.0,
       "baths_number": 4.0,
+      "location": {
+        "amenities": {
+          "vietnamese_community": {
+            "name": "Little Saigon / Grand Century Mall",
+            "distance_miles": 6.35
+          },
+          "lake": {
+            "name": "Lake Cunningham",
+            "distance_miles": 6.8
+          },
+          "coast": {
+            "name": "New Brighton State Beach",
+            "distance_miles": 31.02
+          },
+          "highway": {
+            "name": "I 680",
+            "distance_miles": 1.2
+          },
+          "park": {
+            "name": "Hillcrest Park",
+            "distance_miles": 0.28,
+            "counts": {
+              "0.5": 2,
+              "1": 7,
+              "2": 14
+            }
+          },
+          "restaurants": {
+            "name": "Parktown Pizza Company",
+            "distance_miles": 0.89,
+            "counts": {
+              "0.5": 0,
+              "1": 1,
+              "2": 33
+            }
+          },
+          "shopping": {
+            "name": "Apni Mandi Farmers Market",
+            "distance_miles": 0.9,
+            "counts": {
+              "0.5": 0,
+              "1": 1,
+              "2": 7
+            }
+          },
+          "transit": {
+            "name": "Cropley · VTA",
+            "distance_miles": 1.9
+          }
+        },
+        "matches": {
+          "strict": {
+            "vietnamese_community": false,
+            "lake": false,
+            "coast": false,
+            "highway": false,
+            "park": false,
+            "shopping": false,
+            "transit": false,
+            "restaurants": false
+          },
+          "balanced": {
+            "vietnamese_community": false,
+            "lake": false,
+            "coast": false,
+            "highway": true,
+            "park": true,
+            "shopping": false,
+            "transit": false,
+            "restaurants": false
+          },
+          "broad": {
+            "vietnamese_community": true,
+            "lake": true,
+            "coast": false,
+            "highway": true,
+            "park": true,
+            "shopping": true,
+            "transit": true,
+            "restaurants": true
+          }
+        },
+        "summary_vi": "công viên cách khoảng 0.3 dặm · cao tốc cách khoảng 1.2 dặm",
+        "mls_evidence_categories": [
+          "highway",
+          "transit"
+        ]
+      },
       "sections_vi": [
         {
           "name": "Thông tin chung",
@@ -7715,6 +10037,95 @@
       "sqft_number": 2587,
       "beds_number": 5.0,
       "baths_number": 5.0,
+      "location": {
+        "amenities": {
+          "vietnamese_community": {
+            "name": "Vietnamese Heritage Garden",
+            "distance_miles": 2.19
+          },
+          "lake": {
+            "name": "Almaden Lake",
+            "distance_miles": 4.21
+          },
+          "coast": {
+            "name": "New Brighton State Beach",
+            "distance_miles": 22.39
+          },
+          "highway": {
+            "name": "CA 87",
+            "distance_miles": 0.26
+          },
+          "park": {
+            "name": "River Glen Park",
+            "distance_miles": 0.28,
+            "counts": {
+              "0.5": 1,
+              "1": 7,
+              "2": 36
+            }
+          },
+          "restaurants": {
+            "name": "Reyhan Restaurant",
+            "distance_miles": 0.41,
+            "counts": {
+              "0.5": 2,
+              "1": 30,
+              "2": 88
+            }
+          },
+          "shopping": {
+            "name": "Safeway",
+            "distance_miles": 0.55,
+            "counts": {
+              "0.5": 0,
+              "1": 2,
+              "2": 13
+            }
+          },
+          "transit": {
+            "name": "Tamien · VTA",
+            "distance_miles": 0.71
+          }
+        },
+        "matches": {
+          "strict": {
+            "vietnamese_community": true,
+            "lake": false,
+            "coast": false,
+            "highway": true,
+            "park": false,
+            "shopping": false,
+            "transit": true,
+            "restaurants": false
+          },
+          "balanced": {
+            "vietnamese_community": true,
+            "lake": false,
+            "coast": false,
+            "highway": true,
+            "park": true,
+            "shopping": true,
+            "transit": true,
+            "restaurants": true
+          },
+          "broad": {
+            "vietnamese_community": true,
+            "lake": true,
+            "coast": true,
+            "highway": true,
+            "park": true,
+            "shopping": true,
+            "transit": true,
+            "restaurants": true
+          }
+        },
+        "summary_vi": "khu thương mại / sinh hoạt cộng đồng việt cách khoảng 2.2 dặm · công viên cách khoảng 0.3 dặm · 30 nhà hàng trong 1 dặm",
+        "mls_evidence_categories": [
+          "park",
+          "restaurants",
+          "shopping"
+        ]
+      },
       "sections_vi": [
         {
           "name": "Thông tin chung",
@@ -8058,6 +10469,94 @@
       "sqft_number": 6960,
       "beds_number": 6.0,
       "baths_number": 9.0,
+      "location": {
+        "amenities": {
+          "vietnamese_community": {
+            "name": "Trung tâm Văn hóa Việt-Mỹ",
+            "distance_miles": 15.53
+          },
+          "lake": {
+            "name": "Chesbro Reservoir",
+            "distance_miles": 1.38
+          },
+          "coast": {
+            "name": "New Brighton State Beach",
+            "distance_miles": 16.8
+          },
+          "highway": {
+            "name": "US 101",
+            "distance_miles": 2.48
+          },
+          "park": {
+            "name": "Murphy Springs Park",
+            "distance_miles": 1.15,
+            "counts": {
+              "0.5": 0,
+              "1": 0,
+              "2": 9
+            }
+          },
+          "restaurants": {
+            "name": "Lorenzo's Grill",
+            "distance_miles": 1.57,
+            "counts": {
+              "0.5": 0,
+              "1": 0,
+              "2": 22
+            }
+          },
+          "shopping": {
+            "name": "Region Market",
+            "distance_miles": 1.57,
+            "counts": {
+              "0.5": 0,
+              "1": 0,
+              "2": 1
+            }
+          },
+          "transit": {
+            "name": "Morgan Hill · Caltrain",
+            "distance_miles": 2.07
+          }
+        },
+        "matches": {
+          "strict": {
+            "vietnamese_community": false,
+            "lake": true,
+            "coast": true,
+            "highway": false,
+            "park": false,
+            "shopping": false,
+            "transit": false,
+            "restaurants": false
+          },
+          "balanced": {
+            "vietnamese_community": false,
+            "lake": true,
+            "coast": true,
+            "highway": false,
+            "park": false,
+            "shopping": false,
+            "transit": false,
+            "restaurants": false
+          },
+          "broad": {
+            "vietnamese_community": false,
+            "lake": true,
+            "coast": true,
+            "highway": false,
+            "park": false,
+            "shopping": false,
+            "transit": false,
+            "restaurants": true
+          }
+        },
+        "summary_vi": "hồ hoặc hồ chứa nước cách khoảng 1.4 dặm · bãi biển cách khoảng 16.8 dặm",
+        "mls_evidence_categories": [
+          "restaurants",
+          "shopping"
+        ]
+      },
       "sections_vi": [
         {
           "name": "Thông tin chung",
@@ -8381,6 +10880,93 @@
       "sqft_number": 4476,
       "beds_number": 5.0,
       "baths_number": 4.0,
+      "location": {
+        "amenities": {
+          "vietnamese_community": {
+            "name": "Trung tâm Văn hóa Việt-Mỹ",
+            "distance_miles": 7.68
+          },
+          "lake": {
+            "name": "Guadalupe Reservoir",
+            "distance_miles": 1.12
+          },
+          "coast": {
+            "name": "New Brighton State Beach",
+            "distance_miles": 16.13
+          },
+          "highway": {
+            "name": "CA 85",
+            "distance_miles": 3.19
+          },
+          "park": {
+            "name": "Copperwood Park & Community Pool",
+            "distance_miles": 0.8,
+            "counts": {
+              "0.5": 0,
+              "1": 3,
+              "2": 11
+            }
+          },
+          "restaurants": {
+            "name": "Almaden Sushi",
+            "distance_miles": 0.9,
+            "counts": {
+              "0.5": 0,
+              "1": 5,
+              "2": 16
+            }
+          },
+          "shopping": {
+            "name": "Safeway",
+            "distance_miles": 0.88,
+            "counts": {
+              "0.5": 0,
+              "1": 1,
+              "2": 2
+            }
+          },
+          "transit": {
+            "name": "Almaden · VTA",
+            "distance_miles": 2.54
+          }
+        },
+        "matches": {
+          "strict": {
+            "vietnamese_community": false,
+            "lake": true,
+            "coast": true,
+            "highway": false,
+            "park": false,
+            "shopping": false,
+            "transit": false,
+            "restaurants": false
+          },
+          "balanced": {
+            "vietnamese_community": false,
+            "lake": true,
+            "coast": true,
+            "highway": false,
+            "park": false,
+            "shopping": false,
+            "transit": false,
+            "restaurants": true
+          },
+          "broad": {
+            "vietnamese_community": true,
+            "lake": true,
+            "coast": true,
+            "highway": false,
+            "park": true,
+            "shopping": true,
+            "transit": false,
+            "restaurants": true
+          }
+        },
+        "summary_vi": "5 nhà hàng trong 1 dặm · hồ hoặc hồ chứa nước cách khoảng 1.1 dặm · bãi biển cách khoảng 16.1 dặm",
+        "mls_evidence_categories": [
+          "restaurants"
+        ]
+      },
       "sections_vi": [
         {
           "name": "Thông tin chung",
@@ -8655,6 +11241,91 @@
       "sqft_number": 3131,
       "beds_number": 5.0,
       "baths_number": 5.0,
+      "location": {
+        "amenities": {
+          "vietnamese_community": {
+            "name": "Vietnamese Heritage Garden",
+            "distance_miles": 7.36
+          },
+          "lake": {
+            "name": "Vasona Reservoir",
+            "distance_miles": 1.2
+          },
+          "coast": {
+            "name": "New Brighton State Beach",
+            "distance_miles": 18.5
+          },
+          "highway": {
+            "name": "CA 85",
+            "distance_miles": 0.46
+          },
+          "park": {
+            "name": "Live Oak Manor Park",
+            "distance_miles": 0.49,
+            "counts": {
+              "0.5": 1,
+              "1": 4,
+              "2": 12
+            }
+          },
+          "restaurants": {
+            "name": "Mooyah",
+            "distance_miles": 0.8,
+            "counts": {
+              "0.5": 0,
+              "1": 6,
+              "2": 31
+            }
+          },
+          "shopping": {
+            "name": "Trader Joe's",
+            "distance_miles": 0.65,
+            "counts": {
+              "0.5": 0,
+              "1": 4,
+              "2": 10
+            }
+          },
+          "transit": {
+            "name": "Oak Meadow · Billy Jones Wildcat Railroad",
+            "distance_miles": 1.71
+          }
+        },
+        "matches": {
+          "strict": {
+            "vietnamese_community": false,
+            "lake": true,
+            "coast": false,
+            "highway": true,
+            "park": false,
+            "shopping": false,
+            "transit": false,
+            "restaurants": false
+          },
+          "balanced": {
+            "vietnamese_community": false,
+            "lake": true,
+            "coast": true,
+            "highway": true,
+            "park": true,
+            "shopping": true,
+            "transit": false,
+            "restaurants": true
+          },
+          "broad": {
+            "vietnamese_community": true,
+            "lake": true,
+            "coast": true,
+            "highway": true,
+            "park": true,
+            "shopping": true,
+            "transit": true,
+            "restaurants": true
+          }
+        },
+        "summary_vi": "công viên cách khoảng 0.5 dặm · 6 nhà hàng trong 1 dặm · mua sắm cách khoảng 0.7 dặm",
+        "mls_evidence_categories": []
+      },
       "sections_vi": [
         {
           "name": "Thông tin chung",
@@ -8945,6 +11616,93 @@
       "sqft_number": 3172,
       "beds_number": 5.0,
       "baths_number": 4.0,
+      "location": {
+        "amenities": {
+          "vietnamese_community": {
+            "name": "Trung tâm Văn hóa Việt-Mỹ",
+            "distance_miles": 3.69
+          },
+          "lake": {
+            "name": "Almaden Lake",
+            "distance_miles": 2.04
+          },
+          "coast": {
+            "name": "New Brighton State Beach",
+            "distance_miles": 20.31
+          },
+          "highway": {
+            "name": "CA 87",
+            "distance_miles": 0.72
+          },
+          "park": {
+            "name": "Thousand Oaks Park",
+            "distance_miles": 0.17,
+            "counts": {
+              "0.5": 2,
+              "1": 5,
+              "2": 34
+            }
+          },
+          "restaurants": {
+            "name": "Denny's",
+            "distance_miles": 0.35,
+            "counts": {
+              "0.5": 1,
+              "1": 16,
+              "2": 77
+            }
+          },
+          "shopping": {
+            "name": "Trinethra Supermarket",
+            "distance_miles": 0.6,
+            "counts": {
+              "0.5": 0,
+              "1": 4,
+              "2": 21
+            }
+          },
+          "transit": {
+            "name": "Capitol · VTA",
+            "distance_miles": 0.75
+          }
+        },
+        "matches": {
+          "strict": {
+            "vietnamese_community": true,
+            "lake": false,
+            "coast": false,
+            "highway": false,
+            "park": true,
+            "shopping": false,
+            "transit": true,
+            "restaurants": false
+          },
+          "balanced": {
+            "vietnamese_community": true,
+            "lake": true,
+            "coast": true,
+            "highway": true,
+            "park": true,
+            "shopping": true,
+            "transit": true,
+            "restaurants": true
+          },
+          "broad": {
+            "vietnamese_community": true,
+            "lake": true,
+            "coast": true,
+            "highway": true,
+            "park": true,
+            "shopping": true,
+            "transit": true,
+            "restaurants": true
+          }
+        },
+        "summary_vi": "khu thương mại / sinh hoạt cộng đồng việt cách khoảng 3.7 dặm · công viên cách khoảng 0.2 dặm · 16 nhà hàng trong 1 dặm",
+        "mls_evidence_categories": [
+          "transit"
+        ]
+      },
       "sections_vi": [
         {
           "name": "Thông tin chung",
@@ -9252,6 +12010,96 @@
       "sqft_number": 3419,
       "beds_number": 4.0,
       "baths_number": 4.0,
+      "location": {
+        "amenities": {
+          "vietnamese_community": {
+            "name": "Trung tâm Văn hóa Việt-Mỹ",
+            "distance_miles": 5.52
+          },
+          "lake": {
+            "name": "Almaden Lake",
+            "distance_miles": 0.21
+          },
+          "coast": {
+            "name": "New Brighton State Beach",
+            "distance_miles": 18.35
+          },
+          "highway": {
+            "name": "CA 85",
+            "distance_miles": 0.89
+          },
+          "park": {
+            "name": "Almaden Lake Park",
+            "distance_miles": 0.22,
+            "counts": {
+              "0.5": 3,
+              "1": 6,
+              "2": 22
+            }
+          },
+          "restaurants": {
+            "name": "Mr. Mojito JF Bar & Grill",
+            "distance_miles": 0.42,
+            "counts": {
+              "0.5": 4,
+              "1": 29,
+              "2": 75
+            }
+          },
+          "shopping": {
+            "name": "Whole Foods Market",
+            "distance_miles": 0.54,
+            "counts": {
+              "0.5": 0,
+              "1": 10,
+              "2": 22
+            }
+          },
+          "transit": {
+            "name": "Almaden · VTA",
+            "distance_miles": 0.35
+          }
+        },
+        "matches": {
+          "strict": {
+            "vietnamese_community": false,
+            "lake": true,
+            "coast": false,
+            "highway": false,
+            "park": true,
+            "shopping": false,
+            "transit": true,
+            "restaurants": true
+          },
+          "balanced": {
+            "vietnamese_community": true,
+            "lake": true,
+            "coast": true,
+            "highway": true,
+            "park": true,
+            "shopping": true,
+            "transit": true,
+            "restaurants": true
+          },
+          "broad": {
+            "vietnamese_community": true,
+            "lake": true,
+            "coast": true,
+            "highway": true,
+            "park": true,
+            "shopping": true,
+            "transit": true,
+            "restaurants": true
+          }
+        },
+        "summary_vi": "khu thương mại / sinh hoạt cộng đồng việt cách khoảng 5.5 dặm · công viên cách khoảng 0.2 dặm · 29 nhà hàng trong 1 dặm",
+        "mls_evidence_categories": [
+          "park",
+          "restaurants",
+          "shopping",
+          "lake"
+        ]
+      },
       "sections_vi": [
         {
           "name": "Thông tin chung",
@@ -9542,6 +12390,93 @@
       "sqft_number": 3017,
       "beds_number": 6.0,
       "baths_number": 5.0,
+      "location": {
+        "amenities": {
+          "vietnamese_community": {
+            "name": "Vietnamese Heritage Garden",
+            "distance_miles": 7.11
+          },
+          "lake": {
+            "name": "Vasona Reservoir",
+            "distance_miles": 2.26
+          },
+          "coast": {
+            "name": "New Brighton State Beach",
+            "distance_miles": 20.61
+          },
+          "highway": {
+            "name": "CA 85",
+            "distance_miles": 0.94
+          },
+          "park": {
+            "name": "San Tomas Park",
+            "distance_miles": 0.42,
+            "counts": {
+              "0.5": 2,
+              "1": 4,
+              "2": 22
+            }
+          },
+          "restaurants": {
+            "name": "Sorelle Italian Bistro",
+            "distance_miles": 0.19,
+            "counts": {
+              "0.5": 1,
+              "1": 10,
+              "2": 95
+            }
+          },
+          "shopping": {
+            "name": "Nob Hill Foods",
+            "distance_miles": 0.83,
+            "counts": {
+              "0.5": 0,
+              "1": 2,
+              "2": 15
+            }
+          },
+          "transit": {
+            "name": "Winchester · VTA",
+            "distance_miles": 1.19
+          }
+        },
+        "matches": {
+          "strict": {
+            "vietnamese_community": false,
+            "lake": false,
+            "coast": false,
+            "highway": false,
+            "park": false,
+            "shopping": false,
+            "transit": false,
+            "restaurants": false
+          },
+          "balanced": {
+            "vietnamese_community": false,
+            "lake": true,
+            "coast": true,
+            "highway": true,
+            "park": true,
+            "shopping": false,
+            "transit": true,
+            "restaurants": true
+          },
+          "broad": {
+            "vietnamese_community": true,
+            "lake": true,
+            "coast": true,
+            "highway": true,
+            "park": true,
+            "shopping": true,
+            "transit": true,
+            "restaurants": true
+          }
+        },
+        "summary_vi": "công viên cách khoảng 0.4 dặm · 10 nhà hàng trong 1 dặm · cao tốc cách khoảng 0.9 dặm",
+        "mls_evidence_categories": [
+          "restaurants"
+        ]
+      },
       "sections_vi": [
         {
           "name": "Thông tin chung",
@@ -9762,6 +12697,93 @@
       "sqft_number": 2969,
       "beds_number": 5.0,
       "baths_number": 5.0,
+      "location": {
+        "amenities": {
+          "vietnamese_community": {
+            "name": "Vietnamese Heritage Garden",
+            "distance_miles": 2.11
+          },
+          "lake": {
+            "name": "Lake Cunningham",
+            "distance_miles": 4.78
+          },
+          "coast": {
+            "name": "New Brighton State Beach",
+            "distance_miles": 22.91
+          },
+          "highway": {
+            "name": "CA 87",
+            "distance_miles": 0.27
+          },
+          "park": {
+            "name": "Tamien Park",
+            "distance_miles": 0.39,
+            "counts": {
+              "0.5": 1,
+              "1": 10,
+              "2": 38
+            }
+          },
+          "restaurants": {
+            "name": "Casa Juana",
+            "distance_miles": 0.09,
+            "counts": {
+              "0.5": 10,
+              "1": 45,
+              "2": 181
+            }
+          },
+          "shopping": {
+            "name": "Safeway",
+            "distance_miles": 0.26,
+            "counts": {
+              "0.5": 1,
+              "1": 4,
+              "2": 15
+            }
+          },
+          "transit": {
+            "name": "Tamien · VTA",
+            "distance_miles": 0.28
+          }
+        },
+        "matches": {
+          "strict": {
+            "vietnamese_community": true,
+            "lake": false,
+            "coast": false,
+            "highway": true,
+            "park": false,
+            "shopping": true,
+            "transit": true,
+            "restaurants": true
+          },
+          "balanced": {
+            "vietnamese_community": true,
+            "lake": false,
+            "coast": false,
+            "highway": true,
+            "park": true,
+            "shopping": true,
+            "transit": true,
+            "restaurants": true
+          },
+          "broad": {
+            "vietnamese_community": true,
+            "lake": true,
+            "coast": true,
+            "highway": true,
+            "park": true,
+            "shopping": true,
+            "transit": true,
+            "restaurants": true
+          }
+        },
+        "summary_vi": "khu thương mại / sinh hoạt cộng đồng việt cách khoảng 2.1 dặm · công viên cách khoảng 0.4 dặm · 45 nhà hàng trong 1 dặm",
+        "mls_evidence_categories": [
+          "restaurants"
+        ]
+      },
       "sections_vi": [
         {
           "name": "Thông tin chung",
@@ -9972,6 +12994,91 @@
       "sqft_number": 4059,
       "beds_number": 4.0,
       "baths_number": 4.0,
+      "location": {
+        "amenities": {
+          "vietnamese_community": {
+            "name": "Trung tâm Văn hóa Việt-Mỹ",
+            "distance_miles": 22.6
+          },
+          "lake": {
+            "name": "Coyote Lake",
+            "distance_miles": 3.77
+          },
+          "coast": {
+            "name": "New Brighton State Beach",
+            "distance_miles": 18.66
+          },
+          "highway": {
+            "name": "US 101",
+            "distance_miles": 0.99
+          },
+          "park": {
+            "name": "Sunrise Park",
+            "distance_miles": 1.6,
+            "counts": {
+              "0.5": 0,
+              "1": 0,
+              "2": 3
+            }
+          },
+          "restaurants": {
+            "name": "Taco's Ameca II",
+            "distance_miles": 1.86,
+            "counts": {
+              "0.5": 0,
+              "1": 0,
+              "2": 1
+            }
+          },
+          "shopping": {
+            "name": "Rocca's Market",
+            "distance_miles": 2.22,
+            "counts": {
+              "0.5": 0,
+              "1": 0,
+              "2": 0
+            }
+          },
+          "transit": {
+            "name": "San Martin · Caltrain",
+            "distance_miles": 2.25
+          }
+        },
+        "matches": {
+          "strict": {
+            "vietnamese_community": false,
+            "lake": false,
+            "coast": false,
+            "highway": false,
+            "park": false,
+            "shopping": false,
+            "transit": false,
+            "restaurants": false
+          },
+          "balanced": {
+            "vietnamese_community": false,
+            "lake": true,
+            "coast": true,
+            "highway": true,
+            "park": false,
+            "shopping": false,
+            "transit": false,
+            "restaurants": false
+          },
+          "broad": {
+            "vietnamese_community": false,
+            "lake": true,
+            "coast": true,
+            "highway": true,
+            "park": false,
+            "shopping": false,
+            "transit": false,
+            "restaurants": false
+          }
+        },
+        "summary_vi": "cao tốc cách khoảng 1.0 dặm · hồ hoặc hồ chứa nước cách khoảng 3.8 dặm · bãi biển cách khoảng 18.7 dặm",
+        "mls_evidence_categories": []
+      },
       "sections_vi": [
         {
           "name": "Thông tin chung",
@@ -10247,6 +13354,96 @@
       "sqft_number": 3346,
       "beds_number": 5.0,
       "baths_number": 7.0,
+      "location": {
+        "amenities": {
+          "vietnamese_community": {
+            "name": "Vietnamese Heritage Garden",
+            "distance_miles": 2.49
+          },
+          "lake": {
+            "name": "Lake Cunningham",
+            "distance_miles": 5.2
+          },
+          "coast": {
+            "name": "New Brighton State Beach",
+            "distance_miles": 23.18
+          },
+          "highway": {
+            "name": "I 280",
+            "distance_miles": 0.34
+          },
+          "park": {
+            "name": "Hummingbird Park",
+            "distance_miles": 0.08,
+            "counts": {
+              "0.5": 4,
+              "1": 8,
+              "2": 41
+            }
+          },
+          "restaurants": {
+            "name": "New Indian Cuisine",
+            "distance_miles": 0.27,
+            "counts": {
+              "0.5": 23,
+              "1": 45,
+              "2": 215
+            }
+          },
+          "shopping": {
+            "name": "Arteagas Food Center",
+            "distance_miles": 0.3,
+            "counts": {
+              "0.5": 2,
+              "1": 7,
+              "2": 19
+            }
+          },
+          "transit": {
+            "name": "Virginia · VTA",
+            "distance_miles": 0.63
+          }
+        },
+        "matches": {
+          "strict": {
+            "vietnamese_community": true,
+            "lake": false,
+            "coast": false,
+            "highway": true,
+            "park": true,
+            "shopping": true,
+            "transit": true,
+            "restaurants": true
+          },
+          "balanced": {
+            "vietnamese_community": true,
+            "lake": false,
+            "coast": false,
+            "highway": true,
+            "park": true,
+            "shopping": true,
+            "transit": true,
+            "restaurants": true
+          },
+          "broad": {
+            "vietnamese_community": true,
+            "lake": true,
+            "coast": true,
+            "highway": true,
+            "park": true,
+            "shopping": true,
+            "transit": true,
+            "restaurants": true
+          }
+        },
+        "summary_vi": "khu thương mại / sinh hoạt cộng đồng việt cách khoảng 2.5 dặm · công viên cách khoảng 0.1 dặm · 45 nhà hàng trong 1 dặm",
+        "mls_evidence_categories": [
+          "park",
+          "restaurants",
+          "shopping",
+          "highway"
+        ]
+      },
       "sections_vi": [
         {
           "name": "Thông tin chung",
@@ -10581,6 +13778,94 @@
       "sqft_number": 2316,
       "beds_number": 4.0,
       "baths_number": 3.0,
+      "location": {
+        "amenities": {
+          "vietnamese_community": {
+            "name": "Trung tâm Văn hóa Việt-Mỹ",
+            "distance_miles": 3.31
+          },
+          "lake": {
+            "name": "Almaden Lake",
+            "distance_miles": 2.87
+          },
+          "coast": {
+            "name": "New Brighton State Beach",
+            "distance_miles": 21.01
+          },
+          "highway": {
+            "name": "CA 87",
+            "distance_miles": 0.87
+          },
+          "park": {
+            "name": "Canoas Gardens",
+            "distance_miles": 0.28,
+            "counts": {
+              "0.5": 4,
+              "1": 7,
+              "2": 34
+            }
+          },
+          "restaurants": {
+            "name": "Denny's",
+            "distance_miles": 0.54,
+            "counts": {
+              "0.5": 0,
+              "1": 12,
+              "2": 74
+            }
+          },
+          "shopping": {
+            "name": "Zanotto's",
+            "distance_miles": 0.62,
+            "counts": {
+              "0.5": 0,
+              "1": 1,
+              "2": 13
+            }
+          },
+          "transit": {
+            "name": "Curtner · VTA",
+            "distance_miles": 1.04
+          }
+        },
+        "matches": {
+          "strict": {
+            "vietnamese_community": true,
+            "lake": false,
+            "coast": false,
+            "highway": false,
+            "park": false,
+            "shopping": false,
+            "transit": false,
+            "restaurants": false
+          },
+          "balanced": {
+            "vietnamese_community": true,
+            "lake": true,
+            "coast": true,
+            "highway": true,
+            "park": true,
+            "shopping": true,
+            "transit": true,
+            "restaurants": true
+          },
+          "broad": {
+            "vietnamese_community": true,
+            "lake": true,
+            "coast": true,
+            "highway": true,
+            "park": true,
+            "shopping": true,
+            "transit": true,
+            "restaurants": true
+          }
+        },
+        "summary_vi": "khu thương mại / sinh hoạt cộng đồng việt cách khoảng 3.3 dặm · công viên cách khoảng 0.3 dặm · 12 nhà hàng trong 1 dặm",
+        "mls_evidence_categories": [
+          "restaurants",
+          "highway"
+        ]
+      },
       "sections_vi": [
         {
           "name": "Thông tin chung",
@@ -10859,6 +14144,95 @@
       "sqft_number": 3233,
       "beds_number": 5.0,
       "baths_number": 4.0,
+      "location": {
+        "amenities": {
+          "vietnamese_community": {
+            "name": "Vietnamese Heritage Garden",
+            "distance_miles": 6.74
+          },
+          "lake": {
+            "name": "Vasona Reservoir",
+            "distance_miles": 1.66
+          },
+          "coast": {
+            "name": "New Brighton State Beach",
+            "distance_miles": 19.09
+          },
+          "highway": {
+            "name": "CA 85",
+            "distance_miles": 0.16
+          },
+          "park": {
+            "name": "Houge Park",
+            "distance_miles": 0.1,
+            "counts": {
+              "0.5": 2,
+              "1": 3,
+              "2": 15
+            }
+          },
+          "restaurants": {
+            "name": "Doña Maria Fresh Mex",
+            "distance_miles": 0.4,
+            "counts": {
+              "0.5": 1,
+              "1": 10,
+              "2": 48
+            }
+          },
+          "shopping": {
+            "name": "Lucky",
+            "distance_miles": 0.71,
+            "counts": {
+              "0.5": 0,
+              "1": 1,
+              "2": 14
+            }
+          },
+          "transit": {
+            "name": "Winchester · VTA",
+            "distance_miles": 1.7
+          }
+        },
+        "matches": {
+          "strict": {
+            "vietnamese_community": false,
+            "lake": true,
+            "coast": false,
+            "highway": true,
+            "park": true,
+            "shopping": false,
+            "transit": false,
+            "restaurants": false
+          },
+          "balanced": {
+            "vietnamese_community": false,
+            "lake": true,
+            "coast": true,
+            "highway": true,
+            "park": true,
+            "shopping": true,
+            "transit": false,
+            "restaurants": true
+          },
+          "broad": {
+            "vietnamese_community": true,
+            "lake": true,
+            "coast": true,
+            "highway": true,
+            "park": true,
+            "shopping": true,
+            "transit": true,
+            "restaurants": true
+          }
+        },
+        "summary_vi": "công viên cách khoảng 0.1 dặm · 10 nhà hàng trong 1 dặm · mua sắm cách khoảng 0.7 dặm",
+        "mls_evidence_categories": [
+          "park",
+          "restaurants",
+          "shopping"
+        ]
+      },
       "sections_vi": [
         {
           "name": "Thông tin chung",
@@ -11129,6 +14503,91 @@
       "sqft_number": 3046,
       "beds_number": 5.0,
       "baths_number": 5.0,
+      "location": {
+        "amenities": {
+          "vietnamese_community": {
+            "name": "Vietnamese Heritage Garden",
+            "distance_miles": 3.18
+          },
+          "lake": {
+            "name": "Almaden Lake",
+            "distance_miles": 3.26
+          },
+          "coast": {
+            "name": "New Brighton State Beach",
+            "distance_miles": 21.34
+          },
+          "highway": {
+            "name": "CA 87",
+            "distance_miles": 0.91
+          },
+          "park": {
+            "name": "Roy Avenue Park",
+            "distance_miles": 0.22,
+            "counts": {
+              "0.5": 4,
+              "1": 7,
+              "2": 31
+            }
+          },
+          "restaurants": {
+            "name": "Pearl River Chinese Restaurant",
+            "distance_miles": 0.15,
+            "counts": {
+              "0.5": 5,
+              "1": 12,
+              "2": 76
+            }
+          },
+          "shopping": {
+            "name": "Zanotto's",
+            "distance_miles": 0.82,
+            "counts": {
+              "0.5": 0,
+              "1": 1,
+              "2": 13
+            }
+          },
+          "transit": {
+            "name": "Curtner · VTA",
+            "distance_miles": 0.94
+          }
+        },
+        "matches": {
+          "strict": {
+            "vietnamese_community": true,
+            "lake": false,
+            "coast": false,
+            "highway": false,
+            "park": true,
+            "shopping": false,
+            "transit": false,
+            "restaurants": true
+          },
+          "balanced": {
+            "vietnamese_community": true,
+            "lake": true,
+            "coast": true,
+            "highway": true,
+            "park": true,
+            "shopping": false,
+            "transit": true,
+            "restaurants": true
+          },
+          "broad": {
+            "vietnamese_community": true,
+            "lake": true,
+            "coast": true,
+            "highway": true,
+            "park": true,
+            "shopping": true,
+            "transit": true,
+            "restaurants": true
+          }
+        },
+        "summary_vi": "khu thương mại / sinh hoạt cộng đồng việt cách khoảng 3.2 dặm · công viên cách khoảng 0.2 dặm · 12 nhà hàng trong 1 dặm",
+        "mls_evidence_categories": []
+      },
       "sections_vi": [
         {
           "name": "Thông tin chung",
@@ -11339,6 +14798,95 @@
       "sqft_number": 2547,
       "beds_number": 4.0,
       "baths_number": 3.0,
+      "location": {
+        "amenities": {
+          "vietnamese_community": {
+            "name": "The Shops at Vietnam Town",
+            "distance_miles": 6.09
+          },
+          "lake": {
+            "name": "Vasona Reservoir",
+            "distance_miles": 6.74
+          },
+          "coast": {
+            "name": "New Brighton State Beach",
+            "distance_miles": 25.06
+          },
+          "highway": {
+            "name": "I 280",
+            "distance_miles": 1.62
+          },
+          "park": {
+            "name": "Mary Gomez Park",
+            "distance_miles": 0.29,
+            "counts": {
+              "0.5": 3,
+              "1": 8,
+              "2": 28
+            }
+          },
+          "restaurants": {
+            "name": "Orange Square",
+            "distance_miles": 0.24,
+            "counts": {
+              "0.5": 7,
+              "1": 48,
+              "2": 182
+            }
+          },
+          "shopping": {
+            "name": "Ross",
+            "distance_miles": 0.32,
+            "counts": {
+              "0.5": 2,
+              "1": 9,
+              "2": 32
+            }
+          },
+          "transit": {
+            "name": "Santa Clara Transit Center · VTA",
+            "distance_miles": 1.97
+          }
+        },
+        "matches": {
+          "strict": {
+            "vietnamese_community": false,
+            "lake": false,
+            "coast": false,
+            "highway": false,
+            "park": false,
+            "shopping": true,
+            "transit": false,
+            "restaurants": true
+          },
+          "balanced": {
+            "vietnamese_community": false,
+            "lake": false,
+            "coast": false,
+            "highway": false,
+            "park": true,
+            "shopping": true,
+            "transit": false,
+            "restaurants": true
+          },
+          "broad": {
+            "vietnamese_community": true,
+            "lake": true,
+            "coast": true,
+            "highway": true,
+            "park": true,
+            "shopping": true,
+            "transit": true,
+            "restaurants": true
+          }
+        },
+        "summary_vi": "công viên cách khoảng 0.3 dặm · 48 nhà hàng trong 1 dặm · mua sắm cách khoảng 0.3 dặm",
+        "mls_evidence_categories": [
+          "restaurants",
+          "shopping",
+          "highway"
+        ]
+      },
       "sections_vi": [
         {
           "name": "Thông tin chung",
@@ -11682,6 +15230,94 @@
       "sqft_number": 3450,
       "beds_number": 4.0,
       "baths_number": 4.0,
+      "location": {
+        "amenities": {
+          "vietnamese_community": {
+            "name": "The Shops at Vietnam Town",
+            "distance_miles": 0.82
+          },
+          "lake": {
+            "name": "Lake Cunningham",
+            "distance_miles": 3.45
+          },
+          "coast": {
+            "name": "New Brighton State Beach",
+            "distance_miles": 24.97
+          },
+          "highway": {
+            "name": "I 280",
+            "distance_miles": 0.55
+          },
+          "park": {
+            "name": "William Street Park",
+            "distance_miles": 0.24,
+            "counts": {
+              "0.5": 4,
+              "1": 10,
+              "2": 50
+            }
+          },
+          "restaurants": {
+            "name": "Naglee Park Garage",
+            "distance_miles": 0.28,
+            "counts": {
+              "0.5": 10,
+              "1": 87,
+              "2": 220
+            }
+          },
+          "shopping": {
+            "name": "La Raza Super Market",
+            "distance_miles": 0.49,
+            "counts": {
+              "0.5": 1,
+              "1": 9,
+              "2": 29
+            }
+          },
+          "transit": {
+            "name": "San Antonio · VTA",
+            "distance_miles": 0.96
+          }
+        },
+        "matches": {
+          "strict": {
+            "vietnamese_community": true,
+            "lake": false,
+            "coast": false,
+            "highway": false,
+            "park": true,
+            "shopping": true,
+            "transit": false,
+            "restaurants": true
+          },
+          "balanced": {
+            "vietnamese_community": true,
+            "lake": true,
+            "coast": false,
+            "highway": true,
+            "park": true,
+            "shopping": true,
+            "transit": true,
+            "restaurants": true
+          },
+          "broad": {
+            "vietnamese_community": true,
+            "lake": true,
+            "coast": true,
+            "highway": true,
+            "park": true,
+            "shopping": true,
+            "transit": true,
+            "restaurants": true
+          }
+        },
+        "summary_vi": "khu thương mại / sinh hoạt cộng đồng việt cách khoảng 0.8 dặm · công viên cách khoảng 0.2 dặm · 87 nhà hàng trong 1 dặm",
+        "mls_evidence_categories": [
+          "park",
+          "restaurants"
+        ]
+      },
       "sections_vi": [
         {
           "name": "Thông tin chung",
@@ -12023,6 +15659,94 @@
       "sqft_number": 5848,
       "beds_number": 5.0,
       "baths_number": 7.0,
+      "location": {
+        "amenities": {
+          "vietnamese_community": {
+            "name": "Trung tâm Văn hóa Việt-Mỹ",
+            "distance_miles": 15.47
+          },
+          "lake": {
+            "name": "Chesbro Reservoir",
+            "distance_miles": 1.69
+          },
+          "coast": {
+            "name": "New Brighton State Beach",
+            "distance_miles": 17.13
+          },
+          "highway": {
+            "name": "US 101",
+            "distance_miles": 2.16
+          },
+          "park": {
+            "name": "Murphy Springs Park",
+            "distance_miles": 0.82,
+            "counts": {
+              "0.5": 0,
+              "1": 2,
+              "2": 10
+            }
+          },
+          "restaurants": {
+            "name": "Lorenzo's Grill",
+            "distance_miles": 1.38,
+            "counts": {
+              "0.5": 0,
+              "1": 0,
+              "2": 35
+            }
+          },
+          "shopping": {
+            "name": "Region Market",
+            "distance_miles": 1.38,
+            "counts": {
+              "0.5": 0,
+              "1": 0,
+              "2": 4
+            }
+          },
+          "transit": {
+            "name": "Morgan Hill · Caltrain",
+            "distance_miles": 1.86
+          }
+        },
+        "matches": {
+          "strict": {
+            "vietnamese_community": false,
+            "lake": true,
+            "coast": true,
+            "highway": false,
+            "park": false,
+            "shopping": false,
+            "transit": false,
+            "restaurants": false
+          },
+          "balanced": {
+            "vietnamese_community": false,
+            "lake": true,
+            "coast": true,
+            "highway": false,
+            "park": false,
+            "shopping": false,
+            "transit": false,
+            "restaurants": false
+          },
+          "broad": {
+            "vietnamese_community": false,
+            "lake": true,
+            "coast": true,
+            "highway": false,
+            "park": true,
+            "shopping": true,
+            "transit": true,
+            "restaurants": true
+          }
+        },
+        "summary_vi": "hồ hoặc hồ chứa nước cách khoảng 1.7 dặm · bãi biển cách khoảng 17.1 dặm",
+        "mls_evidence_categories": [
+          "restaurants",
+          "shopping"
+        ]
+      },
       "sections_vi": [
         {
           "name": "Thông tin chung",
@@ -12333,6 +16057,94 @@
       "sqft_number": 3046,
       "beds_number": 4.0,
       "baths_number": 4.0,
+      "location": {
+        "amenities": {
+          "vietnamese_community": {
+            "name": "Trung tâm Văn hóa Việt-Mỹ",
+            "distance_miles": 4.28
+          },
+          "lake": {
+            "name": "Almaden Lake",
+            "distance_miles": 2.52
+          },
+          "coast": {
+            "name": "New Brighton State Beach",
+            "distance_miles": 20.27
+          },
+          "highway": {
+            "name": "CA 85",
+            "distance_miles": 1.43
+          },
+          "park": {
+            "name": "Paul Moore Park",
+            "distance_miles": 0.36,
+            "counts": {
+              "0.5": 2,
+              "1": 3,
+              "2": 22
+            }
+          },
+          "restaurants": {
+            "name": "Giorgio's Italian Food & Pizzeria",
+            "distance_miles": 0.31,
+            "counts": {
+              "0.5": 3,
+              "1": 10,
+              "2": 64
+            }
+          },
+          "shopping": {
+            "name": "Zanotto's",
+            "distance_miles": 0.36,
+            "counts": {
+              "0.5": 1,
+              "1": 2,
+              "2": 18
+            }
+          },
+          "transit": {
+            "name": "Capitol · VTA",
+            "distance_miles": 1.86
+          }
+        },
+        "matches": {
+          "strict": {
+            "vietnamese_community": false,
+            "lake": false,
+            "coast": false,
+            "highway": false,
+            "park": false,
+            "shopping": true,
+            "transit": false,
+            "restaurants": true
+          },
+          "balanced": {
+            "vietnamese_community": true,
+            "lake": true,
+            "coast": true,
+            "highway": false,
+            "park": true,
+            "shopping": true,
+            "transit": false,
+            "restaurants": true
+          },
+          "broad": {
+            "vietnamese_community": true,
+            "lake": true,
+            "coast": true,
+            "highway": true,
+            "park": true,
+            "shopping": true,
+            "transit": true,
+            "restaurants": true
+          }
+        },
+        "summary_vi": "khu thương mại / sinh hoạt cộng đồng việt cách khoảng 4.3 dặm · công viên cách khoảng 0.4 dặm · 10 nhà hàng trong 1 dặm",
+        "mls_evidence_categories": [
+          "restaurants",
+          "shopping"
+        ]
+      },
       "sections_vi": [
         {
           "name": "Thông tin chung",
@@ -12639,6 +16451,95 @@
       "sqft_number": 2887,
       "beds_number": 4.0,
       "baths_number": 4.0,
+      "location": {
+        "amenities": {
+          "vietnamese_community": {
+            "name": "Vietnamese Heritage Garden",
+            "distance_miles": 5.0
+          },
+          "lake": {
+            "name": "Vasona Reservoir",
+            "distance_miles": 3.4
+          },
+          "coast": {
+            "name": "New Brighton State Beach",
+            "distance_miles": 20.8
+          },
+          "highway": {
+            "name": "CA 17",
+            "distance_miles": 0.68
+          },
+          "park": {
+            "name": "Stojanovich Family Park",
+            "distance_miles": 0.44,
+            "counts": {
+              "0.5": 1,
+              "1": 5,
+              "2": 22
+            }
+          },
+          "restaurants": {
+            "name": "Best Desi Pizza",
+            "distance_miles": 0.21,
+            "counts": {
+              "0.5": 9,
+              "1": 39,
+              "2": 104
+            }
+          },
+          "shopping": {
+            "name": "Wolfe India Bazar",
+            "distance_miles": 0.25,
+            "counts": {
+              "0.5": 1,
+              "1": 8,
+              "2": 18
+            }
+          },
+          "transit": {
+            "name": "Campbell · VTA",
+            "distance_miles": 0.95
+          }
+        },
+        "matches": {
+          "strict": {
+            "vietnamese_community": false,
+            "lake": false,
+            "coast": false,
+            "highway": false,
+            "park": false,
+            "shopping": true,
+            "transit": false,
+            "restaurants": true
+          },
+          "balanced": {
+            "vietnamese_community": true,
+            "lake": true,
+            "coast": true,
+            "highway": true,
+            "park": true,
+            "shopping": true,
+            "transit": true,
+            "restaurants": true
+          },
+          "broad": {
+            "vietnamese_community": true,
+            "lake": true,
+            "coast": true,
+            "highway": true,
+            "park": true,
+            "shopping": true,
+            "transit": true,
+            "restaurants": true
+          }
+        },
+        "summary_vi": "khu thương mại / sinh hoạt cộng đồng việt cách khoảng 5.0 dặm · công viên cách khoảng 0.4 dặm · 39 nhà hàng trong 1 dặm",
+        "mls_evidence_categories": [
+          "restaurants",
+          "shopping",
+          "highway"
+        ]
+      },
       "sections_vi": [
         {
           "name": "Thông tin chung",
@@ -13032,6 +16933,93 @@
       "sqft_number": 3458,
       "beds_number": 5.0,
       "baths_number": 3.0,
+      "location": {
+        "amenities": {
+          "vietnamese_community": {
+            "name": "Trung tâm Văn hóa Việt-Mỹ",
+            "distance_miles": 4.28
+          },
+          "lake": {
+            "name": "Lake Cunningham",
+            "distance_miles": 2.92
+          },
+          "coast": {
+            "name": "New Brighton State Beach",
+            "distance_miles": 24.4
+          },
+          "highway": {
+            "name": "US 101",
+            "distance_miles": 2.52
+          },
+          "park": {
+            "name": "Fowler Creek Park",
+            "distance_miles": 0.4,
+            "counts": {
+              "0.5": 2,
+              "1": 6,
+              "2": 12
+            }
+          },
+          "restaurants": {
+            "name": "Village Grill",
+            "distance_miles": 0.48,
+            "counts": {
+              "0.5": 1,
+              "1": 5,
+              "2": 20
+            }
+          },
+          "shopping": {
+            "name": "Walmart Neighborhood Market",
+            "distance_miles": 0.44,
+            "counts": {
+              "0.5": 1,
+              "1": 1,
+              "2": 5
+            }
+          },
+          "transit": {
+            "name": "Eastridge Transit Center · VTA;Flixbus",
+            "distance_miles": 2.74
+          }
+        },
+        "matches": {
+          "strict": {
+            "vietnamese_community": false,
+            "lake": false,
+            "coast": false,
+            "highway": false,
+            "park": false,
+            "shopping": true,
+            "transit": false,
+            "restaurants": false
+          },
+          "balanced": {
+            "vietnamese_community": true,
+            "lake": true,
+            "coast": false,
+            "highway": false,
+            "park": true,
+            "shopping": true,
+            "transit": false,
+            "restaurants": true
+          },
+          "broad": {
+            "vietnamese_community": true,
+            "lake": true,
+            "coast": true,
+            "highway": false,
+            "park": true,
+            "shopping": true,
+            "transit": false,
+            "restaurants": true
+          }
+        },
+        "summary_vi": "khu thương mại / sinh hoạt cộng đồng việt cách khoảng 4.3 dặm · công viên cách khoảng 0.4 dặm · 5 nhà hàng trong 1 dặm",
+        "mls_evidence_categories": [
+          "park"
+        ]
+      },
       "sections_vi": [
         {
           "name": "Thông tin chung",
@@ -13371,6 +17359,94 @@
       "sqft_number": 4250,
       "beds_number": 5.0,
       "baths_number": 5.0,
+      "location": {
+        "amenities": {
+          "vietnamese_community": {
+            "name": "Trung tâm Văn hóa Việt-Mỹ",
+            "distance_miles": 3.32
+          },
+          "lake": {
+            "name": "Lake Cunningham",
+            "distance_miles": 2.55
+          },
+          "coast": {
+            "name": "New Brighton State Beach",
+            "distance_miles": 23.66
+          },
+          "highway": {
+            "name": "US 101",
+            "distance_miles": 1.38
+          },
+          "park": {
+            "name": "Silver Creek Linear Park",
+            "distance_miles": 0.6,
+            "counts": {
+              "0.5": 0,
+              "1": 5,
+              "2": 18
+            }
+          },
+          "restaurants": {
+            "name": "Sam's BBQ Diner",
+            "distance_miles": 0.73,
+            "counts": {
+              "0.5": 0,
+              "1": 12,
+              "2": 49
+            }
+          },
+          "shopping": {
+            "name": "Super India",
+            "distance_miles": 0.77,
+            "counts": {
+              "0.5": 0,
+              "1": 2,
+              "2": 11
+            }
+          },
+          "transit": {
+            "name": "Eastridge Transit Center · VTA;Flixbus",
+            "distance_miles": 2.18
+          }
+        },
+        "matches": {
+          "strict": {
+            "vietnamese_community": true,
+            "lake": false,
+            "coast": false,
+            "highway": false,
+            "park": false,
+            "shopping": false,
+            "transit": false,
+            "restaurants": false
+          },
+          "balanced": {
+            "vietnamese_community": true,
+            "lake": true,
+            "coast": false,
+            "highway": false,
+            "park": true,
+            "shopping": false,
+            "transit": false,
+            "restaurants": true
+          },
+          "broad": {
+            "vietnamese_community": true,
+            "lake": true,
+            "coast": true,
+            "highway": true,
+            "park": true,
+            "shopping": true,
+            "transit": false,
+            "restaurants": true
+          }
+        },
+        "summary_vi": "khu thương mại / sinh hoạt cộng đồng việt cách khoảng 3.3 dặm · công viên cách khoảng 0.6 dặm · 12 nhà hàng trong 1 dặm",
+        "mls_evidence_categories": [
+          "park",
+          "shopping"
+        ]
+      },
       "sections_vi": [
         {
           "name": "Thông tin chung",
@@ -13641,6 +17717,93 @@
       "sqft_number": 3112,
       "beds_number": 5.0,
       "baths_number": 3.0,
+      "location": {
+        "amenities": {
+          "vietnamese_community": {
+            "name": "Trung tâm Văn hóa Việt-Mỹ",
+            "distance_miles": 4.77
+          },
+          "lake": {
+            "name": "Lake Cunningham",
+            "distance_miles": 4.19
+          },
+          "coast": {
+            "name": "New Brighton State Beach",
+            "distance_miles": 22.8
+          },
+          "highway": {
+            "name": "US 101",
+            "distance_miles": 2.07
+          },
+          "park": {
+            "name": "Canyon Creek Park",
+            "distance_miles": 0.42,
+            "counts": {
+              "0.5": 1,
+              "1": 4,
+              "2": 8
+            }
+          },
+          "restaurants": {
+            "name": "AK Kitchen",
+            "distance_miles": 0.63,
+            "counts": {
+              "0.5": 0,
+              "1": 4,
+              "2": 8
+            }
+          },
+          "shopping": {
+            "name": "Silver Creek Community Market",
+            "distance_miles": 0.71,
+            "counts": {
+              "0.5": 0,
+              "1": 1,
+              "2": 1
+            }
+          },
+          "transit": {
+            "name": "Blossom Hill · Caltrain",
+            "distance_miles": 2.71
+          }
+        },
+        "matches": {
+          "strict": {
+            "vietnamese_community": false,
+            "lake": false,
+            "coast": false,
+            "highway": false,
+            "park": false,
+            "shopping": false,
+            "transit": false,
+            "restaurants": false
+          },
+          "balanced": {
+            "vietnamese_community": true,
+            "lake": false,
+            "coast": false,
+            "highway": false,
+            "park": true,
+            "shopping": true,
+            "transit": false,
+            "restaurants": false
+          },
+          "broad": {
+            "vietnamese_community": true,
+            "lake": true,
+            "coast": true,
+            "highway": false,
+            "park": true,
+            "shopping": true,
+            "transit": false,
+            "restaurants": true
+          }
+        },
+        "summary_vi": "khu thương mại / sinh hoạt cộng đồng việt cách khoảng 4.8 dặm · công viên cách khoảng 0.4 dặm · mua sắm cách khoảng 0.7 dặm",
+        "mls_evidence_categories": [
+          "restaurants"
+        ]
+      },
       "sections_vi": [
         {
           "name": "Thông tin chung",
@@ -13931,6 +18094,94 @@
       "sqft_number": 3479,
       "beds_number": 5.0,
       "baths_number": 4.0,
+      "location": {
+        "amenities": {
+          "vietnamese_community": {
+            "name": "Trung tâm Văn hóa Việt-Mỹ",
+            "distance_miles": 3.97
+          },
+          "lake": {
+            "name": "Lake Cunningham",
+            "distance_miles": 2.89
+          },
+          "coast": {
+            "name": "New Brighton State Beach",
+            "distance_miles": 23.94
+          },
+          "highway": {
+            "name": "US 101",
+            "distance_miles": 2.04
+          },
+          "park": {
+            "name": "Falls Creek Park",
+            "distance_miles": 0.11,
+            "counts": {
+              "0.5": 1,
+              "1": 6,
+              "2": 14
+            }
+          },
+          "restaurants": {
+            "name": "Honeyberry",
+            "distance_miles": 0.28,
+            "counts": {
+              "0.5": 4,
+              "1": 5,
+              "2": 25
+            }
+          },
+          "shopping": {
+            "name": "Walmart Neighborhood Market",
+            "distance_miles": 0.67,
+            "counts": {
+              "0.5": 0,
+              "1": 1,
+              "2": 5
+            }
+          },
+          "transit": {
+            "name": "Eastridge Transit Center · VTA;Flixbus",
+            "distance_miles": 2.62
+          }
+        },
+        "matches": {
+          "strict": {
+            "vietnamese_community": true,
+            "lake": false,
+            "coast": false,
+            "highway": false,
+            "park": true,
+            "shopping": false,
+            "transit": false,
+            "restaurants": true
+          },
+          "balanced": {
+            "vietnamese_community": true,
+            "lake": true,
+            "coast": false,
+            "highway": false,
+            "park": true,
+            "shopping": true,
+            "transit": false,
+            "restaurants": true
+          },
+          "broad": {
+            "vietnamese_community": true,
+            "lake": true,
+            "coast": true,
+            "highway": false,
+            "park": true,
+            "shopping": true,
+            "transit": false,
+            "restaurants": true
+          }
+        },
+        "summary_vi": "khu thương mại / sinh hoạt cộng đồng việt cách khoảng 4.0 dặm · công viên cách khoảng 0.1 dặm · 5 nhà hàng trong 1 dặm",
+        "mls_evidence_categories": [
+          "restaurants",
+          "transit"
+        ]
+      },
       "sections_vi": [
         {
           "name": "Thông tin chung",

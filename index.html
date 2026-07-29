@@ -54,16 +54,56 @@
         </select>
         <select id="sortSelect" aria-label="Sắp xếp danh sách">
           <option value="default">Thứ tự từ MLS</option>
+          <option value="location-fit">Phù hợp vị trí nhất</option>
           <option value="price-desc">Giá cao đến thấp</option>
           <option value="price-asc">Giá thấp đến cao</option>
           <option value="area-desc">Diện tích lớn đến nhỏ</option>
         </select>
+        <div class="amenity-filter" id="amenityFilter">
+          <div class="amenity-filter-head">
+            <div>
+              <strong>Lọc thông minh theo vị trí & tiện ích</strong>
+              <span>Chọn nhiều tiêu chí để tìm căn phù hợp với sinh hoạt hằng ngày.</span>
+            </div>
+            <button id="clearFilters" type="button">Xóa bộ lọc</button>
+          </div>
+          <div class="amenity-controls">
+            <label>
+              <span>Mức độ gần</span>
+              <select id="proximityMode" aria-label="Chọn mức độ gần">
+                <option value="strict">Rất gần</option>
+                <option value="balanced" selected>Gần, hợp lý</option>
+                <option value="broad">Mở rộng bán kính</option>
+              </select>
+            </label>
+            <label>
+              <span>Cách kết hợp</span>
+              <select id="amenityLogic" aria-label="Cách kết hợp tiện ích">
+                <option value="all">Đáp ứng tất cả</option>
+                <option value="any">Đáp ứng ít nhất một</option>
+              </select>
+            </label>
+          </div>
+          <div class="amenity-chips" aria-label="Chọn tiện ích gần nhà">
+            <button type="button" data-amenity="vietnamese_community"><span>Gần khu người Việt</span><b>0</b></button>
+            <button type="button" data-amenity="lake"><span>Gần hồ nước</span><b>0</b></button>
+            <button type="button" data-amenity="coast"><span>Gần biển</span><b>0</b></button>
+            <button type="button" data-amenity="highway"><span>Gần cao tốc</span><b>0</b></button>
+            <button type="button" data-amenity="park"><span>Gần công viên</span><b>0</b></button>
+            <button type="button" data-amenity="restaurants"><span>Nhiều nhà hàng gần</span><b>0</b></button>
+            <button type="button" data-amenity="shopping"><span>Gần mua sắm</span><b>0</b></button>
+            <button type="button" data-amenity="transit"><span>Gần ga / transit</span><b>0</b></button>
+          </div>
+          <p class="filter-method" id="filterMethod">
+            “Gần” dùng khoảng cách đường chim bay với ngưỡng riêng cho từng tiện ích.
+          </p>
+        </div>
       </div>
     </section>
     <section class="results-section" id="danh-sach">
       <div class="section-heading">
         <div><p class="eyebrow">Danh sách bất động sản</p><h2><span id="resultCount">48</span> căn phù hợp</h2></div>
-        <p class="area-note">1 ft² = 0,092903 m² · Số m² được làm tròn đến 1 chữ số thập phân.</p>
+        <p class="area-note">Khoảng cách tiện ích là đường chim bay, không phải thời gian lái xe. Dữ liệu bản đồ: <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">© OpenStreetMap contributors, ODbL</a>.</p>
       </div>
       <div class="listing-grid" id="listingGrid" aria-live="polite"></div>
       <div class="empty-state" id="emptyState" hidden><strong>Không tìm thấy căn nhà phù hợp.</strong><span>Hãy thử thay đổi từ khóa hoặc bộ lọc.</span></div>
@@ -80,7 +120,7 @@
   <footer class="site-footer">
     <img src="NhaMyCai_logo.png" alt="">
     <p><strong>Nhà Mỹ Cali</strong> · Giúp người Việt an tâm mua nhà Mỹ.</p>
-    <p class="disclaimer">Dữ liệu được tái dựng từ trang MLS do người dùng cung cấp. Thông tin có thể thay đổi; người mua cần xác minh với môi giới và hồ sơ chính thức trước khi giao dịch.</p>
+    <p class="disclaimer">Dữ liệu MLS có thể thay đổi; người mua cần xác minh trước khi giao dịch. Tọa độ từ <a href="https://www.census.gov/programs-surveys/geography/technical-documentation/complete-technical-documentation/census-geocoder.html" target="_blank" rel="noopener">U.S. Census Geocoder</a>; dữ liệu đường và địa điểm <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">© OpenStreetMap contributors, ODbL</a>.</p>
   </footer>
   <script src="assets/js/listings-data.js"></script>
   <script src="assets/js/site.js"></script>

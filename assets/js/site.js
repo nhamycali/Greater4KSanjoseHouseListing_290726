@@ -14,8 +14,61 @@
   const imagePath = (path) => `${rootPrefix}${path}`;
   const detailPath = (item) => (detailPage ? `${item.slug}.html` : item.detail_url);
   const price = (item) => `${item.price.replace("$", "")} USD`;
+  const amenityLabels = {
+    vietnamese_community: "Khu người Việt",
+    lake: "Hồ nước",
+    coast: "Biển",
+    highway: "Cao tốc",
+    park: "Công viên",
+    restaurants: "Nhà hàng",
+    shopping: "Mua sắm",
+    transit: "Ga / transit",
+  };
+  const proximityDescriptions = {
+    strict:
+      "Rất gần: khu Việt ≤ 4 dặm; hồ ≤ 2; biển ≤ 18; cao tốc ≤ 0,5; công viên ≤ 0,25; mua sắm ≤ 0,5; ga ≤ 0,75.",
+    balanced:
+      "Gần, hợp lý: khu Việt ≤ 6 dặm; hồ ≤ 4; biển ≤ 22; cao tốc ≤ 1,25; công viên/mua sắm ≤ 0,75; ga ≤ 1,25.",
+    broad:
+      "Mở rộng: khu Việt ≤ 10 dặm; hồ ≤ 8; biển ≤ 30; cao tốc ≤ 2; công viên ≤ 1; mua sắm ≤ 1,5; ga ≤ 2.",
+  };
 
-  function resultCard(item) {
+  function viDecimal(value, decimals = 1) {
+    return Number(value).toLocaleString("vi-VN", {
+      minimumFractionDigits: decimals,
+      maximumFractionDigits: decimals,
+    });
+  }
+
+  function amenityDetail(item, category) {
+    const detail = item.location.amenities[category];
+    if (category === "restaurants") {
+      return `${detail.counts["1"]} nhà hàng trong 1 dặm`;
+    }
+    return `${viDecimal(detail.distance_miles)} dặm · ${detail.name}`;
+  }
+
+  function locationScore(item, selectedAmenities, mode) {
+    if (!selectedAmenities.length) return 0;
+    return selectedAmenities.reduce((score, category) => {
+      const matched = item.location.matches[mode][category];
+      const distance = item.location.amenities[category].distance_miles || 0;
+      const densityBonus =
+        category === "restaurants"
+          ? Math.min(item.location.amenities.restaurants.counts["1"], 30) / 30
+          : 0;
+      return score + (matched ? 10 : 0) + densityBonus + 1 / (1 + distance);
+    }, 0);
+  }
+
+  function resultCard(item, selectedAmenities = [], mode = "balanced") {
+    const matchedAmenities = selectedAmenities.filter(
+      (category) => item.location.matches[mode][category],
+    );
+    const locationReasons = (matchedAmenities.length
+      ? matchedAmenities
+      : Object.keys(amenityLabels).filter((category) => item.location.matches.balanced[category])
+    ).slice(0, 3);
     return `
       <article class="listing-card">
         <a href="${escapeHtml(detailPath(item))}" aria-label="Xem ${escapeHtml(item.address)}">
@@ -29,11 +82,22 @@
             <h3 class="card-address">${escapeHtml(item.address)}</h3>
             <p class="card-location">${escapeHtml(item.city_vi)}</p>
             <p class="card-mls">MLS#: ${escapeHtml(item.mls)}</p>
+            <div class="location-tags">
+              ${locationReasons
+                .map(
+                  (category) =>
+                    `<span title="${escapeHtml(amenityDetail(item, category))}">${escapeHtml(
+                      amenityLabels[category],
+                    )}</span>`,
+                )
+                .join("")}
+            </div>
             <div class="card-facts">
               <span><strong>${escapeHtml(item.bedrooms)}</strong>Phòng ngủ</span>
               <span><strong>${escapeHtml(item.bathrooms)}</strong>Phòng tắm</span>
               <span><strong>${escapeHtml(item.sqft_m2)} m²</strong>${escapeHtml(item.sqft_display)} ft²</span>
             </div>
+            <p class="card-location-summary">${escapeHtml(item.location.summary_vi)}</p>
             <p class="card-description">${escapeHtml(item.description_vi)}</p>
             <span class="card-link">Xem chi tiết</span>
           </div>
@@ -48,13 +112,44 @@
     const beds = document.querySelector("#bedsFilter");
     const priceFilter = document.querySelector("#priceFilter");
     const sort = document.querySelector("#sortSelect");
+    const proximityMode = document.querySelector("#proximityMode");
+    const amenityLogic = document.querySelector("#amenityLogic");
+    const amenityButtons = [...document.querySelectorAll("[data-amenity]")];
+    const clearFilters = document.querySelector("#clearFilters");
+    const filterMethod = document.querySelector("#filterMethod");
     const count = document.querySelector("#resultCount");
     const empty = document.querySelector("#emptyState");
+    const selectedAmenities = new Set();
+
+    const updateAmenityCounts = () => {
+      const mode = proximityMode.value;
+      amenityButtons.forEach((button) => {
+        const category = button.dataset.amenity;
+        const matches = listings.filter((item) => item.location.matches[mode][category]).length;
+        button.querySelector("b").textContent = matches;
+        button.classList.toggle("is-active", selectedAmenities.has(category));
+        button.setAttribute("aria-pressed", String(selectedAmenities.has(category)));
+      });
+      const restaurantRule =
+        mode === "strict"
+          ? " Nhà hàng: ít nhất 3 điểm trong 0,5 dặm."
+          : ` Nhà hàng: ít nhất 5 điểm trong ${mode === "balanced" ? "1" : "2"} dặm.`;
+      filterMethod.textContent =
+        `${proximityDescriptions[mode]}${restaurantRule} ` +
+        "“Khu người Việt” đo tới các trung tâm thương mại/văn hóa Việt công khai, không suy đoán sắc tộc cư dân.";
+    };
 
     const render = () => {
       const term = search.value.trim().toLocaleLowerCase("vi");
+      const selected = [...selectedAmenities];
+      const mode = proximityMode.value;
       let output = listings.filter((item) => {
-        const haystack = `${item.address} ${item.city} ${item.mls}`.toLocaleLowerCase("vi");
+        const amenityNames = Object.values(item.location.amenities)
+          .map((detail) => detail.name)
+          .join(" ");
+        const haystack =
+          `${item.address} ${item.city} ${item.mls} ${item.location.summary_vi} ${amenityNames}`
+            .toLocaleLowerCase("vi");
         const matchesSearch = !term || haystack.includes(term);
         const matchesBeds = item.beds_number >= Number(beds.value);
         let matchesPrice = true;
@@ -63,20 +158,110 @@
           matchesPrice = item.price_number >= 3300000 && item.price_number <= 3700000;
         }
         if (priceFilter.value === "over3700") matchesPrice = item.price_number > 3700000;
-        return matchesSearch && matchesBeds && matchesPrice;
+        const amenityMatches = selected.map(
+          (category) => item.location.matches[mode][category],
+        );
+        const matchesAmenities =
+          !selected.length ||
+          (amenityLogic.value === "all"
+            ? amenityMatches.every(Boolean)
+            : amenityMatches.some(Boolean));
+        return matchesSearch && matchesBeds && matchesPrice && matchesAmenities;
       });
       output = [...output];
+      if (sort.value === "location-fit") {
+        output.sort(
+          (a, b) =>
+            locationScore(b, selected, mode) - locationScore(a, selected, mode) ||
+            a.index - b.index,
+        );
+      }
       if (sort.value === "price-desc") output.sort((a, b) => b.price_number - a.price_number);
       if (sort.value === "price-asc") output.sort((a, b) => a.price_number - b.price_number);
       if (sort.value === "area-desc") output.sort((a, b) => b.sqft_number - a.sqft_number);
-      grid.innerHTML = output.map(resultCard).join("");
+      grid.innerHTML = output.map((item) => resultCard(item, selected, mode)).join("");
       count.textContent = output.length;
       empty.hidden = output.length > 0;
     };
-    [search, beds, priceFilter, sort].forEach((control) =>
+    [search, beds, priceFilter, sort, proximityMode, amenityLogic].forEach((control) =>
       control.addEventListener(control === search ? "input" : "change", render)
     );
+    amenityButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        const category = button.dataset.amenity;
+        if (selectedAmenities.has(category)) selectedAmenities.delete(category);
+        else selectedAmenities.add(category);
+        if (selectedAmenities.size && sort.value === "default") sort.value = "location-fit";
+        updateAmenityCounts();
+        render();
+      });
+    });
+    proximityMode.addEventListener("change", updateAmenityCounts);
+    clearFilters.addEventListener("click", () => {
+      selectedAmenities.clear();
+      search.value = "";
+      beds.value = "0";
+      priceFilter.value = "all";
+      sort.value = "default";
+      proximityMode.value = "balanced";
+      amenityLogic.value = "all";
+      updateAmenityCounts();
+      render();
+    });
+    updateAmenityCounts();
     render();
+  }
+
+  function locationInsightsMarkup(item) {
+    const order = [
+      "vietnamese_community",
+      "park",
+      "restaurants",
+      "shopping",
+      "highway",
+      "transit",
+      "lake",
+      "coast",
+    ];
+    return `
+      <section class="location-insights" id="tien-ich-vi-tri">
+        <header>
+          <div>
+            <p class="eyebrow">Nghiên cứu vị trí</p>
+            <h2>Tiện ích quanh nhà</h2>
+          </div>
+          <p>${escapeHtml(item.location.summary_vi)}</p>
+        </header>
+        <div class="location-insight-grid">
+          ${order
+            .map((category) => {
+              const detail = item.location.amenities[category];
+              const evidence = item.location.mls_evidence_categories.includes(category);
+              const primary =
+                category === "restaurants"
+                  ? `${detail.counts["1"]} nhà hàng trong 1 dặm`
+                  : `${viDecimal(detail.distance_miles)} dặm`;
+              const secondary =
+                category === "restaurants"
+                  ? `Gần nhất: ${detail.name} · ${viDecimal(detail.distance_miles)} dặm`
+                  : detail.name;
+              return `
+                <article class="${item.location.matches.balanced[category] ? "is-near" : ""}">
+                  <span>${escapeHtml(amenityLabels[category])}</span>
+                  <strong>${escapeHtml(primary)}</strong>
+                  <small>${escapeHtml(secondary)}</small>
+                  ${evidence ? "<em>Mô tả MLS có nhắc tới</em>" : ""}
+                </article>`;
+            })
+            .join("")}
+        </div>
+        <p class="location-method-note">
+          Khoảng cách là đường chim bay và mang tính tham khảo. “Khu người Việt” dựa trên
+          Little Saigon, trung tâm thương mại, văn hóa và sinh hoạt cộng đồng Việt công khai;
+          không suy đoán thành phần cư dân. Dữ liệu địa điểm
+          <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">© OpenStreetMap contributors, ODbL</a>.
+        </p>
+      </section>`;
   }
 
   function fieldSections(item) {
@@ -243,6 +428,7 @@
           <div class="fact"><small>Diện tích lô đất</small><strong>${escapeHtml(item.lot_display)} ft²<br>≈ ${escapeHtml(item.lot_m2)} m²</strong></div>
           <div class="fact"><small>Năm xây dựng</small><strong>${escapeHtml(item.year)}</strong></div>
         </section>
+        ${locationInsightsMarkup(item)}
         <div class="detail-layout">
           <div>
             <article class="detail-content">
@@ -295,4 +481,3 @@
   initDetail();
   initBackToTop();
 })();
-

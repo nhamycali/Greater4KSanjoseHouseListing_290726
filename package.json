@@ -4,6 +4,7 @@
   "scripts": {
     "scrape": "python3 scripts/scrape_mls.py",
     "translate": "python3 scripts/translate_data.py .m/listings-raw.json --output data/listings-source.json --workers 8 --reviewed-data data/listings-source.json",
+    "locations": "python3 scripts/enrich_locations.py",
     "images": "python3 scripts/download_images.py data/listings-source.json --workers 12",
     "build": "python3 scripts/build_site.py data/listings-source.json",
     "serve": "python3 -m http.server 8080 --bind 127.0.0.1",
