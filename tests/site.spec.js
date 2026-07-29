@@ -186,6 +186,50 @@ test("mobile list and detail remain responsive", async ({ page }) => {
   );
   await page.locator("#inlineFilterToggle").click();
   await expect(page.locator("#filterDrawer")).toBeVisible();
+  const assertMobileFilterLabelsFit = async () => {
+    const labelGeometry = await page.evaluate(() => {
+      const inspect = (element) => {
+        const style = getComputedStyle(element);
+        const rect = element.getBoundingClientRect();
+        const buttonRect = element.closest("button").getBoundingClientRect();
+        return {
+          text: element.textContent.trim(),
+          textOverflow: style.textOverflow,
+          whiteSpace: style.whiteSpace,
+          scrollWidth: element.scrollWidth,
+          clientWidth: element.clientWidth,
+          scrollHeight: element.scrollHeight,
+          clientHeight: element.clientHeight,
+          insideButton:
+            rect.left >= buttonRect.left - 1 &&
+            rect.right <= buttonRect.right + 1 &&
+            rect.top >= buttonRect.top - 1 &&
+            rect.bottom <= buttonRect.bottom + 1,
+        };
+      };
+      return [
+        inspect(document.querySelector("#inlineFilterToggle .inline-filter-label")),
+        ...[...document.querySelectorAll(".amenity-chips button span")].map(inspect),
+      ];
+    });
+
+    labelGeometry.forEach((label) => {
+      expect(label.textOverflow, label.text).toBe("clip");
+      expect(label.whiteSpace, label.text).toBe("normal");
+      expect(label.scrollWidth, label.text).toBeLessThanOrEqual(label.clientWidth + 1);
+      expect(label.scrollHeight, label.text).toBeLessThanOrEqual(label.clientHeight + 1);
+      expect(label.insideButton, label.text).toBeTruthy();
+    });
+  };
+  await assertMobileFilterLabelsFit();
+  await page.setViewportSize({ width: 320, height: 844 });
+  await assertMobileFilterLabelsFit();
+  expect(
+    await page.evaluate(
+      () => document.documentElement.scrollWidth <= document.documentElement.clientWidth,
+    ),
+  ).toBeTruthy();
+  await page.setViewportSize({ width: 390, height: 844 });
   const mobileAmenityStyle = await page
     .locator('[data-amenity="vietnamese_community"]')
     .evaluate((button) => {
