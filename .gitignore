@@ -1,2 +1,7 @@
 .m/
+node_modules/
+test-results/
+playwright-report/
+link.txt
+*.part
 

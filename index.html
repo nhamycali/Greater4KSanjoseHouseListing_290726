@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0041b0">
+  <meta name="description" content="48 căn nhà cao cấp tại Silicon Valley, được Nhà Mỹ Cali biên soạn bằng tiếng Việt.">
+  <title>48 căn nhà cao cấp tại Silicon Valley | Nhà Mỹ Cali</title>
+  <link rel="icon" href="NhaMyCai_logo.png" type="image/png">
+  <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body data-page="results">
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand" href="index.html" aria-label="Nhà Mỹ Cali - Trang chủ">
+        <img src="NhaMyCai_logo.png" alt="Nhà Mỹ Cali">
+        <span><strong>Nhà Mỹ Cali</strong><small>Giúp người Việt an tâm mua nhà Mỹ</small></span>
+      </a>
+      <nav class="header-nav" aria-label="Điều hướng chính">
+        <a class="active" href="#danh-sach">Danh sách nhà</a>
+        <a href="#huong-dan">Hướng dẫn</a>
+      </nav>
+    </div>
+  </header>
+  <main>
+    <section class="hero">
+      <div class="hero-inner">
+        <div class="hero-copy">
+          <p class="eyebrow">Tuyển chọn tại Silicon Valley, California</p>
+          <h1>48 căn nhà dành cho bạn</h1>
+          <p>Danh sách trải rộng qua 7 thành phố, với mức giá từ 3.09 đến 4.00 triệu USD. Toàn bộ thông tin được trình bày bằng tiếng Việt và có quy đổi diện tích sang mét vuông.</p>
+        </div>
+        <div class="hero-stat" aria-label="Tổng số bất động sản"><strong>48</strong><span>bất động sản</span></div>
+      </div>
+    </section>
+    <section class="search-panel" aria-label="Tìm và lọc bất động sản">
+      <div class="search-wrap">
+        <label class="search-box">
+          <span class="sr-only">Tìm theo địa chỉ, khu vực hoặc mã MLS</span>
+          <svg aria-hidden="true" viewBox="0 0 24 24"><path d="m21 21-4.35-4.35m2.35-5.65A8 8 0 1 1 3 11a8 8 0 0 1 16 0Z"/></svg>
+          <input id="searchInput" type="search" placeholder="Tìm địa chỉ, khu vực hoặc mã MLS…">
+        </label>
+        <select id="bedsFilter" aria-label="Lọc theo số phòng ngủ">
+          <option value="0">Tất cả số phòng ngủ</option>
+          <option value="4">Từ 4 phòng ngủ</option>
+          <option value="5">Từ 5 phòng ngủ</option>
+          <option value="6">Từ 6 phòng ngủ</option>
+        </select>
+        <select id="priceFilter" aria-label="Lọc theo mức giá">
+          <option value="all">Tất cả mức giá</option>
+          <option value="under3300">Dưới 3,3 triệu USD</option>
+          <option value="3300to3700">3,3–3,7 triệu USD</option>
+          <option value="over3700">Trên 3,7 triệu USD</option>
+        </select>
+        <select id="sortSelect" aria-label="Sắp xếp danh sách">
+          <option value="default">Thứ tự từ MLS</option>
+          <option value="price-desc">Giá cao đến thấp</option>
+          <option value="price-asc">Giá thấp đến cao</option>
+          <option value="area-desc">Diện tích lớn đến nhỏ</option>
+        </select>
+      </div>
+    </section>
+    <section class="results-section" id="danh-sach">
+      <div class="section-heading">
+        <div><p class="eyebrow">Danh sách bất động sản</p><h2><span id="resultCount">48</span> căn phù hợp</h2></div>
+        <p class="area-note">1 ft² = 0,092903 m² · Số m² được làm tròn đến 1 chữ số thập phân.</p>
+      </div>
+      <div class="listing-grid" id="listingGrid" aria-live="polite"></div>
+      <div class="empty-state" id="emptyState" hidden><strong>Không tìm thấy căn nhà phù hợp.</strong><span>Hãy thử thay đổi từ khóa hoặc bộ lọc.</span></div>
+    </section>
+    <section class="guide" id="huong-dan">
+      <div><p class="eyebrow">Cách sử dụng</p><h2>Thông tin rõ ràng, xem nhà dễ hơn</h2></div>
+      <ol>
+        <li><strong>1</strong><span>Tìm và lọc theo nhu cầu.</span></li>
+        <li><strong>2</strong><span>Nhấp vào căn nhà để xem trang chi tiết.</span></li>
+        <li><strong>3</strong><span>Dùng thư viện ảnh, thông số và liên kết bản đồ để đánh giá.</span></li>
+      </ol>
+    </section>
+  </main>
+  <footer class="site-footer">
+    <img src="NhaMyCai_logo.png" alt="">
+    <p><strong>Nhà Mỹ Cali</strong> · Giúp người Việt an tâm mua nhà Mỹ.</p>
+    <p class="disclaimer">Dữ liệu được tái dựng từ trang MLS do người dùng cung cấp. Thông tin có thể thay đổi; người mua cần xác minh với môi giới và hồ sơ chính thức trước khi giao dịch.</p>
+  </footer>
+  <script src="assets/js/listings-data.js"></script>
+  <script src="assets/js/site.js"></script>
+</body>
+</html>

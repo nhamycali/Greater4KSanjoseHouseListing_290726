@@ -1,0 +1,15 @@
+{
+  "name": "nha-my-cali-premium-listings",
+  "private": true,
+  "scripts": {
+    "scrape": "python3 scripts/scrape_mls.py",
+    "translate": "python3 scripts/translate_data.py .m/listings-raw.json --output data/listings-source.json --workers 8 --reviewed-data data/listings-source.json",
+    "images": "python3 scripts/download_images.py data/listings-source.json --workers 12",
+    "build": "python3 scripts/build_site.py data/listings-source.json",
+    "serve": "python3 -m http.server 8080 --bind 127.0.0.1",
+    "test": "LD_LIBRARY_PATH=\"$PWD/.m/pw-libs/usr/lib/x86_64-linux-gnu${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}\" playwright test --config=playwright.config.cjs"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.58.2"
+  }
+}
