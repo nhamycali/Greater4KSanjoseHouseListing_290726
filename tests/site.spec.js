@@ -13,12 +13,35 @@ function captureErrors(page) {
 
 test("desktop list, filters, detail and gallery work", async ({ page }) => {
   const errors = captureErrors(page);
+  await page.setViewportSize({ width: 1366, height: 768 });
   await page.goto("http://127.0.0.1:8080/index.html", { waitUntil: "networkidle" });
   await expect(page.locator(".listing-card")).toHaveCount(48);
   await expect(page.locator(".brand small")).toHaveText("Giúp người Việt an tâm mua nhà Mỹ");
+  await expect(page.locator(".hero-stat")).toContainText("7");
+  await expect(page.locator(".hero-stat")).toContainText("3,09–4,00");
   expect(await page.evaluate(() => document.fonts.check('16px "NMC Sans"', "Nhà Mỹ Cali"))).toBeTruthy();
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= document.documentElement.clientWidth)).toBeTruthy();
   expect(await page.locator(".listing-card img").first().evaluate((image) => image.naturalWidth)).toBeGreaterThan(0);
+  const desktopHeroFilterGeometry = await page.evaluate(() => {
+    const header = document.querySelector(".site-header").getBoundingClientRect();
+    const hero = document.querySelector(".hero").getBoundingClientRect();
+    const filter = document.querySelector("#searchWrap").getBoundingClientRect();
+    const results = document.querySelector("#danh-sach").getBoundingClientRect();
+    return {
+      headerBottom: header.bottom,
+      heroHeight: hero.height,
+      filterBottom: filter.bottom,
+      resultsTop: results.top,
+      viewportHeight: innerHeight,
+    };
+  });
+  expect(desktopHeroFilterGeometry.heroHeight).toBeLessThan(300);
+  expect(desktopHeroFilterGeometry.filterBottom).toBeLessThan(
+    desktopHeroFilterGeometry.viewportHeight,
+  );
+  expect(desktopHeroFilterGeometry.resultsTop).toBeLessThan(
+    desktopHeroFilterGeometry.viewportHeight,
+  );
 
   await page.locator("#searchInput").fill("Greenrock");
   await expect(page.locator(".listing-card")).toHaveCount(1);

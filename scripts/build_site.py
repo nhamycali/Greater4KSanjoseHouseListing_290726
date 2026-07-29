@@ -297,6 +297,8 @@ def json_for_script(data: object) -> str:
 
 
 def index_page(count: int, city_count: int, minimum: int, maximum: int) -> str:
+    minimum_millions = f"{minimum / 1_000_000:.2f}".replace(".", ",")
+    maximum_millions = f"{maximum / 1_000_000:.2f}".replace(".", ",")
     return f"""<!doctype html>
 <html lang="vi">
 <head>
@@ -335,9 +337,12 @@ def index_page(count: int, city_count: int, minimum: int, maximum: int) -> str:
         <div class="hero-copy">
           <p class="eyebrow">Tuyển chọn tại Silicon Valley, California</p>
           <h1>{count} căn nhà dành cho bạn</h1>
-          <p>Danh sách trải rộng qua {city_count} thành phố, với mức giá từ {minimum / 1_000_000:.2f} đến {maximum / 1_000_000:.2f} triệu USD. Toàn bộ thông tin được trình bày bằng tiếng Việt và có quy đổi diện tích sang mét vuông.</p>
+          <p>Xem thông tin bằng tiếng Việt, diện tích quy đổi sang mét vuông và các tiện ích gần nhà.</p>
         </div>
-        <div class="hero-stat" aria-label="Tổng số bất động sản"><strong>{count}</strong><span>bất động sản</span></div>
+        <div class="hero-stat" aria-label="Tổng quan danh sách">
+          <div><strong>{city_count}</strong><span>thành phố</span></div>
+          <div><strong>{minimum_millions}–{maximum_millions}</strong><span>triệu USD</span></div>
+        </div>
       </div>
     </section>
     <section class="search-panel" aria-label="Tìm và lọc bất động sản">
