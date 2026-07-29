@@ -215,6 +215,11 @@ button, select { cursor: pointer; }
   margin: -35px auto 0;
 }
 .filter-home { width: 100%; }
+.search-panel.is-docked-placeholder {
+  height: 0;
+  margin: 0 auto;
+  overflow: visible;
+}
 .search-wrap {
   padding: 18px;
   display: grid;

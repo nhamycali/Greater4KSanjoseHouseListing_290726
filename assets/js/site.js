@@ -127,7 +127,10 @@
     const count = document.querySelector("#resultCount");
     const empty = document.querySelector("#emptyState");
     const selectedAmenities = new Set();
-    let stickyThreshold = Number.POSITIVE_INFINITY;
+    const resultsSection = document.querySelector("#danh-sach");
+    let dockThreshold = Number.POSITIVE_INFINITY;
+    let undockThreshold = 0;
+    let isTransitioningDock = false;
     let latestResultCount = listings.length;
 
     const activeFilterCount = () => {
@@ -200,37 +203,64 @@
         }`;
     };
 
+    const settleDockTransition = () => {
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          isTransitioningDock = false;
+        });
+      });
+    };
+
     const setDockedState = (docked) => {
       const wasDocked = siteHeader.classList.contains("is-filter-docked");
       if (docked === wasDocked) return;
+      isTransitioningDock = true;
       siteHeader.classList.toggle("is-filter-docked", docked);
       if (docked) {
-        filterHome.style.height = `${searchWrap.offsetHeight}px`;
+        const anchorTop = resultsSection.getBoundingClientRect().top;
         headerFilterHost.append(searchWrap);
+        searchPanel.classList.add("is-docked-placeholder");
         siteHeader.classList.remove("is-filter-open");
         filterDrawerToggle.setAttribute("aria-expanded", "false");
+        requestAnimationFrame(() => {
+          const shiftedAnchorTop = resultsSection.getBoundingClientRect().top;
+          window.scrollBy(0, shiftedAnchorTop - anchorTop);
+          settleDockTransition();
+        });
       } else {
         filterHome.append(searchWrap);
-        filterHome.style.height = "";
+        searchPanel.classList.remove("is-docked-placeholder");
         siteHeader.classList.remove("is-filter-open");
         filterDrawerToggle.setAttribute("aria-expanded", "false");
+        settleDockTransition();
       }
       updateActiveFilterSummary();
     };
 
     const measureStickyThreshold = () => {
-      const wasDocked = siteHeader.classList.contains("is-filter-docked");
-      if (wasDocked) setDockedState(false);
+      if (siteHeader.classList.contains("is-filter-docked")) return;
       const naturalTop = searchPanel.getBoundingClientRect().top + window.scrollY;
+      const naturalHeight = searchWrap.offsetHeight;
       const headerHeight = siteHeader.offsetHeight;
-      stickyThreshold = naturalTop - headerHeight;
-      setDockedState(window.scrollY >= stickyThreshold);
+      dockThreshold = naturalTop + naturalHeight - headerHeight;
+      undockThreshold = Math.max(0, naturalTop - headerHeight - 48);
+      if (window.scrollY >= dockThreshold) setDockedState(true);
+    };
+
+    const updateDockFromScroll = () => {
+      if (isTransitioningDock) return;
+      const docked = siteHeader.classList.contains("is-filter-docked");
+      if (!docked && window.scrollY >= dockThreshold) setDockedState(true);
+      if (docked && window.scrollY <= undockThreshold) {
+        setDockedState(false);
+        requestAnimationFrame(measureStickyThreshold);
+      }
     };
 
     let resizeTimer;
     window.addEventListener(
       "scroll",
-      () => setDockedState(window.scrollY >= stickyThreshold),
+      updateDockFromScroll,
       { passive: true },
     );
     window.addEventListener("resize", () => {
@@ -364,6 +394,11 @@
       amenityLogic.value = "all";
       updateAmenityCounts();
       render();
+      if (siteHeader.classList.contains("is-filter-docked")) {
+        siteHeader.classList.remove("is-filter-open");
+        filterDrawerToggle.setAttribute("aria-expanded", "false");
+        filterDrawerToggle.focus();
+      }
     });
     updateAmenityCounts();
     render();
